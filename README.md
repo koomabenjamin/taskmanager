@@ -22,6 +22,7 @@
 - Place all your work on branch and not in the main branch.
 - Create a Pull Request to merge into the main branch.
 - Write both unit-test and E2E tests
+- Should be responsive to the mobile view.
 - Refrain from using other packages other than the one that have been outlined.
 
 ## APP
