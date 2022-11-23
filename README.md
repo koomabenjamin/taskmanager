@@ -19,6 +19,9 @@
 - Integrate the vue-router for as the base router.
 - Core JS datastructures that should used Objects and (Sets or Maps or Arrays or ALL).
 - Endeavor to utilize composables in your composition components.
+- Place all your work on branch and not in the main branch.
+- Create a Pull Request to merge into the main branch.
+- Write both unit-test and E2E tests
 - Refrain from using other packages other than the one that have been outlined.
 
 ## APP
