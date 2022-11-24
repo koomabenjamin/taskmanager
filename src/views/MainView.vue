@@ -7,34 +7,10 @@
       <Card/> -->
       <div class="font-bold text-lg">Task Master</div>
       <Button label="Add new task" icon="PlusIcon"/>
-      <div class="w-full h-12 rounded hover:bg-yellow-100 flex items-center justify-between">
-        <div class="flex items-center space-x-2 text-sm">
-          <div class="h-8 w-8 bg-black"></div>
-          <span class="font-semibold">Plan</span>
-        </div>
-        <div class="h-5 w-5 bg-black"></div>
-      </div>
-      <div class="w-full h-12 rounded hover:bg-yellow-100 flex items-center justify-between">
-        <div class="flex items-center space-x-2 text-sm">
-          <div class="h-8 w-8 bg-black"></div>
-          <span class="font-semibold">Plan</span>
-        </div>
-        <div class="h-5 w-5 bg-black"></div>
-      </div>
-      <div class="w-full h-12 rounded hover:bg-yellow-100 flex items-center justify-between">
-        <div class="flex items-center space-x-2 text-sm">
-          <div class="h-8 w-8 bg-black"></div>
-          <span class="font-semibold">Plan</span>
-        </div>
-        <div class="h-5 w-5 bg-black"></div>
-      </div>
-      <div class="w-full h-12 rounded hover:bg-yellow-100 flex items-center justify-between">
-        <div class="flex items-center space-x-2 text-sm">
-          <div class="h-8 w-8 bg-black"></div>
-          <span class="font-semibold">Plan</span>
-        </div>
-        <div class="h-5 w-5 bg-black"></div>
-      </div>
+      
+      <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon" :sub-list="item.subList"/>
+      
+
     </div>
     <div class="w-3/4 flex flex-col">
       <div class="w-full h-24 border-b">Header</div>
@@ -53,10 +29,24 @@ import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
 import Card from '../components/shared/Card.vue'
+import NavItem from '../components/shared/NavItem.vue'
 
 const hide = (id) => {
   document.getElementById(id).style.visibility = 'hidden';
 }
+
+const navItems = [
+  { label:'Plan', icon:'CalendarIcon', subList:[] },
+  {
+    label: 'Task List', icon: 'ClipboardDocumentListIcon', subList: [
+      { name: 'Meridian', color:'bg-rose-600'},
+      { name: 'Risen', color:'bg-blue-600'},
+      { name: 'SkillBox', color:'bg-yellow-400'},
+      { name: 'Statra Insurance', color:'bg-green-600'},
+    ]},
+  { label:'Projects', icon:'FolderIcon', subList:[]},
+  { label:'Tags', icon:'TagIcon', subList:[]},
+];
 </script>
 
 <style>
