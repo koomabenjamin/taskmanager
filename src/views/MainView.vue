@@ -10,7 +10,7 @@
       
       <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon" :sub-list="item.subList"/>
       
-
+      <div class="fixed bottom-0 w-1/4 bg-lime-300 h-28 left-0"></div>
     </div>
     <div class="w-3/4 flex flex-col">
       <div class="w-full h-24 border-b">Header</div>
