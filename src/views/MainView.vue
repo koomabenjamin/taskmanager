@@ -1,17 +1,18 @@
 <template>
-   <div class="h-screen w-screen bg-lime-50 flex">
+  <div class="h-screen w-screen bg-lime-50 flex">
     <div class="w-1/4 border-r h-full p-10 flex flex-col space-y-5">
       <!-- 
       <Fab label="Add new task" icon="PlusIcon" />
       <Tag label="Add new task" icon="PlusIcon" />
       <Card/> -->
       <div class="font-bold text-lg">Task Master</div>
-      <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl"/>
-      
+      <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
+
       <div class="space-y-4">
-        <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon" :sub-list="item.subList"/>
+        <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon"
+          :sub-list="item.subList" />
       </div>
-      
+
       <div class="fixed bottom-0 w-1/4 bg-lime-300 h-28 left-0">
 
       </div>
@@ -30,39 +31,69 @@
                 +8
               </div>
             </div>
-            <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down="true"/>
-            <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg"/>
+            <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down="true" />
+            <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg" />
           </div>
         </div>
 
         <div class="w-full flex space-x-10 px-4 font-bold">
           <div class="pb-4 flex space-x-2 items-center">
-            <Square3Stack3DIcon class="w-5 h-5 flex"/>
+            <Square3Stack3DIcon class="w-5 h-5 flex" />
             <span>Backlog</span>
           </div>
           <div class="pb-4 flex space-x-2 items-center">
-            <ArrowsPointingInIcon class="w-5 h-5"/>
+            <ArrowsPointingInIcon class="w-5 h-5" />
             <span>Priority Chart</span>
           </div>
           <div class="border-b-4 border-lime-300 pb-4 flex space-x-2 items-center">
-            <ChartBarIcon class="w-5 h-5"/>
+            <ChartBarIcon class="w-5 h-5" />
             <span>Kanban Workflow</span>
           </div>
         </div>
       </div>
 
-      <div class="w-full h-20 border-b flex items-center px-4">Sub-Header</div>
+      <div class="w-full h-20 border-b flex items-center justify-between px-4">
+        <div class="flex space-x-4 items-center">
+          <MagnifyingGlassIcon class="w-5 h-5" />
+          <input placeholder="Search for something" class="h-full bg-lime-50">
+        </div>
+        <div class="flex items-center space-x-2">
+          <!-- switch -->
+          <div class="flex items-center space-x-4">
+            <Switch v-model="enabled" :class="enabled ? 'bg-black' : 'bg-lime-400'"
+              class="relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <span class="sr-only">Use setting</span>
+              <span aria-hidden="true" :class="enabled ? 'translate-x-9' : 'translate-x-0'"
+                class="pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
+            </Switch>
+            <span>Select Timeframe</span>
+            <ChevronUpIcon class="h-5 w-5"/>
+          </div>
+
+          <Button label="Apps" icon="ShareIcon" color="bg-transparent" size="md" drop-down="true" />
+        </div>
+      </div>
+
       <div class="w-full h-full flex overflow-auto">
-        <div class="w-1/4 border-r flex-shrink-0 text-xs" v-for="column in [1,2,3,4,5]" :key="column">
-            <Card draggable="true" @dragstart="hide(`card-${column}`)" :id="`card-${column}`"/>
+        <div class="w-1/4 border-r flex-shrink-0 text-xs" v-for="column in [1, 2, 3, 4, 5]" :key="column">
+          <Card draggable="true" @dragstart="hide(`card-${column}`)" :id="`card-${column}`" />
         </div>
       </div>
     </div>
-   </div>
+  </div>
 </template>
 
 <script setup>
-import { ArrowsPointingInIcon, ChartBarIcon, Square3Stack3DIcon } from '@heroicons/vue/24/outline'
+import { ref } from 'vue'
+import { Switch } from '@headlessui/vue'
+import {
+  ArrowsPointingInIcon,
+  ChartBarIcon,
+  Square3Stack3DIcon,
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@heroicons/vue/24/outline'
 import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
@@ -73,17 +104,20 @@ const hide = (id) => {
   document.getElementById(id).style.visibility = 'hidden';
 }
 
+const enabled = ref(false)
+
 const navItems = [
-  { label:'Plan', icon:'CalendarIcon', subList:[] },
+  { label: 'Plan', icon: 'CalendarIcon', subList: [] },
   {
     label: 'Task List', icon: 'ClipboardDocumentListIcon', subList: [
-      { name: 'Meridian', color:'bg-rose-600'},
-      { name: 'Risen', color:'bg-blue-600'},
-      { name: 'SkillBox', color:'bg-yellow-400'},
-      { name: 'Statra Insurance', color:'bg-green-600'},
-    ]},
-  { label:'Projects', icon:'FolderIcon', subList:[]},
-  { label:'Tags', icon:'TagIcon', subList:[]},
+      { name: 'Meridian', color: 'bg-rose-600' },
+      { name: 'Risen', color: 'bg-blue-600' },
+      { name: 'SkillBox', color: 'bg-yellow-400' },
+      { name: 'Statra Insurance', color: 'bg-green-600' },
+    ]
+  },
+  { label: 'Projects', icon: 'FolderIcon', subList: [] },
+  { label: 'Tags', icon: 'TagIcon', subList: [] },
 ];
 </script>
 
