@@ -6,14 +6,33 @@
       <Tag label="Add new task" icon="PlusIcon" />
       <Card/> -->
       <div class="font-bold text-lg">Task Master</div>
-      <Button label="Add new task" icon="PlusIcon"/>
+      <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl"/>
       
-      <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon" :sub-list="item.subList"/>
+      <div class="space-y-4">
+        <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon" :sub-list="item.subList"/>
+      </div>
       
-      <div class="fixed bottom-0 w-1/4 bg-lime-300 h-28 left-0"></div>
+      <div class="fixed bottom-0 w-1/4 bg-lime-300 h-28 left-0">
+
+      </div>
     </div>
     <div class="w-3/4 flex flex-col">
-      <div class="w-full h-24 border-b">Header</div>
+      <div class="w-full h-24 border-b flex items-center justify-between px-2">
+        <div class="text-2xl font-bold">Statra Insurance</div>
+        <div class="flex space-x-2 items-center">
+          <div class="flex -space-x-4">
+            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
+            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
+            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
+            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black text-white center font-bold">
+              +8
+            </div>
+          </div>
+          <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down="true"/>
+          <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg"/>
+        </div>
+      </div>
+
       <div class="w-full h-20 border-b">Sub-Header</div>
       <div class="w-full h-full flex overflow-auto">
         <div class="w-1/4 border-r flex-shrink-0 text-xs" v-for="column in [1,2,3,4,5]" :key="column">

@@ -6,7 +6,7 @@
     </div>
     <component class="h-5 w-5 stroke-2" :is="Icons['ChevronDownIcon']" v-if="props.subList.length > 0"></component>
   </div>
-  <div v-if="props.subList.length > 0" class="pl-10 space-y-5">
+  <div v-if="props.subList.length > 0" class="pl-10 space-y-4">
     <div v-for="item in props.subList" :key="item">
       <div :class="{'bg-yellow-300': item.name === 'Statra Insurance'}" class="flex items-center space-x-2 cursor-pointer p-1 rounded">
         <span :class="`h-3 w-3 ${item.color} rounded-full`"></span>
