@@ -13,10 +13,21 @@
           :sub-list="item.subList" />
       </div>
 
-      <div class="fixed bottom-0 w-1/4 h-28 left-0 p-7">
+      <div class="fixed bottom-0 w-1/4 h-auto left-0 p-7">
         <div class="flex items-center space-x-2 font-bold">
           <WalletIcon class="h-6 stroke-2"/>
           <span class="text-sm">Free plan</span>
+        </div>
+        <div class="flex items-center justify-between space-x-2 text-xs mt-4">
+          <span class="font-bold">Projects</span>
+          <span class="text-slate-500">4/10</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 my-2">
+          <div class="bg-lime-500 h-1.5 rounded-full" style="width: 80%"></div>
+        </div>
+        <div class="flex items-center justify-between space-x-2 text-xs mt-2">
+          <span class="font-bold">Tasks</span>
+          <span class="text-slate-500">Unlimited</span>
         </div>
       </div>
     </div>
@@ -130,6 +141,20 @@ const navItems = [
 ];
 </script>
 
-<style>
+<style scoped>
+
+progress[value]::-webkit-progress-value {
+  background-image:
+	   -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%),
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, #09c, #f44);
+
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
 
 </style>
