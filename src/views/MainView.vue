@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen w-screen bg-lime-50 flex">
-    <div class="w-1/4 border-r h-full p-10 flex flex-col space-y-5">
+    <div class="w-1/4 border-r h-full p-7 flex flex-col space-y-5">
       <!-- 
       <Fab label="Add new task" icon="PlusIcon" />
       <Tag label="Add new task" icon="PlusIcon" />
@@ -13,8 +13,11 @@
           :sub-list="item.subList" />
       </div>
 
-      <div class="fixed bottom-0 w-1/4 bg-lime-300 h-28 left-0">
-
+      <div class="fixed bottom-0 w-1/4 h-28 left-0 p-7">
+        <div class="flex items-center space-x-2 font-bold">
+          <WalletIcon class="h-6 stroke-2"/>
+          <span class="text-sm">Free plan</span>
+        </div>
       </div>
     </div>
     <div class="w-3/4 flex flex-col">
@@ -97,6 +100,7 @@ import {
   ChevronUpIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  WalletIcon,
 } from '@heroicons/vue/24/outline'
 import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
