@@ -40,4 +40,6 @@ The application is a task management tool whose main aim is creating, scheduling
 7. Add authentication that utilizes the sessionStorage or localStorage or the indexDB or FireBase
 8. Delete and retrive tasks.
 
+## UPDATE ======= Use a JSON based backend or localStorage or sessionStorage or indexDB =======
+
 ## DEADLINE: 30-11-2022 EOD
