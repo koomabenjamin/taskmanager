@@ -24,10 +24,10 @@
           <div class="text-2xl font-bold">Statra Insurance</div>
           <div class="flex space-x-2 items-center">
             <div class="flex -space-x-4">
-              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
-              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
-              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
-              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black text-white center font-bold">
+              <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black"></div>
+              <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black"></div>
+              <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black"></div>
+              <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black text-white center font-bold">
                 +8
               </div>
             </div>
@@ -67,12 +67,9 @@
                 class="pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
             </Switch>
             <span>Select Timeframe</span>
-            <ChevronUpIcon class="h-4 w-4"/>
-
-            <!-- CalendarView -->
-            <div class="w-96 h-96 rounded-xl absolute bg-slate-800 top-10 right-0 text-sm text-lime-300">
-              dates
-            </div>
+            <ChevronUpIcon class="w-4"/>
+            <!-- Calendar -->
+            <Calendar/>
           </div>
 
           <Button label="Apps" icon="ShareIcon" color="bg-transparent" size="md" drop-down="true" />
@@ -98,12 +95,15 @@ import {
   MagnifyingGlassIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from '@heroicons/vue/24/outline'
 import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
 import Card from '../components/shared/Card.vue'
 import NavItem from '../components/shared/NavItem.vue'
+import Calendar from '../components/shared/Calendar.vue'
 
 const hide = (id) => {
   document.getElementById(id).style.visibility = 'hidden';
