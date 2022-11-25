@@ -59,15 +59,15 @@
         </div>
         <div class="flex items-center space-x-2">
           <!-- switch -->
-          <div class="flex items-center space-x-4 relative">
+          <div class="flex items-center space-x-2 relative text-sm">
             <Switch v-model="enabled" :class="enabled ? 'bg-black' : 'bg-lime-400'"
-              class="relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              class="relative inline-flex h-[30px] w-[55px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
               <span class="sr-only">Use setting</span>
-              <span aria-hidden="true" :class="enabled ? 'translate-x-9' : 'translate-x-0'"
-                class="pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
+              <span aria-hidden="true" :class="enabled ? 'translate-x-[25px]' : 'translate-x-0'"
+                class="pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
             </Switch>
             <span>Select Timeframe</span>
-            <ChevronUpIcon class="h-5 w-5"/>
+            <ChevronUpIcon class="h-4 w-4"/>
 
             <!-- CalendarView -->
             <div class="w-96 h-96 rounded-xl absolute bg-slate-800 top-10 right-0 text-sm text-lime-300">
