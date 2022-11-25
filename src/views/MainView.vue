@@ -17,23 +17,41 @@
       </div>
     </div>
     <div class="w-3/4 flex flex-col">
-      <div class="w-full h-24 border-b flex items-center justify-between px-2">
-        <div class="text-2xl font-bold">Statra Insurance</div>
-        <div class="flex space-x-2 items-center">
-          <div class="flex -space-x-4">
-            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
-            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
-            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
-            <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black text-white center font-bold">
-              +8
+      <div class="w-full h-auto border-b">
+
+        <div class="w-full h-24 flex items-center justify-between px-4">
+          <div class="text-2xl font-bold">Statra Insurance</div>
+          <div class="flex space-x-2 items-center">
+            <div class="flex -space-x-4">
+              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
+              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
+              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black"></div>
+              <div class="h-10 w-10 rounded-full border-2 border-red-600 bg-black text-white center font-bold">
+                +8
+              </div>
             </div>
+            <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down="true"/>
+            <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg"/>
           </div>
-          <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down="true"/>
-          <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg"/>
+        </div>
+
+        <div class="w-full flex space-x-10 px-4 font-bold">
+          <div class="pb-4 flex space-x-2 items-center">
+            <Square3Stack3DIcon class="w-5 h-5 flex"/>
+            <span>Backlog</span>
+          </div>
+          <div class="pb-4 flex space-x-2 items-center">
+            <ArrowsPointingInIcon class="w-5 h-5"/>
+            <span>Priority Chart</span>
+          </div>
+          <div class="border-b-4 border-lime-300 pb-4 flex space-x-2 items-center">
+            <ChartBarIcon class="w-5 h-5"/>
+            <span>Kanban Workflow</span>
+          </div>
         </div>
       </div>
 
-      <div class="w-full h-20 border-b">Sub-Header</div>
+      <div class="w-full h-20 border-b flex items-center px-4">Sub-Header</div>
       <div class="w-full h-full flex overflow-auto">
         <div class="w-1/4 border-r flex-shrink-0 text-xs" v-for="column in [1,2,3,4,5]" :key="column">
             <Card draggable="true" @dragstart="hide(`card-${column}`)" :id="`card-${column}`"/>
@@ -44,6 +62,7 @@
 </template>
 
 <script setup>
+import { ArrowsPointingInIcon, ChartBarIcon, Square3Stack3DIcon } from '@heroicons/vue/24/outline'
 import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
