@@ -20,7 +20,7 @@
     </div>
     <div class="grid grid-cols-7 gap-1 mt-4 text-slate-300">
       <div v-for="day in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]" :key="day">
-        <div class="h-10 w-10 center rounded-full" :class="{ 'bg-lime-400 text-slate-700 font-bold': day === 18 }">
+        <div class="h-10 w-10 center rounded-full hover:bg-lime-400 hover:text-slate-700" :class="{ 'bg-lime-400 text-slate-700 font-bold': day === 18 }">
           <span>{{ day }}</span></div>
       </div>
     </div>

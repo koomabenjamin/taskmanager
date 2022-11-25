@@ -60,7 +60,7 @@
         <div class="flex items-center space-x-2">
           <!-- switch -->
           <div class="flex items-center space-x-2 relative text-sm">
-            <Switch v-model="enabled" :class="enabled ? 'bg-black' : 'bg-lime-400'"
+            <Switch v-model="enabled" :class="enabled ? 'bg-lime-400' : 'bg-black'"
               class="relative inline-flex h-[30px] w-[55px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
               <span class="sr-only">Use setting</span>
               <span aria-hidden="true" :class="enabled ? 'translate-x-[25px]' : 'translate-x-0'"
@@ -69,7 +69,7 @@
             <span>Select Timeframe</span>
             <ChevronUpIcon class="w-4"/>
             <!-- Calendar -->
-            <Calendar/>
+            <Calendar v-if="enabled"/>
           </div>
 
           <Button label="Apps" icon="ShareIcon" color="bg-transparent" size="md" drop-down="true" />
