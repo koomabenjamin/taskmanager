@@ -1,36 +1,6 @@
 <template>
   <div class="h-screen w-screen bg-lime-50 flex">
-    <div class="w-1/4 border-r h-full p-7 flex flex-col space-y-5 overflow-auto">
-      <!-- 
-      <Fab label="Add new task" icon="PlusIcon" />
-      <Tag label="Add new task" icon="PlusIcon" />
-      <Card/> -->
-      <div class="font-bold text-lg">Task Master</div>
-      <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
-
-      <div class="space-y-4">
-        <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon"
-          :sub-list="item.subList" />
-      </div>
-
-      <div class="fixed bottom-0 w-1/4 h-auto left-0 p-7 bg-lime-50 border-t border-r">
-        <div class="flex items-center space-x-2 font-bold">
-          <WalletIcon class="h-6 stroke-2"/>
-          <span class="text-sm">Free plan</span>
-        </div>
-        <div class="flex items-center justify-between space-x-2 text-xs mt-4">
-          <span class="font-bold">Projects</span>
-          <span class="text-slate-500">4/10</span>
-        </div>
-        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 my-2">
-          <div class="bg-lime-500 h-1.5 rounded-full" style="width: 80%"></div>
-        </div>
-        <div class="flex items-center justify-between space-x-2 text-xs mt-2">
-          <span class="font-bold">Tasks</span>
-          <span class="text-slate-500">Unlimited</span>
-        </div>
-      </div>
-    </div>
+    <SideBar/>
     <div class="w-3/4 flex flex-col">
       <div class="w-full h-auto border-b">
 
@@ -136,6 +106,7 @@ import {
   WalletIcon,
   CalendarIcon,
 } from '@heroicons/vue/24/outline'
+import SideBar from '../components/shared/SideBar.vue'
 import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
@@ -172,19 +143,6 @@ const cards = ref([
 
 const enabled = ref(false)
 
-const navItems = [
-  { label: 'Plan', icon: 'CalendarIcon', subList: [] },
-  {
-    label: 'Task List', icon: 'ClipboardDocumentListIcon', subList: [
-      { name: 'Meridian', color: 'bg-rose-600' },
-      { name: 'Risen', color: 'bg-blue-600' },
-      { name: 'SkillBox', color: 'bg-yellow-400' },
-      { name: 'Statra Insurance', color: 'bg-green-600' },
-    ]
-  },
-  { label: 'Projects', icon: 'FolderIcon', subList: [] },
-  { label: 'Tags', icon: 'TagIcon', subList: [] },
-];
 </script>
 
 <style scoped>

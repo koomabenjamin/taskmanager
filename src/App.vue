@@ -7,5 +7,7 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style scoped>
-
+:root {
+  @apply font-serif;
+}
 </style>
