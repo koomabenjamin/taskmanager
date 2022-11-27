@@ -20,16 +20,25 @@
           </div>
         </div>
 
-        <div class="w-full flex space-x-10 px-4 font-bold">
-          <div class="pb-4 flex space-x-2 items-center">
+        <div class="w-full flex space-x-10 px-4 font-bold flex-shrink-0">
+          <div
+            @click="changeTab('backlog')"
+            :class="{'border-b-4 border-lime-300 duration-300': activeTab === 'backlog' }"
+            class="pb-4 flex space-x-2 items-center cursor-pointer">
             <Square3Stack3DIcon class="w-5 h-5 flex" />
             <span>Backlog</span>
           </div>
-          <div class="pb-4 flex space-x-2 items-center">
+          <div
+            @click="changeTab('priority-chart')" 
+            :class="{'border-b-4 border-lime-300 duration-300': activeTab === 'priority-chart' }"
+            class="pb-4 flex space-x-2 items-center cursor-pointer">
             <ArrowsPointingInIcon class="w-5 h-5" />
             <span>Priority Chart</span>
           </div>
-          <div class="border-b-4 border-lime-300 pb-4 flex space-x-2 items-center">
+          <div
+            @click="changeTab('kanban-workflow')" 
+            :class="{'border-b-4 border-lime-300 duration-300': activeTab === 'kanban-workflow' }"
+            class="pb-4 flex space-x-2 items-center cursor-pointer">
             <ChartBarIcon class="w-5 h-5" />
             <span>Kanban Workflow</span>
           </div>
@@ -114,11 +123,13 @@ import Card from '../components/shared/Card.vue'
 import NavItem from '../components/shared/NavItem.vue'
 import Calendar from '../components/shared/Calendar.vue'
 
-const hide = (id) => {
-  document.getElementById(id).style.visibility = 'hidden';
-}
+const hide = (id) => document.getElementById(id).style.visibility = 'hidden';
 
 const columns = ref(['to-do', 'refined', 'verified','doing', 'done'])
+
+const activeTab = ref('kanban-workflow')
+
+const changeTab = (tab) => activeTab.value = tab;
 
 const searchCard = (e) => {
   // console.log(e.target.value)
