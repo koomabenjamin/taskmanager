@@ -86,7 +86,7 @@
             <Calendar v-if="enabled"/>
           </div>
 
-          <Button label="Apps" icon="ShareIcon" color="bg-transparent" size="md" drop-down="true" />
+          <Button label="Share" icon="ShareIcon" color="bg-transparent" size="md" drop-down="true" />
         </div>
       </div>
 
