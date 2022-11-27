@@ -28,9 +28,9 @@
         <span class="text-sm">{{ item.name }}</span>
       </div>
     </div>
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center space-x-2" @click="showForm(props.name)">
       <component 
-        class="h-7 w-7 stroke-2" 
+        class="h-6 w-6 stroke-2" 
         :is="Icons['PlusCircleIcon']" 
         v-if="props.subList.length > 0 && subListsOpen.includes(props.label)"
         >
@@ -59,6 +59,17 @@ const openCloseSublists = (subList) => {
     if (indexOfList !== -1) subListsOpen.value.splice(indexOfList, 1);
   }
 }
+
+const showForm = (form) => {
+  switch (form) {
+    case 'member':
+      
+      break;
+  
+    default:
+      break;
+  }
+} 
 
 </script>
 
