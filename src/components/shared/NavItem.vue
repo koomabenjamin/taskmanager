@@ -28,6 +28,7 @@
         <span class="text-sm">{{ item.name }}</span>
       </div>
     </div>
+    <div>Add {{ props.name }}</div>
   </div>
 </template>
 

@@ -46,7 +46,7 @@ import NavItem from './NavItem.vue'
 const navItems = [
     { label: 'Plan', icon: 'CalendarIcon', subList: [] },
     {
-        label: 'Task List', icon: 'ClipboardDocumentListIcon', subList: [
+        label: 'Task List', name: 'task', icon: 'ClipboardDocumentListIcon', subList: [
             { name: 'Meridian', color: 'bg-rose-600' },
             { name: 'Risen', color: 'bg-blue-600' },
             { name: 'SkillBox', color: 'bg-yellow-400' },
@@ -54,7 +54,7 @@ const navItems = [
         ]
     },
     {
-        label: 'Projects', icon: 'FolderIcon', subList: [
+        label: 'Projects', name: 'project', icon: 'FolderIcon', subList: [
             { name: 'Meridian', color: 'bg-rose-600' },
             { name: 'Risen', color: 'bg-blue-600' },
             { name: 'SkillBox', color: 'bg-yellow-400' },
@@ -62,7 +62,7 @@ const navItems = [
         ]
     },
     {
-        label: 'Tags', icon: 'TagIcon', subList: [
+        label: 'Tags', name: 'tag', icon: 'TagIcon', subList: [
             { name: 'Prototype', color: 'bg-purple-600' },
             { name: 'Research', color: 'bg-green-600' },
             { name: 'Testing', color: 'bg-yellow-400' },
