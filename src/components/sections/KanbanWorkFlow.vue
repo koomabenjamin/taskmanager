@@ -73,6 +73,8 @@ import Card from '../shared/Card.vue'
 import NavItem from '../shared/NavItem.vue'
 import Calendar from '../shared/Calendar.vue'
 
+const enabled = ref(false)
+
 const searchCard = (e) => {
   // console.log(e.target.value)
   let filteredCards = cards.value.filter((card) => card.members.includes(parseInt(e.target.value)));

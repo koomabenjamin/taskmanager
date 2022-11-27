@@ -8,7 +8,12 @@
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
 
         <div class="space-y-4">
-            <NavItem v-for="item in navItems" :key="item.name" :label="item.label" :icon="item.icon"
+            <NavItem
+                :name="item.name" 
+                v-for="item in navItems" 
+                :key="item.name" 
+                :label="item.label" 
+                :icon="item.icon"
                 :sub-list="item.subList" />
         </div>
 

@@ -86,8 +86,6 @@ const activeTab = ref('kanban-workflow')
 
 const changeTab = (tab) => activeTab.value = tab;
 
-const enabled = ref(false)
-
 </script>
 
 <style scoped>

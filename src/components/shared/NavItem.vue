@@ -3,7 +3,7 @@
     @click="openCloseSublists(props.label)"
     class="w-full h-10 px-2 rounded hover:bg-yellow-100 flex items-center justify-between">
     <div class="flex items-center space-x-2 text-sm">
-      <component class="h-5 w-5 stroke-2" :is="Icons[props.icon]"></component>
+      <component class="h-6 w-6 stroke-2" :is="Icons[props.icon]"></component>
       <span class="font-semibold">{{ props.label }}</span>
     </div>
     <div>
@@ -28,7 +28,15 @@
         <span class="text-sm">{{ item.name }}</span>
       </div>
     </div>
-    <div>Add {{ props.name }}</div>
+    <div class="flex items-center space-x-2">
+      <component 
+        class="h-7 w-7 stroke-2" 
+        :is="Icons['PlusCircleIcon']" 
+        v-if="props.subList.length > 0 && subListsOpen.includes(props.label)"
+        >
+      </component>
+      <span>Add {{ props.name }}</span>
+    </div>
   </div>
 </template>
 
@@ -36,6 +44,7 @@
 import { ref } from 'vue'
 import * as Icons from '@heroicons/vue/24/outline'
 const props =  defineProps({
+  name: [String, Number],
   label: [String, Number],
   icon: [String, Number],
   subList: [Array, Object],
