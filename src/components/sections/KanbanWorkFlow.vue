@@ -19,7 +19,7 @@
               <Calendar v-if="enabled"/>
             </div>
   
-            <Button label="Share" icon="ShareIcon" color="bg-transparent" size="md" drop-down="true" />
+            <Button label="Share" icon="ShareIcon" color="bg-transparent" size="md" drop-down />
           </div>
         </div>
   
@@ -77,7 +77,6 @@ import Button from '../shared/Button.vue'
 import Fab from '../shared/Fab.vue'
 import Tag from '../shared/Tag.vue'
 import Card from '../shared/Card.vue'
-import NavItem from '../shared/NavItem.vue'
 import Calendar from '../shared/Calendar.vue'
 
 const enabled = ref(false)

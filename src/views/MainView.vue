@@ -15,7 +15,7 @@
                 +8
               </div>
             </div>
-            <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down="true" />
+            <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
             <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg" />
           </div>
         </div>
@@ -79,7 +79,6 @@ import Button from '../components/shared/Button.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
 import Card from '../components/shared/Card.vue'
-import NavItem from '../components/shared/NavItem.vue'
 import Calendar from '../components/shared/Calendar.vue'
 
 const activeTab = ref('kanban-workflow')

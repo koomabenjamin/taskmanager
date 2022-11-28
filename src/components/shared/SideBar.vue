@@ -8,13 +8,7 @@
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
 
         <div class="space-y-4">
-            <NavItem
-                :name="item.name" 
-                v-for="item in navItems" 
-                :key="item.name" 
-                :label="item.label" 
-                :icon="item.icon"
-                :sub-list="item.subList" />
+            <NavList :items="navItems"/>
         </div>
 
         <div class="fixed bottom-0 w-1/4 h-auto left-0 p-7 bg-lime-50 border-t border-r">
@@ -46,7 +40,7 @@ import Button from './Button.vue'
 import Fab from './Fab.vue'
 import Tag from './Tag.vue'
 import Card from './Card.vue'
-import NavItem from './NavItem.vue'
+import NavList from './NavItems.vue'
 
 const navItems = [
     { label: 'Plan', icon: 'CalendarIcon', subList: [] },
