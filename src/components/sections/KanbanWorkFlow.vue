@@ -29,21 +29,28 @@
             <div 
               class="m-2 p-5 bg-white rounded-lg h-auto border shadow" 
               draggable="true"
+              @dragstart="changeStatus(card.id)"
+              :id="card.id"
               v-for="card in cards.filter((el) => el.status === column)"
+              :key="card"
             >
                 <div class="flex items-center justify-between">
                   <div class="flex -space-x-4">
-                    <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black" v-for="member in card.members"></div>
+                    <div 
+                      class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black" 
+                      v-for="member in card.members"
+                      :key="member"
+                    ></div>
                   </div>
                   <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold captalise">{{ card.priority }}</div>
                 </div>
-                <div class="font-bold text-base my-1">A/B Testing - Round 3</div>
-                <div class="flex items-center space-x-1 my-1">
-                  <div class="w-auto px-2 bg-blue-200 text-blue-600 py-1 rounded-full font-bold captalise">Prototype</div>
-                  <div class="w-auto px-2 bg-green-200 text-green-600 py-1 rounded-full font-bold captalise">Research</div>
-                  <div class="w-auto px-2 bg-yellow-200 text-yellow-600 py-1 rounded-full font-bold captalise">Testing</div>
+                <div class="font-bold text-sm my-3">A/B Testing - Round 3</div>
+                <div class="flex items-center space-x-1 my-1 text-[10px]">
+                  <div class="w-auto px-2 bg-blue-200 text-blue-600 py-0.5 rounded-full font-bold captalise">Prototype</div>
+                  <div class="w-auto px-2 bg-green-200 text-green-600 py-0.5 rounded-full font-bold captalise">Research</div>
+                  <div class="w-auto px-2 bg-yellow-200 text-yellow-600 py-0.5 rounded-full font-bold captalise">Testing</div>
                 </div>
-                <div class="flex items-center space-x-2 text-slate-500 font-semibold mt-4">
+                <div class="flex items-center space-x-2 text-slate-500 font-semibold mt-4 text-[10px]">
                   <CalendarIcon class="h-5 stroke-2"/>
                   <span>{{ card.date }}</span>
                 </div>
@@ -98,7 +105,11 @@ const cards = ref([
 
 const columns = ref(['to-do', 'refined', 'verified','doing', 'done'])
 
-const hide = (id) => document.getElementById(id).style.visibility = 'hidden';
+const changeStatus = (id) => {
+  setTimeout(() => {
+    document.getElementById(id).style.display = 'none';
+  }, 0)
+}
 </script>
 
 <style scoped>
