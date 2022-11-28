@@ -35,7 +35,7 @@
         <component 
           class="h-6 w-6 stroke-2" 
           :is="Icons['PlusCircleIcon']"
-          @click="showModal()"
+          @click="showModal(item.name)"
           v-if="item.subList.length > 0 && subListsOpen.includes(item.label)"
           >
         </component>
@@ -43,6 +43,17 @@
       </div>
     </div>
   </div>
+
+  <Modal>
+    <template v-slot:heading>Add Task</template>
+    <template v-slot:form>
+      <div class="grid grid-cols-2 gap-2 -space-y-0">
+        <div class="bg-rose-600 w-full h-10 mt-4 col-span-2"></div>
+        <div class="bg-rose-600 w-full h-10 mt-4"></div>
+        <div class="bg-rose-600 w-full h-10 mt-4"></div>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script setup>
