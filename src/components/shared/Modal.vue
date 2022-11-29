@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 flex items-center justify-center">
+  <!-- <div class="fixed inset-0 flex items-center justify-center">
     <button
       type="button"
       @click="openModal"
@@ -7,8 +7,8 @@
     >
       Open dialog
     </button>
-  </div>
-  <TransitionRoot appear :show="isOpen" as="template">
+  </div> -->
+  <TransitionRoot appear :show="isOpenSideModal" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
       <TransitionChild
         as="template"
@@ -27,13 +27,13 @@
           class="flex min-h-full items-center justify-center p-4 text-center"
         >
           <TransitionChild
-          as="template"
-          enter="duration-300 ease-out"
-          enter-from="translate-x-0"
-          enter-to="-translate-x-full"
-          leave="duration-200 ease-in"
-          leave-from="-translate-x-full"
-          leave-to="translate-x-0"
+            as="template"
+            enter="transform transition ease-in-out duration-500"
+            enter-from="-translate-x-full" 
+            enter-to="translate-x-0"
+            leave="transform transition ease-in-out duration-500" 
+            leave-from="translate-x-full"
+            leave-to="-translate-x-full"
           >
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden absolute left-0 inset-y-0 bg-white p-6 text-left align-middle shadow-xl transition-all"
@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject, onMounted } from 'vue'
 import {
   TransitionRoot,
   TransitionChild,
@@ -79,10 +79,16 @@ import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 const isOpen = ref(false)
 
+const isOpenSideModal = inject('isOpenSideModal')
+
 function closeModal() {
-  isOpen.value = false
+  isOpenSideModal.value = false
 }
 function openModal() {
   isOpen.value = true
 }
+
+onMounted(() => {
+  console.log(isOpenSideModal.value)
+})
 </script>

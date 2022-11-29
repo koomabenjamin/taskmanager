@@ -31,11 +31,10 @@
           <span class="text-sm">{{ item.name }}</span>
         </div>
       </div>
-      <div class="flex items-center space-x-2" @click="showForm(item.name)">
+      <div class="flex items-center space-x-2 cursor-pointer text-sm" @click="showForm(item.name)">
         <component 
-          class="h-6 w-6 stroke-2" 
+          class="h-5 w-5 stroke-2" 
           :is="Icons['PlusCircleIcon']"
-          @click="showModal(item.name)"
           v-if="item.subList.length > 0 && subListsOpen.includes(item.label)"
           >
         </component>
@@ -44,20 +43,37 @@
     </div>
   </div>
 
+  {{ selectedForm }}
+
   <Modal>
     <template v-slot:heading>Add Task</template>
     <template v-slot:form>
-      <div class="grid grid-cols-2 gap-2 -space-y-0">
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
         <div class="bg-rose-600 w-full h-10 mt-4 col-span-2"></div>
         <div class="bg-rose-600 w-full h-10 mt-4"></div>
         <div class="bg-rose-600 w-full h-10 mt-4"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-else-if="selectedform === 'member'">
+        <div class="bg-lime-400 w-full h-10 mt-4 col-span-2"></div>
+        <div class="bg-lime-400 w-full h-10 mt-4"></div>
+        <div class="bg-lime-400 w-full h-10 mt-4"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-else-if="selectedform === 'project'">
+        <div class="bg-blue-600 w-full h-10 mt-4 col-span-2"></div>
+        <div class="bg-blue-600 w-full h-10 mt-4"></div>
+        <div class="bg-blue-600 w-full h-10 mt-4"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-else>
+        <div class="bg-yellow-400 w-full h-10 mt-4 col-span-2"></div>
+        <div class="bg-yellow-400 w-full h-10 mt-4"></div>
+        <div class="bg-yellow-400 w-full h-10 mt-4"></div>
       </div>
     </template>
   </Modal>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, provide } from 'vue'
 import * as Icons from '@heroicons/vue/24/outline'
 import Modal from './Modal.vue'
 
@@ -71,6 +87,12 @@ const props =  defineProps({
 
 const subListsOpen = ref([]);
 
+const isOpen = ref(false);
+
+const selectedForm = ref('tag');
+
+provide('isOpenSideModal', isOpen)
+
 const openCloseSublists = (subList) => {
   if(!subListsOpen.value.includes(subList)) subListsOpen.value.push(subList); 
   else {
@@ -80,14 +102,9 @@ const openCloseSublists = (subList) => {
 }
 
 const showForm = (form) => {
-  switch (form) {
-    case 'member':
-      
-      break;
-  
-    default:
-      break;
-  }
+  isOpen.value = true;
+  selectedForm.value = form;
+  console.log(form, isOpen.value);
 } 
 
 </script>
