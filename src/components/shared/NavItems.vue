@@ -53,17 +53,17 @@
         <div class="bg-rose-600 w-full h-10 mt-4"></div>
         <div class="bg-rose-600 w-full h-10 mt-4"></div>
       </div>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-else-if="selectedform === 'member'">
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'member'">
         <div class="bg-lime-400 w-full h-10 mt-4 col-span-2"></div>
         <div class="bg-lime-400 w-full h-10 mt-4"></div>
         <div class="bg-lime-400 w-full h-10 mt-4"></div>
       </div>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-else-if="selectedform === 'project'">
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
         <div class="bg-blue-600 w-full h-10 mt-4 col-span-2"></div>
         <div class="bg-blue-600 w-full h-10 mt-4"></div>
         <div class="bg-blue-600 w-full h-10 mt-4"></div>
       </div>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-else>
+      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'task'">
         <div class="bg-yellow-400 w-full h-10 mt-4 col-span-2"></div>
         <div class="bg-yellow-400 w-full h-10 mt-4"></div>
         <div class="bg-yellow-400 w-full h-10 mt-4"></div>
