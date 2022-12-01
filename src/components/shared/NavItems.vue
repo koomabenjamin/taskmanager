@@ -43,31 +43,63 @@
     </div>
   </div>
 
-  {{ selectedForm }}
-
   <Modal>
-    <template v-slot:heading>Add Task</template>
+    <template v-slot:heading>Add {{ selectedForm }}</template>
     <template v-slot:form>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
-        <div class="bg-rose-600 w-full h-10 mt-4 col-span-2"></div>
-        <div class="bg-rose-600 w-full h-10 mt-4"></div>
-        <div class="bg-rose-600 w-full h-10 mt-4"></div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'member'">
-        <div class="bg-lime-400 w-full h-10 mt-4 col-span-2"></div>
-        <div class="bg-lime-400 w-full h-10 mt-4"></div>
-        <div class="bg-lime-400 w-full h-10 mt-4"></div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
-        <div class="bg-blue-600 w-full h-10 mt-4 col-span-2"></div>
-        <div class="bg-blue-600 w-full h-10 mt-4"></div>
-        <div class="bg-blue-600 w-full h-10 mt-4"></div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'task'">
-        <div class="bg-yellow-400 w-full h-10 mt-4 col-span-2"></div>
-        <div class="bg-yellow-400 w-full h-10 mt-4"></div>
-        <div class="bg-yellow-400 w-full h-10 mt-4"></div>
-      </div>
+      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'task'">
+        <Input placeholder="Title" class="col-span-2"/>
+        <Input placeholder="Start Date" type="date"/>
+        <Input placeholder="End Date" type="date"/>
+        <Input placeholder="Priority" class="col-span-2"/>
+        <TextArea rows="5" placeholder="Description" class="col-span-2" />
+        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+      </form>
+      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
+        <Input placeholder="Title" class="col-span-2"/>
+        <Input placeholder="Start Date" type="date"/>
+        <Input placeholder="End Date" type="date"/>
+        <Input placeholder="Priority" class="col-span-2"/>
+        <TextArea rows="5" placeholder="Description" class="col-span-2" />
+        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+      </form>
+      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'member'">
+        <Input placeholder="Title" class="col-span-2"/>
+        <Input placeholder="Start Date" type="date"/>
+        <Input placeholder="End Date" type="date"/>
+        <Input placeholder="Priority" class="col-span-2"/>
+        <TextArea rows="5" placeholder="Description" class="col-span-2" />
+        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+      </form>
+      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'status'">
+        <Input placeholder="Title" class="col-span-2"/>
+        <Input placeholder="Start Date" type="date"/>
+        <Input placeholder="End Date" type="date"/>
+        <Input placeholder="Priority" class="col-span-2"/>
+        <TextArea rows="5" placeholder="Description" class="col-span-2" />
+        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+      </form>
+      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
+        <Input placeholder="Title" class="col-span-2"/>
+        <Input placeholder="Start Date" type="date"/>
+        <Input placeholder="End Date" type="date"/>
+        <Input placeholder="Priority" class="col-span-2"/>
+        <TextArea rows="5" placeholder="Description" class="col-span-2" />
+        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+      </form>
+      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'category'">
+        <Input placeholder="Title" class="col-span-2"/>
+        <Input placeholder="Start Date" type="date"/>
+        <Input placeholder="End Date" type="date"/>
+        <Input placeholder="Priority" class="col-span-2"/>
+        <TextArea rows="5" placeholder="Description" class="col-span-2" />
+        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+      </form>
     </template>
   </Modal>
 </template>
@@ -76,6 +108,9 @@
 import { ref, provide } from 'vue'
 import * as Icons from '@heroicons/vue/24/outline'
 import Modal from './Modal.vue'
+import Input from './Input.vue'
+import Button from './Button.vue'
+import TextArea from './TextArea.vue'
 
 const props =  defineProps({
   name: [String, Number],

@@ -67,6 +67,13 @@ const navItems = [
             { name: 'Testing', color: 'bg-yellow-400' },
         ]
     },
+    {
+        label: 'Members', name: 'member', icon: 'UserGroupIcon', subList: [
+            { name: 'Prototype', color: 'bg-purple-600' },
+            { name: 'Research', color: 'bg-green-600' },
+            { name: 'Testing', color: 'bg-yellow-400' },
+        ]
+    },
 ];
 </script>
 
