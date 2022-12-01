@@ -1,5 +1,11 @@
 # Tasks (functional requirements)
 
+## 1st December 2022
+- Add a project and display it.
+- Add a task and display it.
+- Add a member and display it.
+- Add a category and display it.
+
 ## 27th November 2022
 - Add a tasks markdown file details tasks on this project properly broken down.
 - Modify sidebar to make more dynamic
