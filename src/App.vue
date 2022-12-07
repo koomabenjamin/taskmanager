@@ -1,5 +1,9 @@
 <script setup>
 import { RouterView } from 'vue-router'
+
+const DBOpenRequest = window.indexedDB.open('task-master');
+console.log(DBOpenRequest);
+
 </script>
 
 <template>
