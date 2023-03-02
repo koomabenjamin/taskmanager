@@ -1,0 +1,96 @@
+[2023-03-01 21:12:26] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php:200)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(125): Illuminate\\Log\\LogManager->resolve(NULL, NULL)
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(112): Illuminate\\Log\\LogManager->get(NULL)
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(590): Illuminate\\Log\\LogManager->driver()
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(252): Illuminate\\Log\\LogManager->error('Facade does not...', Array)
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(366): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(RuntimeException))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->reportException(Object(RuntimeException))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 {main}
+"} 
+[2023-03-01 21:12:26] laravel.ERROR: Facade does not implement getFacadeAccessor method. {"exception":"[object] (RuntimeException(code: 0): Facade does not implement getFacadeAccessor method. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php:178)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(166): Illuminate\\Support\\Facades\\Facade::getFacadeAccessor()
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(255): Illuminate\\Support\\Facades\\Facade::getFacadeRoot()
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\config\\app.php(211): Illuminate\\Support\\Facades\\Facade::__callStatic('defaultAliases', Array)
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(72): require('E:\\\\projects\\\\fre...')
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(39): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Config\\Repository))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(237): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2023-03-01 21:12:50] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php:200)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(125): Illuminate\\Log\\LogManager->resolve(NULL, NULL)
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(112): Illuminate\\Log\\LogManager->get(NULL)
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(590): Illuminate\\Log\\LogManager->driver()
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(252): Illuminate\\Log\\LogManager->error('Facade does not...', Array)
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(366): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(RuntimeException))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->reportException(Object(RuntimeException))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 {main}
+"} 
+[2023-03-01 21:12:50] laravel.ERROR: Facade does not implement getFacadeAccessor method. {"exception":"[object] (RuntimeException(code: 0): Facade does not implement getFacadeAccessor method. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php:178)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(166): Illuminate\\Support\\Facades\\Facade::getFacadeAccessor()
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(255): Illuminate\\Support\\Facades\\Facade::getFacadeRoot()
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\config\\app.php(211): Illuminate\\Support\\Facades\\Facade::__callStatic('defaultAliases', Array)
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(72): require('E:\\\\projects\\\\fre...')
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(39): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Config\\Repository))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(237): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2023-03-01 21:17:03] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php:200)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(125): Illuminate\\Log\\LogManager->resolve(NULL, NULL)
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(112): Illuminate\\Log\\LogManager->get(NULL)
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(590): Illuminate\\Log\\LogManager->driver()
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(252): Illuminate\\Log\\LogManager->error('Facade does not...', Array)
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(366): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(RuntimeException))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->reportException(Object(RuntimeException))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 {main}
+"} 
+[2023-03-01 21:17:03] laravel.ERROR: Facade does not implement getFacadeAccessor method. {"exception":"[object] (RuntimeException(code: 0): Facade does not implement getFacadeAccessor method. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php:178)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(166): Illuminate\\Support\\Facades\\Facade::getFacadeAccessor()
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(255): Illuminate\\Support\\Facades\\Facade::getFacadeRoot()
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\config\\app.php(211): Illuminate\\Support\\Facades\\Facade::__callStatic('defaultAliases', Array)
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(72): require('E:\\\\projects\\\\fre...')
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(39): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Config\\Repository))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(237): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
+[2023-03-01 21:20:32] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php:200)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(125): Illuminate\\Log\\LogManager->resolve(NULL, NULL)
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(112): Illuminate\\Log\\LogManager->get(NULL)
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Log\\LogManager.php(590): Illuminate\\Log\\LogManager->driver()
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(252): Illuminate\\Log\\LogManager->error('Facade does not...', Array)
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(366): Illuminate\\Foundation\\Exceptions\\Handler->report(Object(RuntimeException))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->reportException(Object(RuntimeException))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 {main}
+"} 
+[2023-03-01 21:20:32] laravel.ERROR: Facade does not implement getFacadeAccessor method. {"exception":"[object] (RuntimeException(code: 0): Facade does not implement getFacadeAccessor method. at E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php:178)
+[stacktrace]
+#0 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(166): Illuminate\\Support\\Facades\\Facade::getFacadeAccessor()
+#1 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(255): Illuminate\\Support\\Facades\\Facade::getFacadeRoot()
+#2 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\config\\app.php(211): Illuminate\\Support\\Facades\\Facade::__callStatic('defaultAliases', Array)
+#3 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(72): require('E:\\\\projects\\\\fre...')
+#4 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\LoadConfiguration.php(39): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Config\\Repository))
+#5 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(237): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->bootstrap(Object(Illuminate\\Foundation\\Application))
+#6 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#7 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#8 E:\\projects\\freelance\\developer-test-vue-main\\developer-test-vue-main\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 {main}
+"} 
