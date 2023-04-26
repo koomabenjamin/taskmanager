@@ -37,7 +37,7 @@ export default function useProjects(){
     //Update Project 
     const updateProject = async (id) => {
         try {
-          await axios.put("projects/" + id, project.value);
+          await axios.put("projects/"+id, project.value);
           await router.push({name: "projectindex"});
         } catch(error){
             if(error.response.status === 422){

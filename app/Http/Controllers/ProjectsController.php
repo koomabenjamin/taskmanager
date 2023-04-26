@@ -55,7 +55,6 @@ class ProjectsController extends Controller
      */
     public function show(Projects $project)
     {
-        //return $project;
         return new ProjectResource($project);
     }
 

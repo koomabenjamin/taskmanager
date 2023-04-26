@@ -8,10 +8,11 @@ import { onMounted } from 'vue';
 <template>
   <div class="mt-12 mr-12 w-full">
   <div class="flex justify-end m-2 p-2">
-     <RouterLink :to="{name: 'taskcreate'}" class="inline-flex px-4 py-2 dark:bg-gray-800 dark:hover:bg-gray-700 text-white rounded">
-     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 mt-2" fill="currentColor" viewBox="0 0 20 20">
-    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-    </svg>Add Task</RouterLink>
+     <RouterLink :to="{name: 'taskcreate'}" class="inline-flex px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+</svg>
+Add Task</RouterLink>
   </div>
     
 <div class="relative overflow-x-auto">
@@ -41,8 +42,9 @@ import { onMounted } from 'vue';
                 <td class="px-6 py-4">{{ task.project_id }}</td>
                 <td class="px-6 py-4">{{ task.category }}</td>
                 <td class="px-6 py-4">{{ task.priority_level }}</td>
-                <td class="px-6 py-4">
-                Edit / Delete
+                <td class="px-6 py-4 space-x-2">
+                    <RouterLink :to="{name: 'taskedit', params: {id: task.id}}" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</RouterLink>
+                    <button @click="deleteTask(task.id)" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Delete</button>
                 </td>
             </tr>
         </tbody>
