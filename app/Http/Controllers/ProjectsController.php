@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Projects;
 use App\Http\Requests\ProjectsValidationRequest;
+use App\Http\Resources\ProjectResource;
 
 class ProjectsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth', []);
-    }
 
     /**
      * Display a listing of the resource.
@@ -27,7 +24,7 @@ class ProjectsController extends Controller
             $projects = Projects::orderBy('name', 'ASC')->with('user')->where('name', 'LIKE', '%'.$search.'%')->Paginate(6);
         }
 
-        return view('/projects/index', ['projects' => $projects]);
+        return response()->json($projects);
     }
 
 
@@ -44,13 +41,23 @@ class ProjectsController extends Controller
         $projects = Projects::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'added_by' => auth()->user()->id
+            'added_by' => 1
         ]);
 
-        return redirect('/projects')->with('success', 'Project created successfully.');
+        return response()->json('Project created successfully.');
     }
 
-
+    /**
+     * Show the form for showing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Projects $project)
+    {
+        //return $project;
+        return new ProjectResource($project);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -80,7 +87,7 @@ class ProjectsController extends Controller
             'description' => $request->input('description')
         ]);
 
-        return redirect('/projects')->with('success', 'Project Updated successfully.');
+        return response()->json('Project Updated successfully.');
     }
 
     /**
@@ -92,6 +99,6 @@ class ProjectsController extends Controller
     public function destroy(Projects $projects)
     {
         $projects->delete();
-        return redirect('/projects')->with('success', 'Project deleted successfully.');
+        return response()->json('Project deleted successfully.');
     }
 }

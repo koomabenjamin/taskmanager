@@ -2,9 +2,8 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TasksController;
-use App\Http\Controllers\ProjectsController;
-use App\Http\Controllers\UsersController;
+
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +15,6 @@ use App\Http\Controllers\UsersController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes();
 
-Route::resource('/users', UsersController::class);
-Route::resource('/projects', ProjectsController::class);
-Route::resource('/tasks', TasksController::class);
-
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

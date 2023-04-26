@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('members');
             $table->string('tags');
             $table->string('category');
+            $table->enum('status', array('Pending', 'Progress', 'Done'))->default('Pending')->nullable();
             $table->string('priority_level');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
             $table->unsignedbigInteger('added_by');
             $table->foreign('added_by')
