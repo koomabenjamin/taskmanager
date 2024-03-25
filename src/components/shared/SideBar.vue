@@ -8,7 +8,7 @@
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
 
         <div class="space-y-4">
-            <NavList :items="navItems"/>
+            <NavList :items="navItems" />
         </div>
 
         <div class="fixed bottom-0 w-1/4 h-auto left-0 p-7 bg-lime-50 border-t border-r">
@@ -77,6 +77,4 @@ const navItems = [
 ];
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

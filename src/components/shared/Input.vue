@@ -1,6 +1,6 @@
 <template>
   <input 
-    :placeholder="props.placeholder" 
+    :placeholder="placeholder" 
     :id="props.id"
     :name="props.name"
     :type="props.type"
