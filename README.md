@@ -1,4 +1,4 @@
-# Vue Developer Test
+# Vue Fullstack Developer Test
 
 ## Tools
 - Vue 3
@@ -13,17 +13,25 @@
 - headlessui
 
 ## You are tasked with building a SPA with the following capabilities 
+
+### FRONTEND TASKS
 - Set a vue application build the main component using the options API and sub-components with composition API.
-- The SPA must include properly functioning store and well documented actions, state, getters and mutators
-- Replicate the same functionality using pinia and show if the stores can be interchanged.
+- The SPA must include properly functioning pinia store and well documented actions, state and getters.
 - Integrate the vue-router for as the base router.
 - Core JS datastructures that should used Objects and (Sets or Maps or Arrays or ALL).
 - Endeavor to utilize composables in your composition components.
 - Place all your work on branch and not in the main branch.
 - Create a Pull Request to merge into the main branch.
-- Write both unit-test and E2E tests
-- Should be responsive to the mobile view.
+- Write both two tests for any two of the composables that you have included as well as two for any two components.
+- The User interface should be responsive to the mobile view.
 - Refrain from using other packages other than the one that have been outlined.
+- Persist the data to a backend.
+
+### BACKEND TASKS
+- Setup a fully authenticated and authorizable backend in laravel.
+- Setup the needed services, controllers, models, migrations etc...
+- Setup your preferred packages.
+- Write 5 unit-tests to test the developed functionality.
 
 ## APP
 ![Screenshot 2022-11-23 at 10 26 19](https://user-images.githubusercontent.com/4547171/203491833-5929f833-120a-4782-bc6a-cbe82074d5ff.png)
@@ -42,4 +50,4 @@ The application is a task management tool whose main aim is creating, scheduling
 
 ## UPDATE == Use a JSON based backend or localStorage or sessionStorage or indexDB ==
 
-## DEADLINE: 30-11-2022 EOD
+## DEADLINE: 28-06-2024 EOD
