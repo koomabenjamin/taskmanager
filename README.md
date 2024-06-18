@@ -50,4 +50,4 @@ The application is a task management tool whose main aim is creating, scheduling
 
 ## UPDATE == Use a JSON based backend or localStorage or sessionStorage or indexDB ==
 
-## DEADLINE: 28-06-2024 EOD
+## DEADLINE: 27-06-2024 EOD
