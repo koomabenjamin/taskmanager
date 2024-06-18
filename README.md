@@ -22,7 +22,7 @@
 - Endeavor to utilize composables in your composition components.
 - Place all your work on branch and not in the main branch.
 - Create a Pull Request to merge into the main branch.
-- Write both two tests for any two of the composables that you have included as well as two for any two components.
+- Write both two tests for any two composables created and two for any two components.
 - The User interface should be responsive to the mobile view.
 - Refrain from using other packages other than the one that have been outlined.
 - Persist the data to a backend.
