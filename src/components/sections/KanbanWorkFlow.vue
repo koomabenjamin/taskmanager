@@ -25,11 +25,17 @@
   </div>
 
   <div class="w-full h-full flex overflow-auto">
-    <div class="w-1/4 border-r flex-shrink-0 text-xs overflow-auto" v-for="column in columns" :key="column">
+    <!-- <div class="w-1/3 border-r flex-shrink-0 text-xs overflow-auto">
+    sddddsdddsd
+    </div> -->
+   
+    <div class="w-1/3 border-r flex-shrink-0 text-xs overflow-auto" v-for="column in columns" :key="column">
       <!-- <Card draggable="true" @dragstart="hide(`card-${column}`)" :id="`card-${column}`" v-for="card in cards.filter((el) => el.status === column)" /> -->
+        <h5>HEADING</h5>
       <div class="m-2 p-5 bg-white rounded-lg h-auto border shadow" draggable="true" @dragstart="changeStatus(card.id)"
         :id="card.id" v-for="card in cards.filter((el) => el.status === column)" :key="card">
         <div class="flex items-center justify-between">
+         
           <div class="flex -space-x-4">
             <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black" v-for="member in card.members"
               :key="member"></div>
