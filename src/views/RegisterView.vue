@@ -2,7 +2,7 @@
 <div class="min-h-screen flex items-center justify-center  bg-lime-50 bg-opacity-50">
     <div class="max-w-md w-full space-y-8 p-6 bg-lime-100 bg-opacity-50 rounded-lg shadow-md">
         <div class="text-center">
-            <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+            <!-- <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"> -->
             <h2 class="mt-6 text-center text-2xl font-bold text-gray-900">Account Sign Up</h2>
         </div>
         <form class="mt-8 space-y-6" @submit.prevent="submitRegisterData">
@@ -60,7 +60,7 @@ const confirmpassword = ref('')
 const router = useRouter()
 
 const submitRegisterData = async () => {
-  const authStore = useAuthStore()
+    const authStore = useAuthStore()
     console.log("Name: ", name.value)
     console.log("Email: ", email.value)
     console.log("Password: ", password.value)

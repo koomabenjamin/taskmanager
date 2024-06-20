@@ -17,7 +17,7 @@
                     </div>
                     <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
                     <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg" />
-                    <Button icon="PowerIcon" @click.prevent="showLogout" color="bg-black" text-color="text-white" size="lg" class="space-x-0" v-tooltip.left="{ text: 'Click to Logout Now' }" />
+                    <Button icon="PowerIcon" @click.prevent="showLogout" color="bg-black" text-color="text-white" size="lg" class="space-x-0 logout-btn" v-tooltip.left="{ text: 'Click to Logout Now' }" />
                 </div>
             </div>
 
@@ -96,7 +96,6 @@ const userLogout = () => {
     authStore.logout();
     //Redirect to login
     router.push('/login')
-
 }
 const showLogout = () => {
     Swal.fire({
@@ -153,5 +152,10 @@ progress[value]::-webkit-progress-value {
 
     border-radius: 2px;
     background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.logout-btn > * + * {
+  margin-left: 0rem !important; 
+  /* margin-right: 0rem;  */
 }
 </style>
