@@ -47,7 +47,7 @@
 </div>
 </template>
 
-<script>
+<script setup>
 import {
     ref,
     onMounted,
@@ -94,7 +94,6 @@ const router = useRouter()
 
 const userLogout = () => {
     authStore.logout();
-
     //Redirect to login
     router.push('/login')
 
@@ -133,7 +132,6 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    // Clear interval on component unmount
     clearInterval(intervalId);
 });
 </script>

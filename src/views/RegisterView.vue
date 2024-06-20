@@ -44,17 +44,11 @@
 </div>
 </template>
 
-<script>
-import {
-    ref
-} from 'vue'
+<script setup>
+import { ref } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2';
-import {
-    useAuthStore
-} from '@/stores/auth'
-import {
-    useRouter
-} from 'vue-router'
+import {useAuthStore} from '@/stores/auth'
+import { useRouter } from 'vue-router'
 import Button from '../components/shared/Button.vue'
 import InputForm from '../components/shared/Input.vue'
 
@@ -62,10 +56,11 @@ const name = ref('')
 const email = ref('')
 const password = ref('')
 const confirmpassword = ref('')
-const authStore = useAuthStore()
+
 const router = useRouter()
 
 const submitRegisterData = async () => {
+  const authStore = useAuthStore()
     console.log("Name: ", name.value)
     console.log("Email: ", email.value)
     console.log("Password: ", password.value)

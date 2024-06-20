@@ -10,10 +10,25 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import './assets/main.css'
 import './assets/tooltip.css'
 
-const app = createApp(App)
-app.directive('tooltip', TooltipDirective )
-app.use(createPinia())
-app.use(router)
-app.use(VueSweetalert2);
 
-app.mount('#app')
+const app = createApp(App);
+
+
+
+// Use Pinia for state management
+const pinia = createPinia();
+app.use(pinia);
+
+app.use(router);
+app.use(VueSweetalert2);
+app.directive('tooltip', TooltipDirective);
+app.mount('#app');
+
+
+// const app = createApp(App)
+// app.directive('tooltip', TooltipDirective )
+// app.use(createPinia())
+// app.use(router)
+// app.use(VueSweetalert2);
+
+// app.mount('#app')
