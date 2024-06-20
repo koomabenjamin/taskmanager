@@ -5,7 +5,7 @@
         <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
         <h2 class="mt-6 text-center text-2xl font-bold text-gray-900">Account Sign Up</h2>
       </div>
-      <form class="mt-8 space-y-6" @submit.prevent="submitLoginData">
+      <form class="mt-8 space-y-6" @submit.prevent="submitRegisterData">
         <div class="rounded-md shadow-sm space-y-4">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-900">Name:</label>
@@ -46,6 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import Swal from 'sweetalert2/dist/sweetalert2';
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import Button from '../components/shared/Button.vue'
@@ -58,17 +59,36 @@ const confirmpassword = ref('')
 const authStore = useAuthStore()
 const router = useRouter()
 
-const submitLoginData = async () => {
+const submitRegisterData = async () => {
   console.log("Name: ", name.value)
   console.log("Email: ", email.value)
   console.log("Password: ", password.value)
   console.log("Confirm Password: ", confirmpassword.value)
-  // try {
-  //   await authStore.register(name.value, email.value, password.value, confirmpassword.value)
-  //   router.push('/')
-  // } catch (error) {
-  //   alert('Sign Up failed')
-  // }
+
+
+  if (password.value !== confirmpassword.value) {
+    Swal.fire({
+                    position: 'bottom-end',
+                    toast: true,
+                    text: 'The two passwords do not match',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#fff',
+                })
+                .then((result) => {
+
+                });
+    return;
+  }
+
+
+  try {
+    await authStore.register(name.value, email.value, password.value)
+    router.push('/login')
+  } catch (error) {
+    alert('Sign Up failed')
+  }
 }
 
 const goToLogin = () => {

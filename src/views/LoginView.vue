@@ -47,10 +47,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import Swal from 'sweetalert2/dist/sweetalert2';
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import Button from '../components/shared/Button.vue'
 import InputForm from '../components/shared/Input.vue'
+
 
 const email = ref('')
 const password = ref('')
@@ -64,11 +66,37 @@ const submitLoginData = async () => {
   console.log("Password: ", password.value)
 
 
+  
+
+
   try {
     await authStore.login(email.value, password.value)
     router.push('/')
   } catch (error) {
-    alert('Login failed')
+
+    console.log("BAckEND ERROR: ", error)
+    let errorMessage = 'An error occurred during login. Please try again.';
+  if (error) {
+    errorMessage = error;
+  }
+  
+
+    Swal.fire({
+                    position: 'bottom-end',
+                    toast: true,
+                    icon: 'error',
+                    title: 'An Error Occured',
+                    text: errorMessage,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#fff',
+                
+                })
+                .then((result) => {
+
+                });
+
   } finally {
     isLoading.value = false
   }

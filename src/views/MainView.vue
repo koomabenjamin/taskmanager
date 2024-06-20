@@ -104,7 +104,6 @@ router.push('/login')
 const showLogout = () => {
   Swal.fire({
   title: "Logout",
-  
   icon: "question",
   text: "Would you like to logout now?",
   showDenyButton: true,
