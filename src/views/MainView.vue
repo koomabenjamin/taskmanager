@@ -16,7 +16,8 @@
               </div>
             </div>
             <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
-            <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg" />
+            <Button label="Add new task" icon="PlusIcon" @click.prevent="userLogout" color="bg-black" text-color="text-white" size="lg"/>
+            <Button  icon="PowerIcon" @click.prevent="userLogout" color="bg-black" text-color="text-white" size="lg" class="space-x-0" v-tooltip.left="{ text: 'Click to Logout Now' }" />
           </div>
         </div>
 
@@ -57,7 +58,9 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router'
 import { Switch } from '@headlessui/vue'
 import {
   ArrowsPointingInIcon,
@@ -76,14 +79,46 @@ import KanbanWorkFlow from '../components/sections/KanbanWorkFlow.vue'
 import PriorityChart from '../components/sections/PriorityChart.vue'
 import BackLog from '../components/sections/BackLog.vue'
 import Button from '../components/shared/Button.vue'
+import Modal from '../components/shared/Modal.vue'
 import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
 import Card from '../components/shared/Card.vue'
 import Calendar from '../components/shared/Calendar.vue'
 
+const authStore = useAuthStore();
 const activeTab = ref('kanban-workflow')
-
 const changeTab = (tab) => activeTab.value = tab;
+const router = useRouter()
+
+
+const userLogout = () => {
+  authStore.logout(); 
+
+//Redirect to login
+router.push('/login')
+
+}
+
+
+// Token expiry check function
+const checkIfTokenHasExpired = () => {
+  const tokenExpiry = authStore.tokenExpiry;
+  if (tokenExpiry && new Date().getTime() >= new Date(tokenExpiry).getTime()) {
+    //If Expired, log the user out
+       userLogout()
+  }
+};
+
+let intervalId;
+
+onMounted(() => {
+  intervalId = setInterval(checkIfTokenHasExpired, 60000); //Check after every 1 Minute
+});
+
+onBeforeUnmount(() => {
+  // Clear interval on component unmount
+  clearInterval(intervalId);
+});
 
 </script>
 
@@ -108,3 +143,4 @@ progress[value]::-webkit-progress-value {
 }
 
 </style>
+

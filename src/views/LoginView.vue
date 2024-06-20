@@ -1,6 +1,8 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-black bg-opacity-50">
-    <div class="max-w-md w-full space-y-8 p-6 bg-white rounded-lg shadow-md">
+  <div class="min-h-screen flex items-center justify-center  bg-lime-50 bg-opacity-50">
+    <div class="max-w-md w-full space-y-8 p-6 bg-lime-100 bg-opacity-50 rounded-lg shadow-md">
+  <!-- <div class="min-h-screen flex items-center justify-center bg-black bg-opacity-50">
+    <div class="max-w-md w-full space-y-8 p-6 bg-white rounded-lg shadow-md"> -->
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
         <h2 class="mt-6 text-center text-2xl font-bold text-gray-900">Account Login</h2>
