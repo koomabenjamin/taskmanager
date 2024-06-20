@@ -1,12 +1,22 @@
 <template>
-<div class="fixed z-10 w-screen h-screen bg-black bg-opacity-50">
-
-</div>
-</template>
-<script setup>
-
-</script>
-
-<style scoped>
-
-</style>
+    <div>
+      <form @submit.prevent="submitForm">
+        <label for="name">Member Name</label>
+        <input type="text" id="name" v-model="name" required>
+        <button type="submit">Add Member</button>
+      </form>
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue'
+  import axios from 'axios'
+  
+  const name = ref('')
+  
+  const submitForm = async () => {
+    await axios.post('/api/members', { name: name.value })
+    name.value = ''
+  }
+  </script>
+  
