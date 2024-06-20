@@ -16,8 +16,8 @@
               </div>
             </div>
             <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
-            <Button label="Add new task" icon="PlusIcon" @click.prevent="userLogout" color="bg-black" text-color="text-white" size="lg"/>
-            <Button  icon="PowerIcon" @click.prevent="userLogout" color="bg-black" text-color="text-white" size="lg" class="space-x-0" v-tooltip.left="{ text: 'Click to Logout Now' }" />
+            <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg"/>
+            <Button  icon="PowerIcon" @click.prevent="showLogout" color="bg-black" text-color="text-white" size="lg" class="space-x-0" v-tooltip.left="{ text: 'Click to Logout Now' }" />
           </div>
         </div>
 
@@ -62,6 +62,9 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router'
 import { Switch } from '@headlessui/vue'
+import Swal from 'sweetalert2/dist/sweetalert2';
+
+
 import {
   ArrowsPointingInIcon,
   ChartBarIcon,
@@ -98,6 +101,26 @@ const userLogout = () => {
 router.push('/login')
 
 }
+const showLogout = () => {
+  Swal.fire({
+  title: "Logout",
+  
+  icon: "question",
+  text: "Would you like to logout now?",
+  showDenyButton: true,
+  reverseButtons: true,
+  confirmButtonText: "Yes, Proceed",
+  denyButtonText: `No, Cancel`
+  
+}).then((result) => {
+  if (result.isConfirmed) {
+    userLogout()
+  } else if (result.isDenied) {
+  }
+});
+
+  }
+
 
 
 // Token expiry check function
