@@ -26,7 +26,11 @@
         </div>
 
         <div>
-          <Button type="submit" label="Sign In" class="flex w-full justify-center bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" />
+
+          <Button :disabled="isLoading" type="submit" label="Sign In" class="flex w-full justify-center bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <span><i v-if="isLoading" class="fa fa-spinner fa-spin"></i></span>
+            </Button>
+          <!-- <Button type="submit" label="Sign In" class="flex w-full justify-center bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" /> -->
         </div>
 
         <p class="text-center text-sm text-gray-600">
@@ -50,18 +54,30 @@ import InputForm from '../components/shared/Input.vue'
 
 const email = ref('')
 const password = ref('')
+const isLoading = ref(false)
 const authStore = useAuthStore()
 const router = useRouter()
 
 const submitLoginData = async () => {
+  isLoading.value = true
   console.log("Email: ", email.value)
   console.log("Password: ", password.value)
+
+
   try {
     await authStore.login(email.value, password.value)
     router.push('/')
   } catch (error) {
-    alert('User Login failed')
+    alert('Login failed')
+  } finally {
+    isLoading.value = false
   }
+  // try {
+  //   await authStore.login(email.value, password.value)
+  //   router.push('/')
+  // } catch (error) {
+  //   alert('User Login failed')
+  // }
 }
 
 const goToRegister = () => {
