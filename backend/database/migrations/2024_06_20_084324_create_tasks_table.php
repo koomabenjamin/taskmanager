@@ -17,11 +17,12 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('priority_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->string('status')->default('todo');
-            $table->date('due_date')->nullable();
+            $table->enum('priority', ['High', 'Medium', 'Low', 'Critical', 'Urgent'])->default('Low');
+            $table->enum('category', ['Technology', 'Healthcare', 'Education', 'Finance', 'Entertainment', 'Infrastructure'])->default('Finance');
+            $table->enum('status', ['todo', 'in_progress', 'done'])->default('todo');
+            $table->date('implementation_date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
