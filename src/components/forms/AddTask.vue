@@ -52,7 +52,7 @@
   })
   
   const submitForm = async () => {
-    await axios.post('/api/tasks', {
+    await axios.post('/api/v1/tasks', {
       name: name.value,
       project: project.value,
       members: members.value,
