@@ -27,7 +27,8 @@
     <div v-if="item.subList.length > 0 && subListsOpen.includes(item.label)" class="pl-10 space-y-4">
       <div v-for="item in item.subList" :key="item">
         <div :class="{'bg-yellow-300': item.name === 'Statra Insurance'}" class="flex items-center space-x-2 cursor-pointer p-1 rounded">
-          <span :class="`h-3 w-3 ${item.color} rounded-full`"></span>
+          <!-- <span :class="`h-3 w-3 ${item.color} rounded-full`"></span> -->
+          <span  :style="{ backgroundColor: item.color }" :class="`h-3 w-3 rounded-full`" ></span>
           <span class="text-sm">{{ item.name }}</span>
         </div>
       </div>

@@ -47,9 +47,9 @@ const navItems = [
     {
         label: 'Task List', name: 'task', icon: 'ClipboardDocumentListIcon', subList: [
             { name: 'Meridian', color: 'bg-rose-600' },
-            { name: 'Risen', color: 'bg-blue-600' },
+            { name: 'Risen', color: '#60FB24' },
             { name: 'SkillBox', color: 'bg-yellow-400' },
-            { name: 'Statra Insurance', color: 'bg-green-600' },
+            { name: 'Statra Insurance', color: '#f5f3ff' },
         ]
     },
     {
