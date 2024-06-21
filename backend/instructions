@@ -1,0 +1,13 @@
+cd into the base dir
+
+run
+npm install
+npm run dev
+
+cd backend
+run
+
+php artisan migrate
+php artisan db:seed
+php artisan serve
+
