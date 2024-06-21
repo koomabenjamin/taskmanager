@@ -9,23 +9,55 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return Task::with(['project', 'user', 'priority', 'category'])->get();
+        return Task::with('project', 'user')->get();
     }
 
     public function store(Request $request)
     {
-        $task = Task::create($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'description' => 'nullable|string|max:25',
+            'project_id' => 'required|exists:projects,id',
+            'user_id' => 'required|exists:users,id',
+            'priority' => 'required|in:High,Medium,Low,Critical,Urgent',
+            'category' => 'required|in:Technology,Healthcare,Education,Finance,Entertainment,Infrastructure',
+            'status' => 'required|in:todo,in_progress,done',
+            'implementation_date' => 'required|date',
+        ]);
+
+        $task = Task::create([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'project_id' => $validatedData['project_id'],
+            'user_id' => $validatedData['user_id'],
+            'priority' => $validatedData['priority'],
+            'category' => $validatedData['category'],
+            'status' => $validatedData['status'],
+            'implementation_date' => $validatedData['implementation_date'],
+        ]);
+
         return response()->json($task, 201);
     }
 
     public function show(Task $task)
     {
-        return $task->load(['project', 'user', 'priority', 'category']);
+        return $task->load('project', 'user');
     }
 
     public function update(Request $request, Task $task)
     {
-        $task->update($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'description' => 'nullable|string|max:25',
+            'project_id' => 'required|exists:projects,id',
+            'user_id' => 'required|exists:users,id',
+            'priority' => 'required|in:High,Medium,Low,Critical,Urgent',
+            'category' => 'required|in:Technology,Healthcare,Education,Finance,Entertainment,Infrastructure',
+            'status' => 'required|in:todo,in_progress,done',
+            'implementation_date' => 'required|date',
+        ]);
+
+        $task->update($validatedData);
         return response()->json($task, 200);
     }
 
@@ -33,5 +65,11 @@ class TaskController extends Controller
     {
         $task->delete();
         return response()->json(null, 204);
+    }
+
+    // Method to fetch soft-deleted tasks
+    public function trashed()
+    {
+        return Task::onlyTrashed()->get();
     }
 }
