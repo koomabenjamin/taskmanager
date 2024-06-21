@@ -12,19 +12,13 @@ export const useTaskStore = defineStore('taskStore', {
   
   actions: {
     async fetchTasks() {
-      this.tasks = (await axios.get('/api/tasks')).data
+      this.tasks = (await axios.get('/api/v1/tasks')).data
     },
     async fetchProjects() {
-      this.projects = (await axios.get('/api/projects')).data
+      this.projects = (await axios.get('/api/v1/projects')).data
     },
     async fetchMembers() {
       this.members = (await axios.get('/api/members')).data
     },
-    async fetchPriorities() {
-      this.priorities = (await axios.get('/api/priorities')).data
-    },
-    async fetchCategories() {
-      this.categories = (await axios.get('/api/categories')).data
-    }
   }
 })
