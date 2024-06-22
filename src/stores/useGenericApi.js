@@ -4,7 +4,7 @@
 
 const token = localStorage.getItem('authToken');
 
-console.log("TOKEN: ", token)
+// console.log("TOKEN: ", token)
 
 if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -15,7 +15,7 @@ const headers = {
   'Authorization': `Bearer ${token}`
 }
 
-export function useProjectApi() {
+export function useGenericApi() {
 
   const fetchData = async (endpoint) => {
     

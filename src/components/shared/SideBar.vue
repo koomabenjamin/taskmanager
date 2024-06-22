@@ -51,11 +51,12 @@ import Fab from './Fab.vue'
 import Tag from './Tag.vue'
 import Card from './Card.vue'
 import NavList from './NavItems.vue'
-import { useProjectApi } from '@/stores/useProjectApi'; 
+import { useGenericApi } from '@/stores/useGenericApi'; 
 import { API_URLS } from '@/apis';
 import axiosInstance from '@/axios';
 
 const allProjects = ref(); 
+const allTags = ref();
 // const allProjects = reactive({ value: [] })
 
 const navItems = [
@@ -93,12 +94,25 @@ const navItems = [
 ];
 
 
-const fetchData = async () => {
+const fetchAllProjectsData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_PROJECTS);
     const res =  response.data.results[0]; 
      allProjects.value = res;
      updateProjectsInNavItems();
+    // console.log('Data:', allProjects.value);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+
+const fetchAllTagsData = async () => {
+  try {
+    const response = await axiosInstance.get(API_URLS.LIST_ALL_TAGS);
+    const res =  response.data.results[0]; 
+     allTags.value = res;
+     updateTagsInNavItems();
     // console.log('Data:', allProjects.value);
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -115,8 +129,20 @@ const updateProjectsInNavItems = () => {
   }
 };
 
+
+const updateTagsInNavItems = () => {
+  const tagsNavItem = navItems.find(item => item.label === 'Tags');
+  if (tagsNavItem) {
+    tagsNavItem.subList = allTags.value.map(tag => ({
+      name: tag.tag_name,
+      color: tag.tag_color
+    }));
+  }
+};
+
 onMounted(() => {
-  fetchData();
+  fetchAllProjectsData();
+  fetchAllTagsData();
 });
 </script>
 
