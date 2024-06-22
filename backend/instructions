@@ -1,13 +1,33 @@
-cd into the base dir
+# cd into the base dir
 
-run
+# run
 npm install
 npm run dev
 
 cd backend
-run
+# run
 
+composer install
+composer update
+# to install composer packages that the backend is dependent on
+
+# then time for the migrations
+
+# make a copy .env.example and rename it to .env
+# make sure you have a mysql db with the corresponding name inside your new .env file
+# or uncomment the sqlite db config that wil work on the fly
+
+# next, run migrations, seed your db with the sample model factories and then artisan serve the app
 php artisan migrate
 php artisan db:seed
 php artisan serve
+
+# to test the available backend unit tests within this SPA,
+# run
+php vendor\bin\phpunit --filter TaskControllerTest
+php vendor\bin\phpunit --filter ProjectControllerTest
+
+
+
+
 
