@@ -12,21 +12,14 @@ class ProjectFactory extends Factory
     public function definition()
     {
         $projectNames = [
-            'Data Analysis',
-            'Mobile App',
-            'Cloud Computing',
-            'Marketing Strategy',
-            'Financial Planning',
-            'Customer Service',
-            'Product Development',
-            'Environmental Sustainability',
-            'Educational Platform',
-            'Infrastructure Upgrade',
+            'Meridian',
+            'Risen',
+            'Skillex',
+            'Statra Insurance'
         ];
 
         return [
             'name' => $this->faker->randomElement($projectNames),
-            'description' => $this->faker->text(25),
         ];
     }
 }

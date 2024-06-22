@@ -22,7 +22,7 @@ class TaskFactory extends Factory
         return [
             'name' => $this->faker->randomElement($taskNames),
             'description' => $this->faker->text(25),
-            'project_id' => $this->faker->numberBetween(1, 5),
+            'project_id' => $this->faker->numberBetween(1, 4),
             'user_id' => $this->faker->numberBetween(1, 10),
             'priority' => $this->faker->randomElement(['High', 'Medium', 'Low', 'Critical', 'Urgent']),
             'category' => $this->faker->randomElement(['Technology', 'Healthcare', 'Education', 'Finance', 'Entertainment', 'Infrastructure']),
