@@ -58,7 +58,7 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive,onMounted } from 'vue'
 import { Switch } from '@headlessui/vue'
 import {
   ArrowsPointingInIcon,
@@ -79,7 +79,15 @@ import Tag from '../shared/Tag.vue'
 import Card from '../shared/Card.vue'
 import Calendar from '../shared/Calendar.vue'
 
+// import { useProjectApi } from '@/stores/useProjectApi'; 
+// import { API_URLS } from '@/apis';
+import axiosInstance from '@/axios';
+
 const enabled = ref(false)
+const data = ref(null);
+// const allProjects = ref([]); 
+
+// const { fetchData } = useProjectApi();
 
 const searchCard = (e) => {
   // console.log(e.target.value)
@@ -109,6 +117,15 @@ const changeStatus = (id) => {
     document.getElementById(id).style.display = 'none';
   }, 0)
 }
+
+
+
+
+onMounted(() => {
+  // fetchData();
+});
+
+
 </script>
 
 <style scoped></style>

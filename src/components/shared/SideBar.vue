@@ -15,6 +15,7 @@
             <div class="flex items-center space-x-2 font-bold">
                 <WalletIcon class="h-6 stroke-2" />
                 <span class="text-sm">Free plan</span>
+                 <!-- {{allProjects}} -->
             </div>
             <div class="flex items-center justify-between space-x-2 text-xs mt-4">
                 <span class="font-bold">Projects</span>
@@ -28,11 +29,20 @@
                 <span class="text-slate-500">Unlimited</span>
             </div>
         </div>
+
+                       <!-- <ul>
+      <li v-for="project in allProjects" :key="project.id">
+        <h2>{{ project.project_name }}</h2>
+        <p>Color: <span :style="{color: project.project_color}">{{ project.project_color }}</span></p>
+        <p>Created at: {{ project.created_at }}</p>
+        <p>Updated at: {{ project.updated_at }}</p>
+      </li>
+    </ul> -->
     </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive,onMounted } from 'vue'
 import {
     WalletIcon,
 } from '@heroicons/vue/24/outline'
@@ -41,6 +51,12 @@ import Fab from './Fab.vue'
 import Tag from './Tag.vue'
 import Card from './Card.vue'
 import NavList from './NavItems.vue'
+import { useProjectApi } from '@/stores/useProjectApi'; 
+import { API_URLS } from '@/apis';
+import axiosInstance from '@/axios';
+
+const allProjects = ref(); 
+// const allProjects = reactive({ value: [] })
 
 const navItems = [
     { label: 'Plan', icon: 'CalendarIcon', subList: [] },
@@ -75,6 +91,33 @@ const navItems = [
         ]
     },
 ];
+
+
+const fetchData = async () => {
+  try {
+    const response = await axiosInstance.get(API_URLS.LIST_ALL_PROJECTS);
+    const res =  response.data.results[0]; 
+     allProjects.value = res;
+     updateProjectsInNavItems();
+    // console.log('Data:', allProjects.value);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+const updateProjectsInNavItems = () => {
+  const projectsNavItem = navItems.find(item => item.label === 'Projects');
+  if (projectsNavItem) {
+    projectsNavItem.subList = allProjects.value.map(project => ({
+      name: project.project_name,
+      color: project.project_color
+    }));
+  }
+};
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style scoped></style>
