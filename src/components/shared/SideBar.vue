@@ -1,9 +1,5 @@
 <template>
     <div class="w-1/4 border-r h-full px-7 pt-7 pb-44 flex flex-col space-y-5 overflow-auto">
-        <!-- 
-      <Fab label="Add new task" icon="PlusIcon" />
-      <Tag label="Add new task" icon="PlusIcon" />
-      <Card/> -->
         <div class="font-bold text-lg">Task Master</div>
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
 
