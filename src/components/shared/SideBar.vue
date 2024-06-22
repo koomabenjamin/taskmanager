@@ -4,7 +4,7 @@
       <Fab label="Add new task" icon="PlusIcon" />
       <Tag label="Add new task" icon="PlusIcon" />
       <Card/> -->
-        <div class="font-bold text-lg">Task Master</div>
+        <div class="font-bold text-lg pb-20">Task Master</div>
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
 
         <div class="space-y-4">
