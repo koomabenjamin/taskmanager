@@ -4,7 +4,11 @@
       <Fab label="Add new task" icon="PlusIcon" />
       <Tag label="Add new task" icon="PlusIcon" />
       <Card/> -->
-        <div class="font-bold text-lg pb-20">Task Master</div>
+      <div class="flex items-center space-x-4 pb-20">
+        <UsersIcon class="h-6 w-6 text-black" />
+        <div class="font-bold text-lg">Flows list</div>
+      </div>
+      
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
 
         <div class="space-y-4">
@@ -35,6 +39,7 @@
 import { ref, reactive } from 'vue'
 import {
     WalletIcon,
+    UsersIcon,
 } from '@heroicons/vue/24/outline'
 import Button from './Button.vue'
 import Fab from './Fab.vue'

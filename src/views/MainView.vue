@@ -13,7 +13,7 @@
               +8
             </div>
           </div>
-          <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
+          <Button class="font-bold" label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
           <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg" />
         </div>
       </div>

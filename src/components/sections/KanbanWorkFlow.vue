@@ -1,26 +1,28 @@
 <template>
-  <div class="flex flex-col min-h-screen overflow-hidden border-b">
+  <div class="flex flex-col min-h-screen overflow-hidden">
     <!-- Header Section -->
-    <div class="w-full h-20 flex items-center justify-between px-4">
-      <div class="flex space-x-4 items-center">
-        <MagnifyingGlassIcon class="w-5 h-5" />
-        <Input placeholder="Search for something" class="border-none" />
+      <div class="w-full flex space-x-10 px-4 font-bold flex-shrink-0 border-b">
+          <div class="w-full h-20 flex items-center justify-between px-4">
+            <div class="flex space-x-4 items-center">
+              <MagnifyingGlassIcon class="w-5 h-5" />
+              <Input placeholder="Search for something" class="border-none" />
+            </div>
+            <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-2 relative text-sm">
+                <Switch v-model="enabled" :class="enabled ? 'bg-lime-400' : 'bg-black'"
+                  class="relative inline-flex h-[30px] w-[55px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                  <span class="sr-only">Use setting</span>
+                  <span aria-hidden="true" :class="enabled ? 'translate-x-[25px]' : 'translate-x-0'"
+                    class="pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
+                </Switch>
+                <span>Select Timeframe</span>
+                <ChevronUpIcon class="w-4" />
+                <Calendar v-if="enabled" />
+              </div>
+              <Button label="Share" icon="ArrowUpOnSquareIcon" textColor="text-black" size="md" />
+            </div>
+          </div>
       </div>
-      <div class="flex items-center space-x-2">
-        <div class="flex items-center space-x-2 relative text-sm">
-          <Switch v-model="enabled" :class="enabled ? 'bg-lime-400' : 'bg-black'"
-            class="relative inline-flex h-[30px] w-[55px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <span class="sr-only">Use setting</span>
-            <span aria-hidden="true" :class="enabled ? 'translate-x-[25px]' : 'translate-x-0'"
-              class="pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
-          </Switch>
-          <span>Select Timeframe</span>
-          <ChevronUpIcon class="w-4" />
-          <Calendar v-if="enabled" />
-        </div>
-        <Button label="Share" icon="ShareIcon" color="bg-transparent text-black" size="md" />
-      </div>
-    </div>
 
     <!-- Main Content Section -->
     <div class="flex-grow w-full h-full flex overflow-x-auto space-x-4 px-4 py-2">
@@ -65,6 +67,7 @@
 import { ref } from 'vue';
 import { Switch } from '@headlessui/vue';
 import {
+  ArrowUpOnSquareIcon,
   MagnifyingGlassIcon,
   ChevronUpIcon,
   CalendarIcon,
