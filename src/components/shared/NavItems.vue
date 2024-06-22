@@ -33,17 +33,108 @@
     <template v-slot:heading>Add {{ upper(selectedForm) }}</template>
     <template v-slot:form>
         <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'task'">
-            <Input placeholder="Title" class="col-span-2" />
-            <Input placeholder="Start Date" type="date" />
-            <Input placeholder="End Date" type="date" />
-            <Input placeholder="Priority" class="col-span-2" />
-            <TextArea rows="5" placeholder="Description" class="col-span-2" />
-            <TextArea rows="5" placeholder="Members" class="col-span-2" />
+          
+         
+           <label for="task_name" class="block text-sm font-medium text-gray-900">Task Name:</label>
+            <Input placeholder="Task Name" class="col-span-2" />
+            
+<TextArea rows="5" placeholder="Description" class="col-span-2" />
+            <div>
+            <label for="task_start_date" class="block text-sm font-medium text-gray-900">Start Date:</label>
+           <Input placeholder="Start Date" type="date" />
+            </div>
+
+             <div>
+              <label for="task_end_date" class="block text-sm font-medium text-gray-900">End Date:</label>
+           <Input placeholder="End Date" type="date" />
+            </div>
+
+
+            
+            <div class="space-y-4">
+  <div>
+    <label for="task_priority" class="block text-sm font-medium text-gray-900">
+      Priority:
+    </label>
+    <CustomSelect 
+      placeholder="Select person"
+      v-model="selectedPerson"
+      :options="people"
+    ></CustomSelect>
+  </div>
+
+  <div>
+    <label for="task_status" class="block text-sm font-medium text-gray-900">
+      Task Status:
+    </label>
+    <CustomSelect 
+      placeholder="Select person"
+      v-model="selectedPerson"
+      :options="people"
+    ></CustomSelect>
+  </div>
+
+  <div>
+    <label for="task_members" class="block text-sm font-medium text-gray-900">
+      Members:
+    </label>
+    <CustomSelect 
+      placeholder="Select person"
+      v-model="form.role_ids"
+      :options="people"
+      multiple
+    ></CustomSelect>
+  </div>
+</div>
+
+
+
+<!--             
+            <label for="task_priority" class="block text-sm font-medium text-gray-900">Priority:</label>
+            <CustomSelect 
+             placeholder="Select person"
+        v-model="selectedPerson"
+        :options="people"
+
+            
+             ></CustomSelect>
+            
+           
+
+           
+
+             
+            <label for="task_priority" class="block text-sm font-medium text-gray-900">Task Status:</label>
+            <CustomSelect 
+             placeholder="Select person"
+        v-model="selectedPerson"
+        :options="people"
+
+            
+             ></CustomSelect>
+         
+
+        
+            <label for="task_priority" class="block text-sm font-medium text-gray-900">Members:</label>
+            <CustomSelect 
+             placeholder="Select person"
+        v-model="form.role_ids"
+        :options="people"
+        multiple
+
+            
+             ></CustomSelect> -->
+         
+
+
+            
+            <!-- <TextArea rows="5" placeholder="Members" class="col-span-2" /> -->
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
       </form>
 
 
       <form  @submit.prevent="submitTagForm" class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
+        <label for="tag_name" class="block text-sm font-medium text-gray-900">Tag Name:</label>
         <Input placeholder="Tag Name" v-model="dataName" required class="col-span-2"/>
         <div>
         <h6 class="mt-3">Pick Tag Color</h6>
@@ -74,7 +165,11 @@
          
       <form @submit.prevent="submitProjectForm" class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
 
-         <Input placeholder="Project Name" v-model="dataName" required class="col-span-2"/>
+         <!-- <Input placeholder="Project Name" v-model="dataName" required class="col-span-2"/> -->
+
+         <label for="project_name" class="block text-sm font-medium text-gray-900">Project Name:</label>
+          <Input placeholder="Project Name" v-model="dataName" required class="col-span-2"/>
+
         <div>
         <h6 class="mt-3">Pick Project Color</h6>
         <ColorPicker @color-changed="getUpdatedColor($event)"></ColorPicker>
@@ -103,6 +198,7 @@ import * as Icons from '@heroicons/vue/24/outline'
 import Modal from './ModalUpdate.vue'
 import Input from './Input.vue'
 import Button from './Button.vue'
+import CustomSelect from './CustomSelect.vue'
 import TextArea from './TextArea.vue'
 import ColorPicker from './ColorPicker.vue'
 import { useRouter } from 'vue-router'
@@ -127,6 +223,30 @@ const updateTagsInNavItems = () => {
 };
 
 
+// const people = [
+//   { name: 'Wade Cooper' },
+//   { name: 'Arlene Mccoy' },
+//   { name: 'Devon Webb' },
+//   { name: 'Tom Cook' },
+//   { name: 'Tanya Fox' },
+//   { name: 'Hellen Schmidt' },
+// ]
+
+const people = [
+  {value: 1, label: "Wade Cooper"},
+  {value: 2, label: "Arlene Mccoy"},
+  {value: 3, label: "Devon Webb"},
+  {value: 4, label: "Tom Cook"},
+  {value: 5, label: "Tanya Fox"},
+  {value: 6, label: "Hellen Schmidt"},
+];
+const selectedPerson = ref(people[0])
+
+
+const form = ref({
+  person_id: null,
+  role_ids: []
+});
 
 const props = defineProps({
     name: [String, Number],
