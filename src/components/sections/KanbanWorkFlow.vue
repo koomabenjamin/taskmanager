@@ -78,16 +78,10 @@ import Fab from '../shared/Fab.vue'
 import Tag from '../shared/Tag.vue'
 import Card from '../shared/Card.vue'
 import Calendar from '../shared/Calendar.vue'
-
-// import { useProjectApi } from '@/stores/useProjectApi'; 
-// import { API_URLS } from '@/apis';
 import axiosInstance from '@/axios';
 
 const enabled = ref(false)
 const data = ref(null);
-// const allProjects = ref([]); 
-
-// const { fetchData } = useProjectApi();
 
 const searchCard = (e) => {
   // console.log(e.target.value)
