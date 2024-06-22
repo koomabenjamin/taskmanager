@@ -29,65 +29,6 @@
 </div>
 
 
-  <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog as="div" @close="closeModal" class="relative z-10">
-      <TransitionChild
-        as="template"
-        enter="duration-300 ease-out"
-        enter-from="opacity-0"
-        enter-to="opacity-100"
-        leave="duration-200 ease-in"
-        leave-from="opacity-100"
-        leave-to="opacity-0"
-      >
-        <div class="fixed inset-0 bg-black/25" />
-      </TransitionChild>
-
-      <div class="fixed inset-0 overflow-y-auto">
-        <div
-          class="flex min-h-full items-center justify-center p-4 text-center"
-        >
-          <TransitionChild
-            as="template"
-            enter="duration-300 ease-out"
-            enter-from="opacity-0 scale-95"
-            enter-to="opacity-100 scale-100"
-            leave="duration-200 ease-in"
-            leave-from="opacity-100 scale-100"
-            leave-to="opacity-0 scale-95"
-          >
-            <DialogPanel
-              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
-            >
-              <DialogTitle
-                as="h3"
-                class="text-lg font-medium leading-6 text-gray-900"
-              >
-                Payment successful
-              </DialogTitle>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  Your payment has been successfully submitted. We’ve sent you
-                  an email with all of the details of your order.
-                </p>
-              </div>
-
-              <div class="mt-4">
-                <button
-                  type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  @click="closeModal"
-                >
-                  Got it, thanks!
-                </button>
-              </div>
-            </DialogPanel>
-          </TransitionChild>
-        </div>
-      </div>
-    </Dialog>
-  </TransitionRoot>
-
 <Modal>
     <template v-slot:heading>Add {{ upper(selectedForm) }}</template>
     <template v-slot:form>
@@ -101,13 +42,14 @@
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
       </form>
 
-      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
-        <Input placeholder="Tag Name" required="true" class="col-span-2"/>
+
+      <form  @submit.prevent="submitTagForm" class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
+        <Input placeholder="Tag Name" v-model="dataName" required class="col-span-2"/>
         <div>
         <h6 class="mt-3">Pick Tag Color</h6>
-        <ColorPicker @color-changed="console.log($event)"></ColorPicker>
+        <ColorPicker @color-changed="getUpdatedColor($event)"></ColorPicker>
         </div>
-        <Button label="Add New Tag" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+        <Button label="Add New Tag" type="submit" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
       </form>
 
       <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'member'">
@@ -128,14 +70,16 @@
         <TextArea rows="5" placeholder="Members" class="col-span-2" />
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
       </form>
-      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
-        <Input placeholder="Title" class="col-span-2"/>
-        <Input placeholder="Start Date" type="date"/>
-        <Input placeholder="End Date" type="date"/>
-        <Input placeholder="Priority" class="col-span-2"/>
-        <TextArea rows="5" placeholder="Description" class="col-span-2" />
-        <TextArea rows="5" placeholder="Members" class="col-span-2" />
-        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
+
+         
+      <form @submit.prevent="submitProjectForm" class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
+
+         <Input placeholder="Project Name" v-model="dataName" required class="col-span-2"/>
+        <div>
+        <h6 class="mt-3">Pick Project Color</h6>
+        <ColorPicker @color-changed="getUpdatedColor($event)"></ColorPicker>
+        </div>
+        <Button  type="submit" label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
       </form>
       <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'category'">
         <Input placeholder="Title" class="col-span-2"/>
@@ -161,6 +105,28 @@ import Input from './Input.vue'
 import Button from './Button.vue'
 import TextArea from './TextArea.vue'
 import ColorPicker from './ColorPicker.vue'
+import { useRouter } from 'vue-router'
+import { fetchAllProjectsData,submitProjectData, allProjects } from '@/services/projectService';
+import { fetchAllTagsData,submitTagData, allTags } from '@/services/tagService';
+
+import { useNavItemsStore } from '@/stores/navItems';
+
+import { API_URLS } from '@/apis';
+import axiosInstance from '@/axios';
+const router = useRouter()
+
+const navItemsStore = useNavItemsStore();
+const navItems = navItemsStore.navItems;
+
+const updateProjectsInNavItems = () => {
+  navItemsStore.updateProjectsInNavItems(allProjects.value);
+};
+
+const updateTagsInNavItems = () => {
+  navItemsStore.updateTagsInNavItems(allTags.value);
+};
+
+
 
 const props = defineProps({
     name: [String, Number],
@@ -171,6 +137,9 @@ const props = defineProps({
 })
 
 const subListsOpen = ref([]);
+const dataName = ref('')
+const colorName = ref('')
+
 
 const isOpen = ref(false);
 
@@ -184,6 +153,60 @@ const openCloseSublists = (subList) => {
         let indexOfList = subListsOpen.value.indexOf(subList);
         if (indexOfList !== -1) subListsOpen.value.splice(indexOfList, 1);
     }
+}
+
+
+const getUpdatedColor = (e) => {
+  colorName.value = e;
+}
+
+
+const submitProjectForm = async () => {
+  try {
+    const response = await submitProjectData(dataName.value, colorName.value);
+    // console.log("RESPONSE: ", response);
+    await fetchAllProjectsData();
+    updateProjectsInNavItems()
+
+    dataName.value = '';
+    colorName.value = '';
+    isOpen.value = false;
+
+    
+  } catch (error) {
+    let errorMessage = 'Error Occured. Please try again.';
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
+    }
+    alert(errorMessage);
+  }
+};
+
+
+
+const submitTagForm = async () => {
+  try {
+   const response =  await submitTagData(dataName.value, colorName.value);
+    await fetchAllTagsData();
+    updateTagsInNavItems()
+
+    console.log("RESPONSE: ", response);
+     dataName.value = '';
+     colorName.value = '';
+     isOpen.value = false;
+     
+  }catch (error) {
+    let errorMessage = 'Error Occured. Please try again.';
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
+    }
+    alert(errorMessage);
+  }
+};
+
+
+const goToDashbaord = () => {
+    router.push('/')
 }
 
 const upper = (str) => {
