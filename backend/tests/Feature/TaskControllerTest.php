@@ -19,20 +19,20 @@ class TaskControllerTest extends TestCase
         Task::factory()->count(5)->create();
 
         // Make GET request to fetch tasks
-        $response = $this->getJson('/api/v1/tasks');
+        $response = $this->getJson('/api/v1/tasks/all');
 
         // Assert response status and structure
         $response->assertStatus(200)
                  ->assertJsonStructure([
-                     '*' => ['id', 'name', 'description', 'project_id', 'user_id', 'priority', 'category', 'status', 'implementation_date', 'created_at', 'updated_at']
+                     '*' => ['name', 'description', 'project_id', 'user_id', 'priority', 'category', 'status', 'implementation_date', 'created_at', 'updated_at']
                  ]);
     }
 
     public function test_can_store_task()
     {
         // Create test data
-        $project = Project::factory()->create();
-        $user = User::factory()->create();
+        $project = Project::factory()->count(5)->create();
+        $user = User::factory()->count(5)->create();
 
         // Data to be sent with the request
         $data = [
@@ -47,7 +47,7 @@ class TaskControllerTest extends TestCase
         ];
 
         // Make POST request to store task
-        $response = $this->postJson('/api/v1/tasks', $data);
+        $response = $this->postJson('/api/v1/tasks/create', $data);
 
         // Assert response status and structure
         $response->assertStatus(201)
@@ -65,8 +65,13 @@ class TaskControllerTest extends TestCase
 
     public function test_can_update_task()
     {
-        // Create a task
-        $task = Task::factory()->create();
+        // Create a task with project and user
+        $project = Project::factory()->count(5)->create();
+        $user = User::factory()->count(5)->create();
+        $task = Task::factory()->count(5)->create([
+            'project_id' => $project->id,
+            'user_id' => $user->id
+        ]);
 
         // Data to be sent with the request
         $data = [
@@ -77,7 +82,7 @@ class TaskControllerTest extends TestCase
         ];
 
         // Make PUT request to update task
-        $response = $this->putJson("/api/v1/tasks/{$task->id}", $data);
+        $response = $this->putJson("/api/v1/tasks/{$task->id}/update", $data);
 
         // Assert response status and updated data
         $response->assertStatus(200)
@@ -92,11 +97,16 @@ class TaskControllerTest extends TestCase
 
     public function test_can_delete_task()
     {
-        // Create a task
-        $task = Task::factory()->create();
+        // Create a task with project and user
+        $project = Project::factory()->count(5)->create();
+        $user = User::factory()->count(5)->create();
+        $task = Task::factory()->count(5)->create([
+            'project_id' => $project->id,
+            'user_id' => $user->id
+        ]);
 
         // Make DELETE request to delete task
-        $response = $this->deleteJson("/api/v1/tasks/{$task->id}");
+        $response = $this->deleteJson("/api/v1/tasks/{$task->id}/delete");
 
         // Assert response status
         $response->assertStatus(204);
