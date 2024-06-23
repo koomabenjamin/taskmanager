@@ -15,7 +15,8 @@ class Task extends Model
     ];
 
     protected $dates = [
-        'implementation_date', 'deleted_at'
+        'implementation_date',
+        'deleted_at'
     ];
 
     public function project()
