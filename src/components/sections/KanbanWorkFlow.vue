@@ -38,7 +38,7 @@
               <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black" v-for="member in card.members"
                 :key="member"></div>
             </div>
-            <div class="text-lg text-rose-600 font-bold w-auto px-2 bg-rose-100 py-1 rounded-full capitalize" style="font-size: 85%;">{{ card.priority }}
+            <div class="text-lg text-rose-600 font-semibold w-auto px-2 bg-rose-100 py-1 rounded-full capitalize" style="font-size: 85%;">{{ card.priority }}
             </div>
           </div>
           <div class="font-bold text-sm my-3">{{ card.title }}</div>
