@@ -56,5 +56,16 @@ export const useNavItemsStore = defineStore('navItems', () => {
     }
   };
 
-  return { navItems, updateProjectsInNavItems, updateTagsInNavItems };
+
+  const updateMembersInNavItems = (members) => {
+    const membersNavItem = navItems.value.find(item => item.label === 'Members');
+    if (membersNavItem) {
+      membersNavItem.subList = members.map(member => ({
+        name: member.name,
+        color: '#5b21b6'
+      }));
+    }
+  };
+
+  return { navItems, updateProjectsInNavItems, updateTagsInNavItems, updateMembersInNavItems };
 });

@@ -41,6 +41,7 @@ import NavList from './NavItems.vue'
 
 import { fetchAllProjectsData, allProjects } from '@/services/projectService';
 import { fetchAllTagsData, allTags } from '@/services/tagService';
+import { fetchAllMembersData, allMembers } from '@/services/memberService';
 import { useNavItemsStore } from '@/stores/navItems';
 
 const navItemsStore = useNavItemsStore();
@@ -57,11 +58,17 @@ const updateTagsInNavItems = () => {
 };
 
 
+const updateMembersInNavItems = () => {
+  navItemsStore.updateMembersInNavItems(allMembers.value);
+};
+
 onMounted(async () => {
   await fetchAllProjectsData();
   await fetchAllTagsData();
+  await fetchAllMembersData();
   updateProjectsInNavItems();
   updateTagsInNavItems();
+  updateMembersInNavItems();
 });
 
 </script>

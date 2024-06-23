@@ -94,7 +94,6 @@ const router = useRouter()
 
 const userLogout = () => {
     authStore.logout();
-    //Redirect to login
     router.push('/login')
 }
 const showLogout = () => {
@@ -115,11 +114,10 @@ const showLogout = () => {
 
 }
 
-// Token expiry check function
+//Check If token expired, if so,,, logout the user
 const checkIfTokenHasExpired = () => {
     const tokenExpiry = authStore.tokenExpiry;
     if (tokenExpiry && new Date().getTime() >= new Date(tokenExpiry).getTime()) {
-        //If Expired, log the user out
         userLogout()
     }
 };

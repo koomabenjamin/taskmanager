@@ -24,6 +24,11 @@ export const API_URLS = {
   SAVE_OR_UPDATE_TASk: `${BASE_URL}/api/task/create-or-update-task`,
   DELETE_TASK: `${BASE_URL}/api/task/delete-task`,
 
+   //Members
+   LIST_ALL_MEMBERS: `${BASE_URL}/api/member/list-all-members`,
+   SAVE_OR_UPDATE_MEMBER: `${BASE_URL}/api/member/create-or-update-member`,
+   DELETE_MEMBBER: `${BASE_URL}/api/member/delete-member`,
+
 
 };
 
