@@ -71,6 +71,9 @@
         >
         <Input placeholder="Task Name" class="col-span-2" />
 
+        <label for="name" class="block text-sm font-medium text-gray-900"
+            >Task Description:</label
+          >
         <TextArea rows="5" placeholder="Description" class="col-span-2" />
         <div>
           <label
@@ -119,6 +122,28 @@
             ></CustomSelect>
           </div>
 
+
+
+
+        <div class="space-y-4">
+          <div>
+            <label
+              for="task_tags"
+              class="block text-sm font-medium text-gray-900"
+            >
+              Tags:
+            </label>
+            <CustomSelect
+              placeholder="Select Tag"
+              v-model="form.tags_ids"
+              :options="transformedTags"
+              multiple
+            ></CustomSelect>
+          </div>
+          </div>
+          
+
+
           <div>
             <label
               for="task_members"
@@ -128,8 +153,8 @@
             </label>
             <CustomSelect
               placeholder="Select person"
-              v-model="form.role_ids"
-              :options="people"
+              v-model="form.members_ids"
+              :options="transformedMembers"
               multiple
             ></CustomSelect>
           </div>
@@ -287,7 +312,7 @@
 </template>
 
 <script setup>
-import { ref, provide } from "vue";
+import { ref, reactive,onMounted, provide } from 'vue'
 import * as Icons from "@heroicons/vue/24/outline";
 import Modal from "./ModalUpdate.vue";
 import Input from "./Input.vue";
@@ -311,6 +336,9 @@ import {
   submitMemberData,
   allMembers,
 } from "@/services/memberService";
+import {
+    PlusIcon,
+} from '@heroicons/vue/24/outline'
 
 import { useNavItemsStore } from "@/stores/navItems";
 
@@ -333,6 +361,8 @@ const updateMembersInNavItems = () => {
   navItemsStore.updateMembersInNavItems(allMembers.value);
 };
 
+const transformedMembers = ref([])
+const transformedTags = ref([])
 // const people = [
 //   { name: 'Wade Cooper' },
 //   { name: 'Arlene Mccoy' },
@@ -341,6 +371,9 @@ const updateMembersInNavItems = () => {
 //   { name: 'Tanya Fox' },
 //   { name: 'Hellen Schmidt' },
 // ]
+
+//
+
 
 const people = [
   { value: 1, label: "Wade Cooper" },
@@ -354,7 +387,8 @@ const selectedPerson = ref(people[0]);
 
 const form = ref({
   person_id: null,
-  role_ids: [],
+  members_ids: [],
+  tags_ids: [],
 });
 
 const props = defineProps({
@@ -467,6 +501,32 @@ const showForm = (form) => {
   selectedForm.value = form;
   console.log(form, isOpen.value);
 };
+
+
+
+onMounted(async () => {
+  await fetchAllMembersData();
+  await fetchAllTagsData();
+
+  
+  transformedMembers.value = allMembers.value.map((object) => {
+    return {
+      label: object.name,
+      value: object.id
+    };
+  });
+
+  transformedTags.value = allTags.value.map((object) => {
+    return {
+      label: object.tag_name,
+      value: object.id
+    };
+  });
+  
+ 
+
+ console.log("FORMATTED DATA: ", transformedTags.value)
+});
 </script>
 
 <style>
