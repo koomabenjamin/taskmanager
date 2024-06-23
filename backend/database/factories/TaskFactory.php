@@ -27,7 +27,7 @@ class TaskFactory extends Factory
             'priority' => $this->faker->randomElement(['High', 'Medium', 'Low', 'Critical', 'Urgent']),
             'category' => $this->faker->randomElement(['Technology', 'Healthcare', 'Education', 'Finance', 'Entertainment', 'Infrastructure']),
             'status' => $this->faker->randomElement(['todo', 'in_progress', 'done']),
-            'implementation_date' => $this->faker->date(),
+            'implementation_date' => $this->faker->date(), // Generate date in Y-m-d format
         ];
     }
 }

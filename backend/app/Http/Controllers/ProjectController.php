@@ -9,34 +9,28 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return Project::all();
+        try {
+            $projects = Project::all();
+            return response()->json(['message' => 'Projects retrieved successfully', 'data' => $projects], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve projects'], 500);
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        return Project::create($request->all());
-    }
+        try {
+            $project = Project::create([
+                'name' => $validatedData['name'],
+            ]);
 
-    public function show($id)
-    {
-        return Project::findOrFail($id);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $project = Project::findOrFail($id);
-        $project->update($request->all());
-
-        return $project;
-    }
-
-    public function destroy($id)
-    {
-        Project::destroy($id);
-        return response()->noContent();
+            return response()->json(['message' => 'Project created successfully', 'data' => $project], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to create project'], 500);
+        }
     }
 }
