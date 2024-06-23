@@ -1,24 +1,50 @@
-import { defineStore } from 'pinia'
-import axios from 'axios'
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
+import { useTasks } from '../composables/useTasks';
+import { useProjects } from '../composables/useProjects';
+import { useMembers } from '../composables/useMembers';
 
-export const useTaskStore = defineStore('taskStore', {
-  state: () => ({
-    tasks: [],
-    projects: [],
-    members: [],
-    priorities: [],
-    categories: [],
-  }),
-  
-  actions: {
-    async fetchTasks() {
-      this.tasks = (await axios.get('/api/v1/tasks')).data
-    },
-    async fetchProjects() {
-      this.projects = (await axios.get('/api/v1/projects')).data
-    },
-    async fetchMembers() {
-      this.members = (await axios.get('/api/members')).data
-    },
-  }
-})
+export const useTaskStore = defineStore('taskStore', () => {
+  const { tasks, fetchTasks, createTaskAction, updateTaskAction, deleteTaskAction, restoreTaskAction, restoreAllTasksAction } = useTasks();
+  const { projects, fetchProjects } = useProjects();
+  const { members, fetchMembers } = useMembers();
+
+  /**
+   * State
+   */
+  const state = {
+    tasks,
+    projects,
+    members,
+  };
+
+  /**
+   * Getters
+   */
+  const getTaskById = (taskId) => {
+    return computed(() => tasks.value.find(task => task.id === taskId));
+  };
+
+  /**
+   * Actions
+   */
+  const fetchAllData = async () => {
+    await fetchTasks();
+    await fetchProjects();
+    await fetchMembers();
+  };
+
+  return {
+    ...state,
+    fetchTasks,
+    fetchProjects,
+    fetchMembers,
+    createTaskAction,
+    updateTaskAction,
+    deleteTaskAction,
+    restoreTaskAction,
+    restoreAllTasksAction,
+    fetchAllData,
+    getTaskById,
+  };
+});
