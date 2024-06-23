@@ -17,7 +17,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(), // Use unique safeEmail
             'email_verified_at' => now(),
-            'password' => bcrypt('12345678'), // Default password
+            'password' => bcrypt('password'), // Default password
             'remember_token' => Str::random(10),
         ];
     }
@@ -37,7 +37,7 @@ class UserFactory extends Factory
             return [
                 'name' => 'Jane Doe',
                 'email' => 'janedoe@example.com',
-                'password' => bcrypt('12345678'),
+                'password' => bcrypt('password'),
             ];
         });
     }
