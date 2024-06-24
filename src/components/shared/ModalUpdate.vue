@@ -27,7 +27,7 @@
             leave-to="-translate-x-full"
           >
             <DialogPanel
-              class="w-full max-w-md transform overflow-hidden absolute  bg-white p-6 text-left align-middle shadow-xl transition-all"
+              class="w-full max-w-md transform overflow-hidden  bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
               <DialogTitle
                 as="div"

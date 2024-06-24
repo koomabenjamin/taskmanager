@@ -11,6 +11,10 @@ const props = defineProps({
   rows: [String, Number],
   modelValue: [String, Number],
   placeholder: [String, Number],
+   required: {
+    type: Boolean,
+    default: false
+  }
 })
 </script>
 

@@ -31,9 +31,9 @@
    
     <div class="w-1/3 border-r flex-shrink-0 text-xs overflow-auto" v-for="column in columns" :key="column">
       <!-- <Card draggable="true" @dragstart="hide(`card-${column}`)" :id="`card-${column}`" v-for="card in cards.filter((el) => el.status === column)" /> -->
-        <h5>HEADING</h5>
+        <h5 class="pl-4 text-lg py-2">{{column.title}}</h5>
       <div class="m-2 p-5 bg-white rounded-lg h-auto border shadow" draggable="true" @dragstart="changeStatus(card.id)"
-        :id="card.id" v-for="card in cards.filter((el) => el.status === column)" :key="card">
+        :id="card.id" v-for="card in cards.filter((el) => el.status === column.slug)" :key="card">
         <div class="flex items-center justify-between">
          
           <div class="flex -space-x-4">
@@ -80,6 +80,11 @@ import Card from '../shared/Card.vue'
 import Calendar from '../shared/Calendar.vue'
 import axiosInstance from '@/axios';
 
+import {
+  fetchAllCurrentUserTaskStatusData,
+  allCurrentUserTaskStatuses,
+} from "@/services/taskStatus";
+
 const enabled = ref(false)
 const data = ref(null);
 
@@ -100,11 +105,10 @@ const cards = ref([
   { id: 7, status: 'to-do', priority: 'low', date: '5th October 2022 - 8th October 2022', members: [1, 4, 5] },
   { id: 8, status: 'doing', priority: 'high', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3, 4, 5] },
   { id: 9, status: 'done', priority: 'high', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3, 4, 5] },
-  { id: 10, status: 'verified', priority: 'medium', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3, 4, 5] },
-  { id: 11, status: 'refined', priority: 'medium', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3, 4, 5] },
+
 ])
 
-const columns = ref(['to-do', 'refined', 'verified', 'doing', 'done'])
+const columns = ref([])
 
 const changeStatus = (id) => {
   setTimeout(() => {
@@ -115,8 +119,16 @@ const changeStatus = (id) => {
 
 
 
-onMounted(() => {
-  // fetchData();
+onMounted(async () => {
+   await fetchAllCurrentUserTaskStatusData();
+
+   columns.value = allCurrentUserTaskStatuses.value.map((object) => {
+    return {
+      id: object.id,
+      title: object.title,
+      slug: object.slug,
+    };
+  });
 });
 
 

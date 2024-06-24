@@ -30,6 +30,11 @@ export const API_URLS = {
    DELETE_MEMBBER: `${BASE_URL}/api/member/delete-member`,
 
 
+   //Current user Task Status
+   LIST_ALL_CURRENT_USER_TASK_STATUSES: `${BASE_URL}/api/status/list-current-user-task-status`,
+
+
+   
 };
 
 
