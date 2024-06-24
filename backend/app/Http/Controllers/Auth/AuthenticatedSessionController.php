@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -27,13 +28,29 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request)
+    public function store0(LoginRequest $request)
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/vue-dashboard');
+        return Redirect::to(env('FRONTEND_URL') . '/vue-dashboard'); // Redirect to Vue.js dashboard
+
+    }
+
+    public function store(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return response()->json(['status' => 'success']);
+        }
+
+        return response()->json(['error' => 'Invalid credentials'], 401);
     }
 
     /**
