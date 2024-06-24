@@ -395,6 +395,8 @@ const dataName = ref("");
 const colorName = ref("");
 const name = ref("");
 const email = ref("");
+const task_id = ref(null)
+
 
 const taskName = ref("");
 const taskDescription = ref("");
@@ -442,8 +444,8 @@ const submitProjectForm = async () => {
     }
 };
 
-const submitTaskForm = async () => {
 
+const submitTaskForm = async () => {
     let tagData = [];
     let memberData = [];
 
@@ -480,15 +482,16 @@ const submitTaskForm = async () => {
 
     if (selectedTaskStatus.value == null || selectedTaskStatus.value == "") {
         alert("Please Select the status");
-        return
+        return;
     }
 
     if (selectedProject.value == null || selectedProject.value == "") {
         alert("Please Select the project");
-        return
+        return;
     }
 
     const dataToBackend = {
+        task_id:   task_id.value,
         project_id: selectedProject.value,
         status_id: selectedTaskStatus.value,
         task_name: taskName.value,
@@ -496,34 +499,36 @@ const submitTaskForm = async () => {
         end_date: taskEndDate.value,
         task_priority: taskFoundTaskPriority.label.toLowerCase(),
         description: taskDescription.value ? taskDescription.value : "",
-        tags: tagData ? JSON.stringify(tagData) : [],
-        members: memberData ? JSON.stringify(memberData) : [],
-    }
+        tags: tagData ? (tagData) : [],
+        members: memberData ? (memberData) : [],
+    };
 
-    // console.log("DATA: ", dataToBackend);
     try {
+        console.log("Data being sent to backend: ", dataToBackend);
+
         const response = await submitTaskData(
-            selectedProject.value,
-            selectedTaskStatus.value,
-            taskName.value,
-            taskStartDate.value,
-            taskEndDate.value,
-            taskFoundTaskPriority.label.toLowerCase(),
-            taskDescription.value ? taskDescription.value : "",
-            tagData ? JSON.stringify(tagData) : [],
-            memberData ? JSON.stringify(memberData) : [],
-
+          dataToBackend
+            // selectedProject.value,
+            // selectedTaskStatus.value,
+            // taskName.value,
+            // taskStartDate.value,
+            // taskEndDate.value,
+            // taskFoundTaskPriority.label.toLowerCase(),
+            // taskDescription.value ? taskDescription.value : "",
+            // tagData ? (tagData) : [],
+            // memberData ? (tagData) : [],
         );
-        await fetchAllTasksData();
 
+        await fetchAllTasksData();
         console.log("RESPONSE: ", response);
-        // dataName.value = "";
-        // colorName.value = "";
         isOpen.value = false;
     } catch (error) {
-        let errorMessage = "Errror while submitting tasks";
+        let errorMessage = "Error while submitting tasks";
         if (error.response && error.response.data && error.response.data.message) {
             errorMessage = error.response.data.message;
+        } else {
+            console.error("Network Error Details:", error);
+            errorMessage = error.message || "Network Error";
         }
         alert(errorMessage);
     }

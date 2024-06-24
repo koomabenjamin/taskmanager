@@ -27,27 +27,38 @@ export const fetchAllTasksData = async () => {
 // // tags: data.tags,
 // task_priority: data.task_priority,
 
-export const submitTaskData = async (project_id, status_id, task_name, start_date, end_date, description, members,tags, task_priority ) => {
-    try {
-      const response = await axiosInstance.post(API_URLS.SAVE_OR_UPDATE_TASK, {
-        project_id: project_id,
-        status_id: status_id,
-        task_name: task_name,
-        start_date: start_date,
-        end_date: end_date,
-        description: description,
-        members: members,
-        tags: tags,
-        task_priority: task_priority,
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error submitting project data:', error);
-      throw error; 
-    }
-  };
+export const submitTaskData = async (data) => {
+  try {
+    const response = await axiosInstance.post(API_URLS.SAVE_OR_UPDATE_TASk, {
 
-  
+      id: data.task_id ? data.task_id : null,
+      project_id: data.project_id,
+      status_id: data.status_id,
+      task_name: data.task_name,
+      start_date: data.start_date,
+      end_date: data.end_date,
+      description: data.description,
+      members: data.members,
+      tags: data.tags,
+      task_priority: data.task_priority,
+      // project_id: project_id,
+      // status_id: status_id,
+      // task_name: task_name,
+      // start_date: start_date,
+      // end_date: end_date,
+      // description: description,
+      // members: members,
+      // tags: tags,
+      // task_priority: task_priority,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting project data:', error);
+    throw error;
+  }
+};
+
+
 // export const submitTaskData = async (data) => {
 //     console.log("RECIVED DATA: ", data)
 //     console.log("RECIVED DATA MEM: ", data.members)
