@@ -194,7 +194,6 @@ const showDeleteTask = (data) => {
     Swal.fire({
         icon: "question",
         html: dataToDelete,
-        text: "Would you like delete logout now?",
         showDenyButton: true,
         reverseButtons: true,
         confirmButtonText: "Yes, Proceed",
