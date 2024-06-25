@@ -5,7 +5,7 @@ console.log("BASE URL: ", BASE_URL);
 
 export const API_URLS = {
 
-  //Auth/
+  //Auth
   REGISTER: `${BASE_URL}/api/auth/v1/register`,
   LOGIN: `${BASE_URL}/api/auth/v1/login`,
 
