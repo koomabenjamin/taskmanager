@@ -98,18 +98,7 @@ const searchCard = (e) => {
   console.log(cards.value)
 }
 
-const cards = ref([
-  // { id: 1, status: 'doing', priority: 'high', date: '5th October 2022 - 8th October 2022', members: [1, 2] },
-  // { id: 2, status: 'done', priority: 'high', date: '5th October 2022 - 8th October 2022', members: [1] },
-  // { id: 3, status: 'to-do', priority: 'medium', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3] },
-  // { id: 4, status: 'doing', priority: 'low', date: '5th October 2022 - 8th October 2022', members: [1, 4, 5] },
-  // { id: 5, status: 'doing', priority: 'low', date: '5th October 2022 - 8th October 2022', members: [1, 3, 4, 5] },
-  // { id: 6, status: 'to-do', priority: 'low', date: '5th October 2022 - 8th October 2022', members: [1, 3, 4, 5] },
-  // { id: 7, status: 'to-do', priority: 'low', date: '5th October 2022 - 8th October 2022', members: [1, 4, 5] },
-  // { id: 8, status: 'doing', priority: 'high', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3, 4, 5] },
-  // { id: 9, status: 'done', priority: 'high', date: '5th October 2022 - 8th October 2022', members: [1, 2, 3, 4, 5] },
-])
-
+const cards = ref([])
 const columns = ref([])
 
 const changeStatus = (id) => {
@@ -117,11 +106,6 @@ const changeStatus = (id) => {
     document.getElementById(id).style.display = 'none';
   }, 0)
 }
-
-
-
-
-
 
 const updateCards = (updatedTasks) => {
   cards.value = updatedTasks.map(updatedTask => ({
@@ -180,9 +164,7 @@ const filteredCards = (status) => {
 onMounted(async () => {
    await fetchAllCurrentUserTaskStatusData();
    await fetchAllTasksData();
-
   //  console.log("ALL TASK: ", allTasks.value)
-
    updateCards(allTasks.value);
    columns.value = allCurrentUserTaskStatuses.value.map((object) => {
     return {
