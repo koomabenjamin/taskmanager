@@ -359,6 +359,11 @@ const updateMembersInNavItems = () => {
     navItemsStore.updateMembersInNavItems(allMembers.value);
 };
 
+
+const updateTaskListsInNavItems = () => {
+    navItemsStore.updateTaskListsInNavItems(allTasks.value);
+};
+
 const transformedMembers = ref([])
 const transformedTaskStatus = ref([])
 const transformedProjects = ref([])
@@ -520,6 +525,9 @@ const submitTaskForm = async () => {
         );
 
         await fetchAllTasksData();
+        updateTaskListsInNavItems();
+
+
         console.log("RESPONSE: ", response);
         isOpen.value = false;
     } catch (error) {
@@ -601,6 +609,7 @@ const todayDate = computed(() => {
 onMounted(async () => {
     await fetchAllMembersData();
     await fetchAllTagsData();
+    await fetchAllTasksData();
     await fetchAllCurrentUserTaskStatusData();
     await fetchAllProjectsData();
 

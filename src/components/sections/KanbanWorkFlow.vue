@@ -86,6 +86,7 @@ import {
     fetchAllTasksData,
     submitTaskData,
     allTasks,
+    cards
 } from "@/services/taskService";
 
 const enabled = ref(false)
@@ -98,7 +99,7 @@ const searchCard = (e) => {
   console.log(cards.value)
 }
 
-const cards = ref([])
+// const cards = ref([])
 const columns = ref([])
 
 const changeStatus = (id) => {
@@ -107,54 +108,11 @@ const changeStatus = (id) => {
   }, 0)
 }
 
-const updateCards = (updatedTasks) => {
-  cards.value = updatedTasks.map(updatedTask => ({
-    id: updatedTask.id,
-    status: updatedTask.status.slug,
-    priority: updatedTask.task_priority,
-    task_name: updatedTask.task_name,
-    date: formatDate(updatedTask.start_date, updatedTask.end_date),
-    members: updatedTask.members.map(member => member.id),
-    tags: updatedTask.tags,
-  }));
-};
-
-
 const toTitleCase = (str) => {
     return str.replace(/\w\S*/g, (txt) => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   }
-
-
-
-const formatDate = (startDate, endDate) => {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  
-  const startDay = start.getDate();
-  const startMonth = start.toLocaleString('default', { month: 'long' });
-  const startYear = start.getFullYear();
-  
-  const endDay = end.getDate();
-  const endMonth = end.toLocaleString('default', { month: 'long' });
-  const endYear = end.getFullYear();
-  
-  function getOrdinal(day) {
-    if (day > 3 && day < 21) return `${day}th`;
-    switch (day % 10) {
-      case 1: return `${day}st`;
-      case 2: return `${day}nd`;
-      case 3: return `${day}rd`;
-      default: return `${day}th`;
-    }
-  }
-  const formattedStartDate = `${getOrdinal(startDay)} ${startMonth} ${startYear}`;
-  const formattedEndDate = `${getOrdinal(endDay)} ${endMonth} ${endYear}`;
-  
-  return `${formattedStartDate} - ${formattedEndDate}`;
-};
-
 
 const filteredCards = (status) => {
   return cards.value.filter(card => card.status === status);
@@ -165,7 +123,7 @@ onMounted(async () => {
    await fetchAllCurrentUserTaskStatusData();
    await fetchAllTasksData();
   //  console.log("ALL TASK: ", allTasks.value)
-   updateCards(allTasks.value);
+  //  updateCards(allTasks.value);
    columns.value = allCurrentUserTaskStatuses.value.map((object) => {
     return {
       id: object.id,
