@@ -34,8 +34,90 @@
                 <div class="flex -space-x-4" v-else>
                     <h6 class="text-rose-400">No Member Added Yet</h6>
                 </div>
-                <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold captalise">{{ toTitleCase(card.priority) }}
+
+                <!-- <button @click="toggleDropdown(card.id)">
+                  <ChevronUpIcon class="h-5 w-5 text-slate-500" />
+                </button>
+                <div v-if="dropdownOpen === card.id" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                  <ul class="py-1">
+                    <li @click="editTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
+                    <li @click="deleteTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
+                  </ul>
+                </div> -->
+
+                <!-- <div class="relative flex items-center">
+                    <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize">{{ toTitleCase(card.priority) }}</div>
+                    <div class="ml-2">
+                        <button @click="toggleDropdown(card.id)">
+                            <DotsVerticalIcon class="h-5 w-5 text-slate-500" />
+                        </button>
+                        <div v-if="dropdownOpen === card.id" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                            <ul class="py-1">
+                                <li @click="editTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
+                                <li @click="deleteTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="relative flex items-center">
+                    <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize">
+                        {{ toTitleCase(card.priority) }}
+                    </div>
+                    <div class="ml-2 relative">
+
+                        <Menu as="div" class="relative inline-block text-left">
+                            <div>
+                                <MenuButton>
+                                    <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100" aria-hidden="true" />
+                                </MenuButton>
+                            </div>
+
+                            <transition enter-active-class="transition duration-100 ease-out" enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+                                <MenuItems class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                                    <div class="px-1 py-1">
+                                        <MenuItem v-slot="{ active }">
+                                        <button @click="editTask(card)"  :class="[
+                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                ]">
+                                            Edit
+                                        </button>
+                                        </MenuItem>
+
+                                    </div>
+
+                                    <div class="px-1 py-1">
+                                        <MenuItem v-slot="{ active }">
+                                        <button @click="showDeleteTask(card)" :class="[
+                  active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                ]">
+                                            Delete
+                                        </button>
+                                        </MenuItem>
+                                    </div>
+                                </MenuItems>
+                            </transition>
+                        </Menu>
+
+                        <!-- <button @click="toggleDropdown(card.id)">
+                  <ChevronUpIcon class="h-5 w-5 text-slate-500" />
+                </button>
+                <div v-if="dropdownOpen === card.id" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                  <ul class="py-1">
+                    <li @click="editTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
+                    <li @click="deleteTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
+                  </ul>
+                </div> -->
+                    </div>
                 </div>
+
+                <!-- <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold captalise">{{ toTitleCase(card.priority) }}</div> -->
+
+                <!-- <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold captalise">
+                   <Button label="Share" icon="ShareIcon" color="bg-transparent" size="md" drop-down />
+                </div> -->
             </div>
             <div class="font-bold text-sm my-3">{{card.task_name}}</div>
 
@@ -60,6 +142,10 @@ import {
     onMounted
 } from 'vue'
 import {
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
     Switch
 } from '@headlessui/vue'
 import {
@@ -74,6 +160,8 @@ import {
     WalletIcon,
     CalendarIcon,
 } from '@heroicons/vue/24/outline'
+import Swal from 'sweetalert2/dist/sweetalert2';
+
 import Button from '../shared/Button.vue'
 import Input from '../shared/Input.vue'
 import Fab from '../shared/Fab.vue'
@@ -90,12 +178,48 @@ import {
 import {
     fetchAllTasksData,
     submitTaskData,
+    deleteTaskData,
     allTasks,
     cards
 } from "@/services/taskService";
 
 const enabled = ref(false)
+const dropdownOpen = ref(false)
+const columns = ref([])
 const data = ref(null);
+
+
+const showDeleteTask = (data) => {
+    let dataToDelete = `<p style='font-size: 14px;'>Would you like to Delete <b>${data.task_name}</b> task? <br/>This action  is not reversible.<br/></p>`
+    Swal.fire({
+        icon: "question",
+        html: dataToDelete,
+        text: "Would you like delete logout now?",
+        showDenyButton: true,
+        reverseButtons: true,
+        confirmButtonText: "Yes, Proceed",
+        denyButtonText: `No, Cancel`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            submitDeleteTaskForm(data.id)  
+        } else if (result.isDenied) {}
+    });
+
+}
+
+
+const submitDeleteTaskForm= async (taskId) => {
+    try {
+        const response = await deleteTaskData(taskId);
+        await fetchAllTasksData();
+    } catch (error) {
+        let errorMessage = "Error Occured. Please try again.";
+        if (error.response && error.response.data && error.response.data.message) {
+            errorMessage = error.response.data.message;
+        }
+        alert(errorMessage);
+    }
+};
 
 const searchCard = (e) => {
     // console.log(e.target.value)
@@ -104,8 +228,16 @@ const searchCard = (e) => {
     console.log(cards.value)
 }
 
-// const cards = ref([])
-const columns = ref([])
+
+const editTask = (taskObject) => {
+  console.log("EDIT OBJECTS: ", taskObject)
+    // Your edit task logic here
+}
+
+
+
+
+
 
 const changeStatus = (id) => {
     setTimeout(() => {
@@ -122,6 +254,8 @@ const toTitleCase = (str) => {
 const filteredCards = (status) => {
     return cards.value.filter(card => card.status === status);
 };
+
+
 
 onMounted(async () => {
     await fetchAllCurrentUserTaskStatusData();

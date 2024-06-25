@@ -27,7 +27,7 @@ export const API_URLS = {
    //Members
   LIST_ALL_MEMBERS: `${BASE_URL}/api/member/v1/list-all-members`,
   SAVE_OR_UPDATE_MEMBER: `${BASE_URL}/api/member/v1/create-or-update-member`,
-  DELETE_MEMBBER: `${BASE_URL}/api/member/v1/delete-member`,
+  DELETE_MEMBER: `${BASE_URL}/api/member/v1/delete-member`,
 
 
    //Current user Task Status

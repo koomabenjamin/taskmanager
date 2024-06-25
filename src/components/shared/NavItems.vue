@@ -359,7 +359,6 @@ const updateMembersInNavItems = () => {
     navItemsStore.updateMembersInNavItems(allMembers.value);
 };
 
-
 const updateTaskListsInNavItems = () => {
     navItemsStore.updateTaskListsInNavItems(allTasks.value);
 };

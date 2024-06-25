@@ -87,5 +87,19 @@ export const submitTaskData = async (data) => {
 };
 
 
+export const deleteTaskData = async (task_id) => {
+  try {
+    const response = await axiosInstance.post(API_URLS.DELETE_TASK, {
+      task_id: task_id
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error Deleting task.....', error);
+    throw error;
+  }
+};
+
+
+
 
 
