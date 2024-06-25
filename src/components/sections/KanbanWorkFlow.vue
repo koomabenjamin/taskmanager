@@ -77,7 +77,7 @@
                                 <MenuItems class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                                     <div class="px-1 py-1">
                                         <MenuItem v-slot="{ active }">
-                                        <button @click="editTask(card)"  :class="[
+                                        <button @click="editTask(card)" :class="[
                   active ? 'bg-violet-500 text-white' : 'text-gray-900',
                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                 ]">
@@ -133,6 +133,124 @@
         </div>
     </div>
 </div>
+
+<!-- <Modal>
+    <template v-slot:heading>Add {{ upper(selectedForm) }}</template>
+    <template v-slot:form>
+        <form @submit.prevent="submitTaskForm" class="grid grid-cols-1 gap-4" v-if="selectedForm === 'task'">
+            <div>
+                <label for="project" class="block text-sm font-medium text-gray-900">
+                    Project:
+                </label>
+                <CustomSelect placeholder="Select Project" v-model="selectedProject" :options="transformedProjects"></CustomSelect>
+            </div>
+
+            <div>
+                <label for="task_name" class="block text-sm font-medium text-gray-900">
+                    Task Name:
+                </label>
+                <Input placeholder="Task Name" type="text" v-model="taskName" required class="w-full" />
+            </div>
+
+            <div>
+                <label for="task_description" class="block text-sm font-medium text-gray-900">
+                    Task Description:
+                </label>
+                <TextArea v-model="taskDescription" rows="5" placeholder="Description" class="w-full" />
+                </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label for="task_start_date" class="block text-sm font-medium text-gray-900">
+        Start Date:
+      </label>
+      <Input
+        required
+        v-model="taskStartDate"
+        placeholder="Start Date"
+        type="date"
+        class="w-full"
+        :min="todayDate"
+      />
+    </div>
+
+    <div>
+      <label for="task_end_date" class="block text-sm font-medium text-gray-900">
+        End Date:
+      </label>
+      <Input
+        required
+        v-model="taskEndDate"
+        placeholder="End Date"
+        type="date"
+        class="w-full"
+        :min="todayDate"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="task_priority" class="block text-sm font-medium text-gray-900">
+      Priority:
+    </label>
+    <CustomSelect
+      placeholder="Select Task Priority"
+      v-model="selectedTaskPriority"
+      :options="taskPriority"
+    ></CustomSelect>
+  </div>
+
+  <div>
+    <label for="task_status" class="block text-sm font-medium text-gray-900">
+      Task Status:
+    </label>
+    <CustomSelect
+      placeholder="Select Task Status"
+      v-model="selectedTaskStatus"
+      :options="transformedTaskStatus"
+      required
+    ></CustomSelect>
+  </div>
+
+  <div>
+    <label for="task_tags" class="block text-sm font-medium text-gray-900">
+      Tags:
+    </label>
+    <CustomSelect
+      placeholder="Select Tag"
+      v-model="tagIDS"
+      :options="transformedTags"
+      multiple
+    ></CustomSelect>
+
+    <h3>{{tagIDS}}</h3>
+  </div>
+
+  <div>
+    <label for="task_members" class="block text-sm font-medium text-gray-900">
+      Members:
+    </label>
+    <CustomSelect
+      placeholder="Select Member"
+      v-model="memberIDS"
+      :options="transformedMembers"
+      multiple
+    ></CustomSelect>
+  </div>
+
+  <Button
+    label="Add New Task"
+    icon="PlusIcon"
+    color="bg-lime-500 text-white"
+    size="xl"
+    class="col-span-1"
+  />
+</form>
+
+      
+      
+    </template>
+  </Modal> -->
 </template>
 
 <script setup>
@@ -148,6 +266,7 @@ import {
     MenuItem,
     Switch
 } from '@headlessui/vue'
+import Modal from "./../shared/ModalUpdate.vue"
 import {
     ArrowsPointingInIcon,
     ChartBarIcon,
@@ -184,10 +303,103 @@ import {
 } from "@/services/taskService";
 
 const enabled = ref(false)
+const selectedFormObject = ref({})
+const isOpen = ref(false);
+
 const dropdownOpen = ref(false)
 const columns = ref([])
 const data = ref(null);
 
+const submitTaskForm = async (data) => {
+    let tagData = [];
+    let memberData = [];
+
+    let taskFoundTaskPriority = taskPriority.find(priority => priority.value === selectedTaskPriority.value);
+
+    if (tagIDS.value.length > 0) {
+        const uniqueTagIDs = new Set(tagIDS.value);
+        uniqueTagIDs.forEach((objectId) => {
+            const tag = allTags.value.find((t) => t.id === objectId);
+            if (tag) {
+                let dataToPush = {
+                    id: tag.id,
+                    tag_name: tag.tag_name,
+                    tag_color: tag.tag_color
+                };
+                tagData.push(dataToPush);
+            }
+        });
+    }
+
+    if (memberIDS.value.length > 0) {
+        const uniqueMemberIDs = new Set(memberIDS.value);
+        uniqueMemberIDs.forEach((objectId) => {
+            const member = allMembers.value.find((t) => t.id === objectId);
+            if (member) {
+                let dataToPush = {
+                    id: member.id,
+                    name: member.name,
+                };
+                memberData.push(dataToPush);
+            }
+        });
+    }
+
+    // if (selectedTaskStatus.value == null || selectedTaskStatus.value == "") {
+    //     alert("Please Select the status");
+    //     return;
+    // }
+
+    // if (selectedProject.value == null || selectedProject.value == "") {
+    //     alert("Please Select the project");
+    //     return;
+    // }
+
+    const dataToBackend = {
+        task_id: task_id.value,
+        project_id: selectedProject.value,
+        status_id: selectedTaskStatus.value,
+        task_name: taskName.value,
+        start_date: taskStartDate.value,
+        end_date: taskEndDate.value,
+        task_priority: taskFoundTaskPriority.label.toLowerCase(),
+        description: taskDescription.value ? taskDescription.value : "",
+        tags: tagData ? (tagData) : [],
+        members: memberData ? (memberData) : [],
+    };
+
+    try {
+        console.log("Data being sent to backend: ", dataToBackend);
+
+        const response = await submitTaskData(
+            dataToBackend
+            // selectedProject.value,
+            // selectedTaskStatus.value,
+            // taskName.value,
+            // taskStartDate.value,
+            // taskEndDate.value,
+            // taskFoundTaskPriority.label.toLowerCase(),
+            // taskDescription.value ? taskDescription.value : "",
+            // tagData ? (tagData) : [],
+            // memberData ? (tagData) : [],
+        );
+
+        await fetchAllTasksData();
+        // updateTaskListsInNavItems();
+
+        console.log("RESPONSE: ", response);
+        isOpen.value = false;
+    } catch (error) {
+        let errorMessage = "Error while submitting tasks";
+        if (error.response && error.response.data && error.response.data.message) {
+            errorMessage = error.response.data.message;
+        } else {
+            console.error("Network Error Details:", error);
+            errorMessage = error.message || "Network Error";
+        }
+        alert(errorMessage);
+    }
+};
 
 const showDeleteTask = (data) => {
     let dataToDelete = `<p style='font-size: 14px;'>Would you like to Delete <b>${data.task_name}</b> task? <br/>This action  is not reversible.<br/></p>`
@@ -200,14 +412,13 @@ const showDeleteTask = (data) => {
         denyButtonText: `No, Cancel`
     }).then((result) => {
         if (result.isConfirmed) {
-            submitDeleteTaskForm(data.id)  
+            submitDeleteTaskForm(data.id)
         } else if (result.isDenied) {}
     });
 
 }
 
-
-const submitDeleteTaskForm= async (taskId) => {
+const submitDeleteTaskForm = async (taskId) => {
     try {
         const response = await deleteTaskData(taskId);
         await fetchAllTasksData();
@@ -227,16 +438,11 @@ const searchCard = (e) => {
     console.log(cards.value)
 }
 
-
 const editTask = (taskObject) => {
-  console.log("EDIT OBJECTS: ", taskObject)
-    // Your edit task logic here
+    selectedFormObject.value = taskObject
+    isOpen.value = true
+
 }
-
-
-
-
-
 
 const changeStatus = (id) => {
     setTimeout(() => {
@@ -253,8 +459,6 @@ const toTitleCase = (str) => {
 const filteredCards = (status) => {
     return cards.value.filter(card => card.status === status);
 };
-
-
 
 onMounted(async () => {
     await fetchAllCurrentUserTaskStatusData();
