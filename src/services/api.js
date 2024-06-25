@@ -1,36 +1,63 @@
-import axios from 'axios';
+import axiosInstance from '@/plugins/axios';
+import { useTaskStore } from '@/stores/taskStore'; // Import Pinia store
 
-export const getTasks = async () => {
-  const response = await axios.get('/api/v1/tasks/all');
-  return response.data;
+export const fetchTasks = async () => {
+  const taskStore = useTaskStore(); // Initialize Pinia store
+
+  try {
+    // Fetch CSRF token if necessary
+    await axiosInstance.get('/api/v1/sanctum/csrf-cookie');
+
+    // ysing an authorization token
+    const authToken = taskStore.authToken;
+    const headers = {};
+    if (authToken) {
+      headers.Authorization = `Bearer ${authToken}`;
+    }
+
+    const response = await axiosInstance.get('/api/v1/tasks/all', { headers });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching tasks: ${error.message}`);
+  }
 };
 
-export const getProjects = async () => {
-  const response = await axios.get('/api/v1/projects/all');
-  return response.data;
+export const fetchMembers = async () => {
+  const taskStore = useTaskStore(); // Initialize Pinia store
+
+  try {
+    // Fetch CSRF token if necessary
+    await axiosInstance.get('/api/v1/sanctum/csrf-cookie');
+
+    const authToken = taskStore.authToken;
+    const headers = {};
+    if (authToken) {
+      headers.Authorization = `Bearer ${authToken}`;
+    }
+
+    const response = await axiosInstance.get('/api/v1/profiles/', { headers });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching members: ${error.message}`);
+  }
 };
 
-export const getMembers = async () => {
-  const response = await axios.get('/api/v1/members');
-  return response.data;
-};
+export const fetchProjects = async () => {
+  const taskStore = useTaskStore(); // Initialize Pinia store
 
-export const createTask = async (taskData) => {
-  await axios.post('/api/v1/tasks/create', taskData);
-};
+  try {
+    // Fetch CSRF token if necessary
+    await axiosInstance.get('/sanctum/csrf-cookie');
 
-export const updateTask = async (taskId, taskData) => {
-  await axios.put(`/api/v1/tasks/${taskId}/update`, taskData);
-};
+    const authToken = taskStore.authToken;
+    const headers = {};
+    if (authToken) {
+      headers.Authorization = `Bearer ${authToken}`;
+    }
 
-export const deleteTask = async (taskId) => {
-  await axios.delete(`/api/v1/tasks/${taskId}/delete`);
-};
-
-export const restoreTask = async (taskId) => {
-  await axios.post(`/api/v1/tasks/trashed/temp/${taskId}/restore`);
-};
-
-export const restoreAllTasks = async () => {
-  await axios.post('/api/v1/tasks/trashed/temp/restore-all');
+    const response = await axiosInstance.get('/api/v1/projects/all', { headers });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching projects: ${error.message}`);
+  }
 };

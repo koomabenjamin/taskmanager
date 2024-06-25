@@ -1,50 +1,74 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-import { useTasks } from '../composables/useTasks';
-import { useProjects } from '../composables/useProjects';
-import { useMembers } from '../composables/useMembers';
+import { fetchTasks, fetchMembers, fetchProjects } from '@/services/api';
 
-export const useTaskStore = defineStore('taskStore', () => {
-  const { tasks, fetchTasks, createTaskAction, updateTaskAction, deleteTaskAction, restoreTaskAction, restoreAllTasksAction } = useTasks();
-  const { projects, fetchProjects } = useProjects();
-  const { members, fetchMembers } = useMembers();
+export const useTaskStore = defineStore('taskStore', {
+  // State definition
+  state: () => ({
+    tasks: [],
+    members: [],
+    projects: [],
+  }),
 
-  /**
-   * State
-   */
-  const state = {
-    tasks,
-    projects,
-    members,
-  };
+  // Actions definition
+  actions: {
+    /**
+     * Fetch tasks from API and update state.
+     * @returns {Promise<void>}
+     */
+    async fetchTasks() {
+      try {
+        this.tasks = await fetchTasks();
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    },
 
-  /**
-   * Getters
-   */
-  const getTaskById = (taskId) => {
-    return computed(() => tasks.value.find(task => task.id === taskId));
-  };
+    /**
+     * Fetch members from API and update state.
+     * @returns {Promise<void>}
+     */
+    async fetchMembers() {
+      try {
+        this.members = await fetchMembers();
+      } catch (error) {
+        console.error('Error fetching members:', error);
+      }
+    },
 
-  /**
-   * Actions
-   */
-  const fetchAllData = async () => {
-    await fetchTasks();
-    await fetchProjects();
-    await fetchMembers();
-  };
+    /**
+     * Fetch projects from API and update state.
+     * @returns {Promise<void>}
+     */
+    async fetchProjects() {
+      try {
+        this.projects = await fetchProjects();
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    },
 
-  return {
-    ...state,
-    fetchTasks,
-    fetchProjects,
-    fetchMembers,
-    createTaskAction,
-    updateTaskAction,
-    deleteTaskAction,
-    restoreTaskAction,
-    restoreAllTasksAction,
-    fetchAllData,
-    getTaskById,
-  };
+    /**
+     * Fetch all data (tasks, members, projects) concurrently.
+     * @returns {Promise<void>}
+     */
+    async fetchAllData() {
+      try {
+        await Promise.all([this.fetchTasks(), this.fetchMembers(), this.fetchProjects()]);
+      } catch (error) {
+        console.error('Error fetching all data:', error);
+      }
+    },
+  },
+
+  // Getters definition
+  getters: {
+    /**
+     * Get task by ID.
+     * @param {number} taskId - ID of the task.
+     * @returns {object|undefined} - Task object if found, otherwise undefined.
+     */
+    getTaskById: (state) => (taskId) => {
+      return state.tasks.find(task => task.id === taskId);
+    },
+  },
 });

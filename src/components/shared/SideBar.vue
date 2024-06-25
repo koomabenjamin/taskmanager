@@ -1,49 +1,43 @@
 <template>
-    <div class="w-1/4 border-r h-full px-7 pt-7 pb-44 flex flex-col space-y-5 overflow-auto">
-      <!-- 
-      <Fab label="Add new task" icon="PlusIcon" />
-      <Tag label="Add new task" icon="PlusIcon" />
-      <Card/> -->
-      <div class="flex items-center space-x-4 pb-20">
-        <UsersIcon class="h-6 w-6 text-black" />
-        <div class="font-bold text-lg">Flows list</div>
+  <div class="w-1/4 border-r h-full px-7 pt-7 pb-44 flex flex-col space-y-5 overflow-auto">
+    <div class="flex items-center space-x-4 pb-20">
+      <UsersIcon class="h-6 w-6 text-black" />
+      <div class="font-bold text-lg text-black">Flows list</div>
+    </div>
+
+    <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
+
+    <div class="space-y-4">
+      <NavList :items="navItems" />
+    </div>
+
+    <div class="fixed bottom-0 w-1/4 h-auto left-0 p-7 bg-lime-50 border-t border-r">
+      <div class="flex items-center space-x-2 font-bold">
+        <WalletIcon class="h-6 stroke-2 text-black" />
+        <span class="text-sm text-black">Free plan</span>
       </div>
-  
-      <Button label="Add new task" icon="PlusIcon" color="bg-lime-300" size="xl" />
-  
-      <div class="space-y-4">
-        <NavList :items="navItems" />
+      <div class="flex items-center justify-between space-x-2 text-xs mt-4">
+        <span class="font-bold text-black">Projects</span>
+        <span class="text-slate-500">{{ projects.length }}/10</span>
       </div>
-  
-      <div class="fixed bottom-0 w-1/4 h-auto left-0 p-7 bg-lime-50 border-t border-r">
-        <div class="flex items-center space-x-2 font-bold">
-          <WalletIcon class="h-6 stroke-2" />
-          <span class="text-sm">Free plan</span>
-        </div>
-        <div class="flex items-center justify-between space-x-2 text-xs mt-4">
-          <span class="font-bold">Projects</span>
-          <span class="text-slate-500">4/10</span>
-        </div>
-        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 my-2">
-          <div class="bg-lime-500 h-1.5 rounded-full" style="width: 80%"></div>
-        </div>
-        <div class="flex items-center justify-between space-x-2 text-xs mt-2">
-          <span class="font-bold">Tasks</span>
-          <span class="text-slate-500">Unlimited</span>
-        </div>
+      <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 my-2">
+        <div class="bg-lime-500 h-1.5 rounded-full" :style="{ width: projects.length * 10 + '%' }"></div>
+      </div>
+      <div class="flex items-center justify-between space-x-2 text-xs mt-2">
+        <span class="font-bold text-black">Tasks</span>
+        <span class="text-slate-500">Unlimited</span>
       </div>
     </div>
-  </template>
-  
+  </div>
+</template>
 
-  <script setup>
+
+<script setup>
 import { ref, onMounted } from 'vue';
-import {
-  WalletIcon,
-  UsersIcon,
-} from '@heroicons/vue/24/outline';
+import { WalletIcon, UsersIcon } from '@heroicons/vue/24/outline';
 import Button from './Button.vue';
 import NavList from './NavItems.vue';
+import axios from '@/plugins/axios';
 
 const navItems = ref([
   { label: 'Plan', icon: 'CalendarIcon', subList: [] },
@@ -55,9 +49,7 @@ const navItems = ref([
       { name: 'Statra Insurance', color: 'bg-green-600' },
     ]
   },
-  {
-    label: 'Projects', name: 'project', icon: 'FolderIcon', subList: []
-  },
+  { label: 'Projects', name: 'project', icon: 'FolderIcon', subList: [] },
   {
     label: 'Tags', name: 'tag', icon: 'TagIcon', subList: [
       { name: 'Prototype', color: 'bg-purple-600' },
@@ -74,27 +66,31 @@ const navItems = ref([
   },
 ]);
 
+const projects = ref([]);
+
 const fetchProjects = async () => {
   try {
-    // Replace API call with mock data for now
-    const projects = [
-      { name: 'Project Alpha', color: 'bg-blue-600' },
-      { name: 'Project Beta', color: 'bg-green-600' },
-      { name: 'Project Gamma', color: 'bg-red-600' },
-    ];
-    navItems.value = navItems.value.map(item => {
-      if (item.name === 'project') {
-        return { ...item, subList: projects };
-      }
-      return item;
-    });
+    const response = await axios.get('api/v1/projects/all');
+    projects.value = response.data;
+    updateNavItems();
   } catch (error) {
     console.error('Error fetching projects:', error);
   }
 };
 
+const updateNavItems = () => {
+  navItems.value = navItems.value.map(item => {
+    if (item.name === 'project') {
+      return { ...item, subList: projects.value };
+    }
+    return item;
+  });
+};
+
 onMounted(fetchProjects);
 </script>
 
-  
-  <style scoped></style>
+
+<style scoped>
+/* Scoped styles for your Sidebar component */
+</style>

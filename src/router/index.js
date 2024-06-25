@@ -4,6 +4,10 @@ import ProfileView from '../views/ProfileView.vue';
 import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
 import axios from 'axios';
+import { useAuthStore } from '@/stores/authStore'; // Import your Pinia store
+
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+axios.defaults.withCredentials = true;
 
 const routes = [
   {
@@ -18,7 +22,7 @@ const routes = [
   },
   {
     path: '/vue-dashboard',
-    name: 'VueDashboard',
+    name: 'vue-dashboard',
     component: MainView,
     meta: {
       requiresAuth: true,
@@ -39,13 +43,21 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('authToken');  // true or false
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore(); // Initialize Pinia store
 
-  if (to.name !== 'login' && !isAuthenticated) next({ name: 'login' });
-  else if (to.name === 'login' && isAuthenticated) next({ name: 'vue-dashboard' });
-  else next();
+  // Fetch CSRF token
+  await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/sanctum/csrf-cookie`);
+
+  const isAuthenticated = authStore.isAuthenticated; // Assuming store has an isAuthenticated getter
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next({ name: 'login' });
+  } else if (to.name === 'login' && isAuthenticated) {
+    next({ name: 'vue-dashboard' });
+  } else {
+    next();
+  }
 });
-
 
 export default router;

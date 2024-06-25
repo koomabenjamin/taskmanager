@@ -15,12 +15,15 @@ use App\Http\Controllers\Api\ProfileApiController;
 Route::prefix('v1')->group(function () {
 
     // Public routes
+    // Route::post('login', [AuthenticatedSessionApiController::class, 'store'])->middleware('log.headers');
     Route::post('login', [AuthenticatedSessionApiController::class, 'store']);
     Route::post('register', [RegisteredUserController::class, 'store']);
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store']);
     Route::post('reset-password', [NewPasswordController::class, 'store']);
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware(['throttle:6,1'])->name('verification.send');
+        
+    // Route::get('/projects/all', [ProjectController::class, 'index']);
     
     // Authenticated routes
     Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])->group(function () {

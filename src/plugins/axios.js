@@ -1,11 +1,21 @@
-import axios from 'axios'
+import axios from 'axios';
+import { useAuthStore } from '@/stores/authStore';  // Import Pinia store
 
-const axiosInstance = axios.create({
-  baseURL: process.env.VUE_APP_API_URL || 'http://127.0.0.1:8000',  // Laravel backend URL
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
+axios.interceptors.request.use(async config => {
+  const authStore = useAuthStore();  // Initialize Pinia store
+
+  // Fetch CSRF token
+  await axios.get(`${import.meta.env.VITE_API_URL}/api/v1sanctum/csrf-cookie`);
+
+  // Add Authorization token if available
+  const token = authStore.authToken;  // Assuming store has a getter for authToken
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
   }
-})
 
-export default axiosInstance
+  return config;
+});
+
+export default axios;

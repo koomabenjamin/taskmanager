@@ -30,7 +30,6 @@ export function useTasks() {
   /**
    * Update an existing task
    * @param {Number} taskId
-   * @param {Object} taskData
    */
   const updateTaskAction = async (taskId, taskData) => {
     await updateTask(taskId, taskData);
