@@ -40,5 +40,16 @@ export function useGenericApi() {
     }
   };
 
-  return { fetchData, postData };
+
+  const deleteData = async (endpoint, id) => {
+    try {
+      const response = await axiosInstance.post(endpoint, { id });
+      return response.data;
+    } catch (error) {
+      console.error(`Error Deleting Data:`, error);
+      throw error;
+    }
+  };
+
+  return { fetchData, postData, deleteData };
 }
