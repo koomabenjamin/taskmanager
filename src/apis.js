@@ -25,13 +25,13 @@ export const API_URLS = {
   DELETE_TASK: `${BASE_URL}/api/task/v1/delete-task`,
 
    //Members
-   LIST_ALL_MEMBERS: `${BASE_URL}/api/member/v1/list-all-members`,
-   SAVE_OR_UPDATE_MEMBER: `${BASE_URL}/api/member/v1/create-or-update-member`,
-   DELETE_MEMBBER: `${BASE_URL}/api/member/v1/delete-member`,
+  LIST_ALL_MEMBERS: `${BASE_URL}/api/member/v1/list-all-members`,
+  SAVE_OR_UPDATE_MEMBER: `${BASE_URL}/api/member/v1/create-or-update-member`,
+  DELETE_MEMBBER: `${BASE_URL}/api/member/v1/delete-member`,
 
 
    //Current user Task Status
-   LIST_ALL_CURRENT_USER_TASK_STATUSES: `${BASE_URL}/api/status/v1/list-current-user-task-status`,
+  LIST_ALL_CURRENT_USER_TASK_STATUSES: `${BASE_URL}/api/status/v1/list-current-user-task-status`,
 
 
    
