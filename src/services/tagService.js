@@ -7,7 +7,6 @@ export const allTags = ref([]);
 export const fetchAllTagsData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_TAGS);
-    console.log("ALL TAGS RESPONSE: ", response.data.results);
     allTags.value = response.data.results;
   } catch (error) {
     console.error('Error fetching data:', error);

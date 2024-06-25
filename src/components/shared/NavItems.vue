@@ -116,8 +116,6 @@
       :options="transformedTags"
       multiple
     ></CustomSelect>
-
-    <h3>{{tagIDS}}</h3>
   </div>
 
   <div>
@@ -328,6 +326,7 @@ import {
     fetchAllTasksData,
     submitTaskData,
     allTasks,
+    taskPriority
 } from "@/services/taskService";
 
 import {
@@ -368,19 +367,7 @@ const transformedTaskStatus = ref([])
 const transformedProjects = ref([])
 const transformedTags = ref([])
 
-const taskPriority = [{
-        value: 1,
-        label: "Low"
-    },
-    {
-        value: 2,
-        label: "Medium"
-    },
-    {
-        value: 3,
-        label: "High"
-    },
-];
+
 
 const props = defineProps({
     name: [String, Number],
@@ -508,26 +495,11 @@ const submitTaskForm = async () => {
     };
 
     try {
-        console.log("Data being sent to backend: ", dataToBackend);
-
         const response = await submitTaskData(
           dataToBackend
-            // selectedProject.value,
-            // selectedTaskStatus.value,
-            // taskName.value,
-            // taskStartDate.value,
-            // taskEndDate.value,
-            // taskFoundTaskPriority.label.toLowerCase(),
-            // taskDescription.value ? taskDescription.value : "",
-            // tagData ? (tagData) : [],
-            // memberData ? (tagData) : [],
         );
-
         await fetchAllTasksData();
         updateTaskListsInNavItems();
-
-
-        console.log("RESPONSE: ", response);
         isOpen.value = false;
     } catch (error) {
         let errorMessage = "Error while submitting tasks";
@@ -546,8 +518,6 @@ const submitTagForm = async () => {
         const response = await submitTagData(dataName.value, colorName.value);
         await fetchAllTagsData();
         updateTagsInNavItems();
-
-        console.log("RESPONSE: ", response);
         dataName.value = "";
         colorName.value = "";
         isOpen.value = false;
@@ -566,7 +536,6 @@ const submitMemberForm = async () => {
         await fetchAllMembersData();
         updateMembersInNavItems();
 
-        console.log("RESPONSE: ", response);
         name.value = "";
         email.value = "";
         isOpen.value = false;
@@ -598,7 +567,6 @@ const upper = (str) => {
 const showForm = (form) => {
     isOpen.value = true;
     selectedForm.value = form;
-    console.log(form, isOpen.value);
 };
 
 const todayDate = computed(() => {

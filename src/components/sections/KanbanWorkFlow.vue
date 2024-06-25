@@ -134,6 +134,228 @@
     </div>
 </div>
 
+
+<TransitionRoot appear :show="isOpen" as="template">
+    <Dialog as="div" @close="closeModal" class="relative z-10">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div class="fixed inset-0 bg-black bg-opacity-25" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4 text-center">
+          <TransitionChild
+            as="template"
+            enter="transform transition ease-in-out duration-500"
+            enter-from="-translate-x-full" 
+            enter-to="translate-x-0"
+            leave="transform transition ease-in-out duration-500" 
+            leave-from="translate-x-0"
+            leave-to="-translate-x-full"
+          >
+            <DialogPanel class="w-full max-w-md transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <DialogTitle as="div" class="text-lg font-medium leading-6 text-gray-900 flex items-center justify-between">
+                <h4>Update <span class="font-bold">{{ selectedFormObject.task_name }}</span>Task</h4>
+                <button
+                  type="button"
+                  class="inline-flex justify-center rounded-md border shadow-md bg-lime-100 px-2 py-2 text-sm font-medium text-lime-900 hover:bg-lime-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2"
+                  @click="closeModal"
+                >
+                  <XMarkIcon class="h-6"/>
+                </button>
+              </DialogTitle>
+
+              
+                <form @submit.prevent="submitTaskForm" class="grid grid-cols-1 gap-4">
+            <div>
+                <label for="project" class="block text-sm font-medium text-gray-900">
+                    Project:
+                </label>
+                <CustomSelect placeholder="Select Project" v-model="selectedProject" :options="transformedProjects"></CustomSelect>
+            </div>
+
+            <div>
+                <label for="task_name" class="block text-sm font-medium text-gray-900">
+                    Task Name:
+                </label>
+                <Input placeholder="Task Name" type="text" v-model="taskName" required class="w-full" />
+            </div>
+
+            <div>
+                <label for="task_description" class="block text-sm font-medium text-gray-900">
+                    Task Description:
+                </label>
+                <TextArea v-model="taskDescription" rows="5" placeholder="Description" class="w-full" />
+                </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label for="task_start_date" class="block text-sm font-medium text-gray-900">
+        Start Date:
+      </label>
+      <Input
+        required
+        v-model="taskStartDate"
+        placeholder="Start Date"
+        type="date"
+        class="w-full"
+        :min="todayDate"
+      />
+    </div>
+
+    <div>
+      <label for="task_end_date" class="block text-sm font-medium text-gray-900">
+        End Date:
+      </label>
+      <Input
+        required
+        v-model="taskEndDate"
+        placeholder="End Date"
+        type="date"
+        class="w-full"
+        :min="todayDate"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="task_priority" class="block text-sm font-medium text-gray-900">
+      Priority:
+    </label>
+    <CustomSelect
+      placeholder="Select Task Priority"
+      v-model="selectedTaskPriority"
+      :options="taskPriority"
+    ></CustomSelect>
+  </div>
+
+  <div>
+    <label for="task_status" class="block text-sm font-medium text-gray-900">
+      Task Status:
+    </label>
+    <CustomSelect
+      placeholder="Select Task Status"
+      v-model="selectedTaskStatus"
+      :options="transformedTaskStatus"
+      required
+    ></CustomSelect>
+  </div>
+
+  <div>
+    <label for="task_tags" class="block text-sm font-medium text-gray-900">
+      Tags:
+    </label>
+    <CustomSelect
+      placeholder="Select Tag"
+      v-model="tagIDS"
+      :options="transformedTags"
+      multiple
+    ></CustomSelect>
+
+
+  </div>
+
+  <div>
+    <label for="task_members" class="block text-sm font-medium text-gray-900">
+      Members:
+    </label>
+    <CustomSelect
+      placeholder="Select Member"
+      v-model="memberIDS"
+      :options="transformedMembers"
+      multiple
+    ></CustomSelect>
+  </div>
+
+  <Button
+    label="Update Task"
+    icon="PlusIcon"
+    color="bg-lime-500 text-white"
+    size="xl"
+    class="col-span-1"
+  />
+</form>
+             
+
+              
+              
+            </DialogPanel>
+
+            
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
+
+
+<!-- 
+  <TransitionRoot appear :show="isOpen" as="template">
+    <Dialog as="div" @close="closeModal" class="relative z-10">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div class="fixed inset-0 bg-black/25" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 overflow-y-auto">
+        <div
+          class="flex min-h-full items-center justify-center p-4 text-center"
+        >
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0 scale-95"
+            enter-to="opacity-100 scale-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100 scale-100"
+            leave-to="opacity-0 scale-95"
+          >
+            <DialogPanel
+              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+            >
+              <DialogTitle
+                as="h3"
+                class="text-lg font-medium leading-6 text-gray-900"
+              >
+                Payment successful
+              </DialogTitle>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  Your payment has been successfully submitted. We’ve sent you
+                  an email with all of the details of your order.
+                </p>
+              </div>
+
+              <div class="mt-4">
+                <button
+                  type="button"
+                  class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  @click="closeModal"
+                >
+                  Got it, thanks!
+                </button>
+              </div>
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot> -->
+
 <!-- <Modal>
     <template v-slot:heading>Add {{ upper(selectedForm) }}</template>
     <template v-slot:form>
@@ -257,15 +479,20 @@
 import {
     ref,
     reactive,
-    onMounted
+    onMounted,
+    inject
 } from 'vue'
 import {
     Menu,
     MenuButton,
     MenuItems,
     MenuItem,
-    Switch
+    Switch,
+    TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle
 } from '@headlessui/vue'
+
+import { XMarkIcon } from '@heroicons/vue/24/outline'
+
 import Modal from "./../shared/ModalUpdate.vue"
 import {
     ArrowsPointingInIcon,
@@ -283,11 +510,31 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 
 import Button from '../shared/Button.vue'
 import Input from '../shared/Input.vue'
+import CustomSelect from "../shared/CustomSelect.vue";
+import TextArea from "../shared/TextArea.vue";
+import ColorPicker from "../shared/ColorPicker.vue";
+
 import Fab from '../shared/Fab.vue'
 import Tag from '../shared/Tag.vue'
 import Card from '../shared/Card.vue'
 import Calendar from '../shared/Calendar.vue'
 import axiosInstance from '@/axios';
+
+import {
+    fetchAllProjectsData,
+    submitProjectData,
+    allProjects,
+} from "@/services/projectService";
+import {
+    fetchAllTagsData,
+    submitTagData,
+    allTags,
+} from "@/services/tagService";
+import {
+    fetchAllMembersData,
+    submitMemberData,
+    allMembers,
+} from "@/services/memberService";
 
 import {
     fetchAllCurrentUserTaskStatusData,
@@ -299,12 +546,40 @@ import {
     submitTaskData,
     deleteTaskData,
     allTasks,
-    cards
+    cards,
+    taskPriority,
+    taskStatuses
 } from "@/services/taskService";
 
 const enabled = ref(false)
 const selectedFormObject = ref({})
 const isOpen = ref(false);
+
+const transformedMembers = ref([])
+const transformedTaskStatus = ref([])
+const transformedProjects = ref([])
+const transformedTags = ref([])
+
+const selectedTaskPriority = ref(0);
+const selectedProject = ref(0);
+const selectedTaskStatus = ref(0);
+
+
+
+
+const taskName = ref("");
+const taskDescription = ref("");
+const taskStartDate = ref("");
+const taskEndDate = ref("");
+const taskTags = ref([]);
+const taskMembers = ref([]);
+const tagIDS = ref([]);
+const memberIDS = ref([]);
+
+
+function closeModal() {
+  isOpen.value = false
+}
 
 const dropdownOpen = ref(false)
 const columns = ref([])
@@ -315,6 +590,8 @@ const submitTaskForm = async (data) => {
     let memberData = [];
 
     let taskFoundTaskPriority = taskPriority.find(priority => priority.value === selectedTaskPriority.value);
+
+    // let taskFoundTaskStatus = taskStatuses.find(status => status.value === selectedTaskPriority.value);
 
     if (tagIDS.value.length > 0) {
         const uniqueTagIDs = new Set(tagIDS.value);
@@ -356,7 +633,7 @@ const submitTaskForm = async (data) => {
     // }
 
     const dataToBackend = {
-        task_id: task_id.value,
+        task_id: selectedFormObject.value.id,
         project_id: selectedProject.value,
         status_id: selectedTaskStatus.value,
         task_name: taskName.value,
@@ -369,25 +646,12 @@ const submitTaskForm = async (data) => {
     };
 
     try {
-        console.log("Data being sent to backend: ", dataToBackend);
-
         const response = await submitTaskData(
             dataToBackend
-            // selectedProject.value,
-            // selectedTaskStatus.value,
-            // taskName.value,
-            // taskStartDate.value,
-            // taskEndDate.value,
-            // taskFoundTaskPriority.label.toLowerCase(),
-            // taskDescription.value ? taskDescription.value : "",
-            // tagData ? (tagData) : [],
-            // memberData ? (tagData) : [],
         );
 
         await fetchAllTasksData();
         // updateTaskListsInNavItems();
-
-        console.log("RESPONSE: ", response);
         isOpen.value = false;
     } catch (error) {
         let errorMessage = "Error while submitting tasks";
@@ -435,13 +699,87 @@ const searchCard = (e) => {
     // console.log(e.target.value)
     let filteredCards = cards.value.filter((card) => card.members.includes(parseInt(e.target.value)));
     if (e.target.value) cards.value = filteredCards;
-    console.log(cards.value)
 }
 
 const editTask = (taskObject) => {
+    let memberIDSArray = [];
+    let tagIDSArray = [];
     selectedFormObject.value = taskObject
+    taskName.value =   selectedFormObject.value.task_name
+    taskDescription.value =   selectedFormObject.value.description
+    taskStartDate.value = selectedFormObject.value.start_date
+    taskEndDate.value = selectedFormObject.value.end_date
+
+    if (selectedFormObject.value.tags != null && selectedFormObject.value.tags != undefined) {
+        selectedFormObject.value.tags.map((object) => {
+            tagIDSArray.push(object.id);
+        });
+        tagIDS.value = tagIDSArray;
+    }
+
+    if (selectedFormObject.value.members != null && selectedFormObject.value.members != undefined) {
+        selectedFormObject.value.members.map((object) => {
+            memberIDSArray.push(object);
+        });
+        memberIDS.value = memberIDSArray;
+    }
+
+
+    const project = transformedProjects.value.find((t) => t.value ===  selectedFormObject.value.project_id);
+    if(project != null && project != undefined){
+        selectedProject.value = project.value
+    }
+
+
+    const taskStatusObject = taskStatuses.find((t) => t.label.toLowerCase() ===  selectedFormObject.value.unformatted_status.title.toLowerCase());
+    if(taskStatusObject != null && taskStatusObject != undefined){
+        selectedTaskStatus.value = taskStatusObject.value
+    }
+   
+    const taskPriorityObj = taskPriority.find((t) => t.label.toLowerCase() ===  selectedFormObject.value.priority.toLowerCase());
+    if(taskPriorityObj != null && taskPriorityObj != undefined){
+        selectedTaskPriority.value = taskPriorityObj.value
+    }
+
+
     isOpen.value = true
 
+    }
+
+    
+     
+    
+const transformedData = () => {
+
+    transformedTaskStatus.value = allCurrentUserTaskStatuses.value.map((object) => {
+        return {
+            label: object.title,
+            value: object.id
+        };
+    });
+
+    transformedMembers.value = allMembers.value.map((object) => {
+        return {
+            label: object.name,
+            value: object.id
+        };
+    });
+
+   
+
+    transformedProjects.value = allProjects.value.map((object) => {
+        return {
+            label: object.project_name,
+            value: object.id
+        };
+    });
+
+    transformedTags.value = allTags.value.map((object) => {
+        return {
+            label: object.tag_name,
+            value: object.id
+        };
+    });
 }
 
 const changeStatus = (id) => {
@@ -463,8 +801,11 @@ const filteredCards = (status) => {
 onMounted(async () => {
     await fetchAllCurrentUserTaskStatusData();
     await fetchAllTasksData();
-    //  console.log("ALL TASK: ", allTasks.value)
-    //  updateCards(allTasks.value);
+    await fetchAllTagsData();
+    await fetchAllMembersData();
+    transformedData();
+
+
     columns.value = allCurrentUserTaskStatuses.value.map((object) => {
         return {
             id: object.id,
@@ -473,7 +814,7 @@ onMounted(async () => {
         };
     });
 });
-// console.log("ALL CARDS: ", cards.value)
+
 </script>
 
 <style scoped></style>

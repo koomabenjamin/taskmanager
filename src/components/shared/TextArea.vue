@@ -1,5 +1,11 @@
 <template>
-  <textarea :placeholder="props.placeholder" :rows="props.rows" class="w-full border p-2 rounded text-xs"></textarea>
+  <textarea 
+  :placeholder="props.placeholder" 
+  :value="modelValue" 
+  :rows="props.rows" 
+  :required="props.required"
+  @input="$emit('update:modelValue', $event.target.value)"
+  class="w-full border p-2 rounded text-xs"></textarea>
 </template>
 
 <script setup>

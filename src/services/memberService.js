@@ -7,7 +7,6 @@ export const allMembers = ref([]);
 export const fetchAllMembersData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_MEMBERS);
-    console.log("ALL MEMBERS RESPONSE: ", response.data.results);
     allMembers.value = response.data.results;
   } catch (error) {
     console.error('Error fetching data:', error);

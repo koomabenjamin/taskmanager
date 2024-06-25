@@ -7,7 +7,7 @@ export const allProjects = ref([]);
 export const fetchAllProjectsData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_PROJECTS);
-    console.log("ALL PROJECTS RESPONSE: ", response.data.results);
+    // console.log("ALL PROJECTS RESPONSE: ", response.data.results);
     allProjects.value = response.data.results;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -22,7 +22,6 @@ export const submitProjectData = async (dataName, colorName) => {
         project_name: dataName,
         project_color: colorName
       });
-    //   await fetchAllProjectsData(); 
       return response.data;
     } catch (error) {
       console.error('Error submitting project data:', error);

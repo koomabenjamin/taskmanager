@@ -5,12 +5,40 @@ import { API_URLS } from '@/apis';
 export const allTasks = ref([]);
 export const cards = ref([]);
 
+export const taskPriority = [{
+  value: 1,
+  label: "Low"
+},
+{
+  value: 2,
+  label: "Medium"
+},
+{
+  value: 3,
+  label: "High"
+},
+];
+
+
+export const taskStatuses = [{
+  value: 1,
+  label: "To Do"
+},
+{
+  value: 2,
+  label: "In Progress"
+},
+{
+  value: 3,
+  label: "Done"
+},
+];
+
 
 
 export const fetchAllTasksData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_TASKS);
-    console.log("ALL TASKS RESPONSE: ", response.data.results);
     allTasks.value = response.data.results;
     await updateCards(allTasks.value);
 
@@ -24,9 +52,15 @@ export const fetchAllTasksData = async () => {
 export const updateCards = async(updatedTasks) => {
   cards.value = updatedTasks.map(updatedTask => ({
     id: updatedTask.id,
+    project_id: updatedTask.project_id,
     status: updatedTask.status.slug,
     priority: updatedTask.task_priority,
     task_name: updatedTask.task_name,
+    description: updatedTask.description ? updatedTask.description : null,
+    start_date: updatedTask.start_date,
+    status_id: updatedTask.status_id,
+    unformatted_status: updatedTask.status,
+    end_date: updatedTask.end_date,
     date: formatDate(updatedTask.start_date, updatedTask.end_date),
     members: updatedTask.members.map(member => member.id),
     tags: updatedTask.tags,
