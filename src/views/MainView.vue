@@ -125,7 +125,7 @@ const checkIfTokenHasExpired = () => {
 let intervalId;
 
 onMounted(() => {
-    intervalId = setInterval(checkIfTokenHasExpired, 60000); //Check after every 1 Minute
+    intervalId = setInterval(checkIfTokenHasExpired, 60000); 
 });
 
 onBeforeUnmount(() => {
