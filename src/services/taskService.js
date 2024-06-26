@@ -53,6 +53,7 @@ export const updateCards = async(updatedTasks) => {
   cards.value = updatedTasks.map(updatedTask => ({
     id: updatedTask.id,
     project_id: updatedTask.project_id,
+    category_id: updatedTask.category_id,
     status: updatedTask.status.slug,
     priority: updatedTask.task_priority,
     task_name: updatedTask.task_name,
@@ -104,6 +105,7 @@ export const submitTaskData = async (data) => {
 
       id: data.task_id ? data.task_id : null,
       project_id: data.project_id,
+      category_id: data.category_id,
       status_id: data.status_id,
       task_name: data.task_name,
       start_date: data.start_date,

@@ -40,6 +40,13 @@
             </div>
 
             <div>
+                <label for="category" class="block text-sm font-medium text-gray-900">
+                    Category:
+                </label>
+                <CustomSelect placeholder="Select Category" v-model="selectedCategory" :options="transformedCategories"></CustomSelect>
+            </div>
+
+            <div>
                 <label for="task_name" class="block text-sm font-medium text-gray-900">
                     Task Name:
                 </label>
@@ -262,18 +269,34 @@
           size="xl"
         />
       </form>
+
+
+
+
       <form
+      @submit.prevent="submitCategoryForm"
         class="grid grid-cols-2 gap-2 -space-y-0"
         v-if="selectedForm === 'category'"
       >
-        <Input placeholder="Title" class="col-span-2" />
-        <Input placeholder="Start Date" type="date" />
-        <Input placeholder="End Date" type="date" />
-        <Input placeholder="Priority" class="col-span-2" />
-        <TextArea rows="5" placeholder="Description" class="col-span-2" />
-        <TextArea rows="5" placeholder="Members" class="col-span-2" />
+      <label
+          for="project_name"
+          class="block text-sm font-medium text-gray-900"
+          >Category Name:</label
+        >
+        <Input
+          placeholder="Category Name"
+          v-model="dataName"
+          required
+          class="col-span-2"
+        />
+
+        <div>
+          <h6 class="mt-3">Pick Category Color</h6>
+          <ColorPicker @color-changed="getUpdatedColor($event)"></ColorPicker>
+        </div>
         <Button
-          label="Add new task"
+          type="submit"
+          label="Add New Category"
           icon="PlusIcon"
           color="bg-lime-500 text-white col-span-2"
           size="xl"
@@ -316,6 +339,12 @@ import {
     submitMemberData,
     allMembers,
 } from "@/services/memberService";
+
+import {
+    fetchAllCategoriesData,
+    submitCategoryData,
+    allCategories,
+} from "@/services/categoryService";
 
 import {
     fetchAllCurrentUserTaskStatusData,
@@ -362,9 +391,14 @@ const updateTaskListsInNavItems = () => {
     navItemsStore.updateTaskListsInNavItems(allTasks.value);
 };
 
+const updateCategoryListsInNavItems = () => {
+    navItemsStore.updateCategoryListsInNavItems(allCategories.value);
+};
+
 const transformedMembers = ref([])
 const transformedTaskStatus = ref([])
 const transformedProjects = ref([])
+const transformedCategories = ref([])
 const transformedTags = ref([])
 
 
@@ -379,6 +413,7 @@ const props = defineProps({
 
 const selectedTaskPriority = ref(taskPriority[0]);
 const selectedProject = ref(transformedProjects[0]);
+const selectedCategory = ref(transformedCategories[0]);
 const selectedTaskStatus = ref(transformedTaskStatus.value[0]);
 
 const subListsOpen = ref([]);
@@ -435,6 +470,27 @@ const submitProjectForm = async () => {
     }
 };
 
+const submitCategoryForm = async () => {
+    try {
+        const response = await submitCategoryData(dataName.value, colorName.value);
+        // console.log("RESPONSE: ", response);
+        await fetchAllCategoriesData();
+        updateCategoryListsInNavItems();
+
+        dataName.value = "";
+        colorName.value = "";
+        isOpen.value = false;
+    } catch (error) {
+        let errorMessage = "Error Occured. Please try again.";
+        if (error.response && error.response.data && error.response.data.message) {
+            errorMessage = error.response.data.message;
+        }
+        alert(errorMessage);
+    }
+};
+
+
+
 
 const submitTaskForm = async () => {
     let tagData = [];
@@ -484,6 +540,7 @@ const submitTaskForm = async () => {
     const dataToBackend = {
         task_id:   task_id.value,
         project_id: selectedProject.value,
+        category_id: selectedCategory.value,
         status_id: selectedTaskStatus.value,
         task_name: taskName.value,
         start_date: taskStartDate.value,
@@ -493,6 +550,9 @@ const submitTaskForm = async () => {
         tags: tagData ? (tagData) : [],
         members: memberData ? (memberData) : [],
     };
+
+
+    console.log("DATA TO BACKEND: ", dataToBackend)
 
     try {
         const response = await submitTaskData(
@@ -607,6 +667,14 @@ onMounted(async () => {
             value: object.id
         };
     });
+
+     transformedCategories.value = allCategories.value.map((object) => {
+        return {
+            label: object.category_name,
+            value: object.id
+        };
+    });
+    
 
     // console.log("FORMATTED DATA: ", transformedTags.value)
 });

@@ -43,6 +43,7 @@ import { fetchAllProjectsData, allProjects } from '@/services/projectService';
 import { fetchAllTagsData, allTags } from '@/services/tagService';
 import { fetchAllTasksData, allTasks } from '@/services/taskService';
 import { fetchAllMembersData, allMembers } from '@/services/memberService';
+import { fetchAllCategoriesData, allCategories } from '@/services/categoryService';
 import { useNavItemsStore } from '@/stores/navItems';
 
 const navItemsStore = useNavItemsStore();
@@ -68,16 +69,24 @@ const updateTaskListsInNavItems = () => {
     navItemsStore.updateTaskListsInNavItems(allTasks.value);
 };
 
+const updateCategoriesInNavItems = () => {
+    navItemsStore.updateCategoriesInNavItems(allCategories.value);
+};
+
 onMounted(async () => {
-  await fetchAllProjectsData();
   await fetchAllTagsData();
+  await fetchAllProjectsData();
+  await fetchAllCategoriesData();
   await fetchAllMembersData();
   await fetchAllTasksData();
 
-  updateProjectsInNavItems();
   updateTagsInNavItems();
+  updateProjectsInNavItems();
+  updateCategoriesInNavItems();
   updateMembersInNavItems();
+
   updateTaskListsInNavItems();
+ 
 });
 
 </script>

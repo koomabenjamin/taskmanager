@@ -6,7 +6,7 @@ export const useNavItemsStore = defineStore('navItems', () => {
     { label: 'Plan', icon: 'CalendarIcon', subList: [] },
     {
       label: 'Task List', name: 'task', icon: 'ClipboardDocumentListIcon', subList: [
-        // { name: 'Meridian', color: '#f9a8d4' },
+        { name: 'Meridian', color: '#f9a8d4' },
         // { name: 'Risen', color: '#60FB24' },
         // { name: 'SkillBox', color: '#d1d5db' },
         // { name: 'Statra Insurance', color: '#f5f3ff' },
@@ -14,21 +14,33 @@ export const useNavItemsStore = defineStore('navItems', () => {
     },
     {
       label: 'Projects', name: 'project', icon: 'FolderIcon', subList: [
-        // { name: 'Meridian', color: 'bg-rose-600' },
+        { name: 'Meridian', color: '#f9a8d4' },
+        // { name: 'Risen', color: '#f9a8d4' },
+        // { name: 'SkillBox', color: '#f9a8d4'},
+        // { name: 'Statra Insurance', color: '#f9a8d4' },
+      ]
+    },
+
+
+    {
+      label: 'Categories', name: 'category', icon: 'FolderIcon', subList: [
+        { name: 'Meridian', color: 'bg-rose-600' },
         // { name: 'Risen', color: 'bg-blue-600' },
         // { name: 'SkillBox', color: 'bg-yellow-400' },
         // { name: 'Statra Insurance', color: '#f9a8d4' },
       ]
     },
+
     {
       label: 'Tags', name: 'tag', icon: 'TagIcon', subList: [
-        // { name: 'Prototype', color: '#86198f' },
+        { name: 'Prototype', color: '#86198f' },
         // { name: 'Research', color: '#5b21b6' },
         // { name: 'Testing', color: '#e9d5ff' },
       ]
     },
     {
       label: 'Members', name: 'member', icon: 'UserGroupIcon', subList: [
+        { name: 'Meridian', color: '#f9a8d4' },
         // { name: 'Prototype', color: '#e9d5ff' },
         // { name: 'Research', color: '#86198f' },
         // { name: 'Testing', color: '#5b21b6' },
@@ -57,12 +69,23 @@ export const useNavItemsStore = defineStore('navItems', () => {
   };
 
 
+  const updateCategoriesInNavItems = (categories) => {
+    const categoriesNavItem = navItems.value.find(item => item.label === 'Categories');
+    if (categoriesNavItem) {
+      categoriesNavItem.subList = categories.map(category => ({
+        name: category.category_name,
+        color: category.category_color
+      }));
+    }
+  };
+
+
   const updateMembersInNavItems = (members) => {
     const membersNavItem = navItems.value.find(item => item.label === 'Members');
     if (membersNavItem) {
       membersNavItem.subList = members.map(member => ({
         name: member.name,
-        color: '#5b21b6'
+        color: member.color
       }));
     }
   };
@@ -72,11 +95,11 @@ export const useNavItemsStore = defineStore('navItems', () => {
     if (taskListsNavItem) {
       taskListsNavItem.subList = tasks.map(task => ({
         name: task.task_name,
-        color: '#5b21b6'
+        color: task.task_color
       }));
     }
   };
 
 
-  return { navItems, updateProjectsInNavItems, updateTagsInNavItems, updateMembersInNavItems, updateTaskListsInNavItems };
+  return { navItems, updateProjectsInNavItems, updateTagsInNavItems, updateMembersInNavItems, updateTaskListsInNavItems, updateCategoriesInNavItems };
 });

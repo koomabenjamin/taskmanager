@@ -30,6 +30,11 @@ export const API_URLS = {
   DELETE_MEMBER: `${BASE_URL}/api/member/v1/delete-member`,
 
 
+   //Categories
+   LIST_ALL_CATEGORIES: `${BASE_URL}/api/category/v1/list-all-categories`,
+   SAVE_OR_UPDATE_CATEGORY: `${BASE_URL}/api/category/v1/create-or-update-category`,
+   DELETE_CATEGORY: `${BASE_URL}/api/category/v1/delete-category`,
+
    //Current user Task Status
   LIST_ALL_CURRENT_USER_TASK_STATUSES: `${BASE_URL}/api/status/v1/list-current-user-task-status`,
 
