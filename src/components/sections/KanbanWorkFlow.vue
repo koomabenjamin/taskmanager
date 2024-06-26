@@ -442,6 +442,7 @@ const submitTaskForm = async (data) => {
         category_id: selectedCategory.value,
         status_id: selectedTaskStatus.value,
         task_name: taskName.value,
+        task_color: null,
         start_date: taskStartDate.value,
         end_date: taskEndDate.value,
         task_priority: taskFoundTaskPriority.label.toLowerCase(),

@@ -109,6 +109,7 @@ export const submitTaskData = async (data) => {
       status_id: data.status_id,
       task_name: data.task_name,
       start_date: data.start_date,
+      task_color: data.task_color ?  data.task_color: null,
       end_date: data.end_date,
       description: data.description,
       members: data.members,
