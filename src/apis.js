@@ -1,10 +1,7 @@
-
-
 const BASE_URL = import.meta.env.VITE_API_URL;
 console.log("BASE URL: ", BASE_URL);
 
 export const API_URLS = {
-
   //Auth
   REGISTER: `${BASE_URL}/api/auth/v1/register`,
   LOGIN: `${BASE_URL}/api/auth/v1/login`,
@@ -26,24 +23,16 @@ export const API_URLS = {
   SAVE_OR_UPDATE_TASk: `${BASE_URL}/api/task/v1/create-or-update-task`,
   DELETE_TASK: `${BASE_URL}/api/task/v1/delete-task`,
 
-  
-   //Members
+  //Members
   LIST_ALL_MEMBERS: `${BASE_URL}/api/member/v1/list-all-members`,
   SAVE_OR_UPDATE_MEMBER: `${BASE_URL}/api/member/v1/create-or-update-member`,
   DELETE_MEMBER: `${BASE_URL}/api/member/v1/delete-member`,
 
+  //Categories
+  LIST_ALL_CATEGORIES: `${BASE_URL}/api/category/v1/list-all-categories`,
+  SAVE_OR_UPDATE_CATEGORY: `${BASE_URL}/api/category/v1/create-or-update-category`,
+  DELETE_CATEGORY: `${BASE_URL}/api/category/v1/delete-category`,
 
-   //Categories
-   LIST_ALL_CATEGORIES: `${BASE_URL}/api/category/v1/list-all-categories`,
-   SAVE_OR_UPDATE_CATEGORY: `${BASE_URL}/api/category/v1/create-or-update-category`,
-   DELETE_CATEGORY: `${BASE_URL}/api/category/v1/delete-category`,
-
-   //Current user Task Status
+  //Current user Task Status
   LIST_ALL_CURRENT_USER_TASK_STATUSES: `${BASE_URL}/api/status/v1/list-current-user-task-status`,
-
-
-   
 };
-
-
-

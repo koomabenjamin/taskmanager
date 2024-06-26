@@ -1,17 +1,16 @@
-import { ref } from 'vue';
-import axiosInstance from '@/axios';
-import { API_URLS } from '@/apis';
+import { ref } from "vue";
+import axiosInstance from "@/axios";
+import { API_URLS } from "@/apis";
 
 export const allCurrentUserTaskStatuses = ref([]);
 
 export const fetchAllCurrentUserTaskStatusData = async () => {
   try {
-    const response = await axiosInstance.get(API_URLS.LIST_ALL_CURRENT_USER_TASK_STATUSES);
+    const response = await axiosInstance.get(
+      API_URLS.LIST_ALL_CURRENT_USER_TASK_STATUSES
+    );
     allCurrentUserTaskStatuses.value = response.data.results;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 };
-
-
-

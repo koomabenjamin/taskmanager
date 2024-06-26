@@ -1,150 +1,228 @@
 <template>
-<div v-for="item in props.items" :key="item" @click="openCloseSublists(item.label)" class="w-full h-auto flex-col flex -my-2">
-    <div class="flex h-12 items-center hover:bg-yellow-100 justify-between p-1 hover:border hover:shadow-md rounded">
-        <div class="flex items-center space-x-2 text-sm">
-            <component class="h-6 w-6 stroke-2" :is="Icons[item.icon]"></component>
-            <span class="font-semibold">{{ item.label }}</span>
-        </div>
-        <div>
-            <component class="h-5 w-5 stroke-2" :is="Icons['ChevronDownIcon']" v-if="item.subList.length > 0 && !subListsOpen.includes(item.label)">
-            </component>
-            <component class="h-5 w-5 stroke-2" :is="Icons['ChevronUpIcon']" v-if="item.subList.length > 0 && subListsOpen.includes(item.label)">
-            </component>
-        </div>
+  <div
+    v-for="item in props.items"
+    :key="item"
+    @click="openCloseSublists(item.label)"
+    class="w-full h-auto flex-col flex -my-2"
+  >
+    <div
+      class="flex h-12 items-center hover:bg-yellow-100 justify-between p-1 hover:border hover:shadow-md rounded"
+    >
+      <div class="flex items-center space-x-2 text-sm">
+        <component class="h-6 w-6 stroke-2" :is="Icons[item.icon]"></component>
+        <span class="font-semibold">{{ item.label }}</span>
+      </div>
+      <div>
+        <component
+          class="h-5 w-5 stroke-2"
+          :is="Icons['ChevronDownIcon']"
+          v-if="item.subList.length > 0 && !subListsOpen.includes(item.label)"
+        >
+        </component>
+        <component
+          class="h-5 w-5 stroke-2"
+          :is="Icons['ChevronUpIcon']"
+          v-if="item.subList.length > 0 && subListsOpen.includes(item.label)"
+        >
+        </component>
+      </div>
     </div>
-    <div v-if="item.subList.length > 0 && subListsOpen.includes(item.label)" class="pl-10 space-y-4">
-        <div v-for="item in item.subList" :key="item">
-            <div :class="{ 'bg-yellow-300': item.name === 'Statra Insurance' }" class="flex items-center space-x-2 cursor-pointer p-1 rounded">
-                <!-- <span :class="`h-3 w-3 ${item.color} rounded-full`"></span> -->
-                <span :style="{ backgroundColor: item.color }" :class="`h-3 w-3 rounded-full`"></span>
-                <span class="text-sm">{{ item.name }}</span>
-            </div>
+    <div
+      v-if="item.subList.length > 0 && subListsOpen.includes(item.label)"
+      class="pl-10 space-y-4"
+    >
+      <div v-for="item in item.subList" :key="item">
+        <div
+          :class="{ 'bg-yellow-300': item.name === 'Statra Insurance' }"
+          class="flex items-center space-x-2 cursor-pointer p-1 rounded"
+        >
+          <!-- <span :class="`h-3 w-3 ${item.color} rounded-full`"></span> -->
+          <span
+            :style="{ backgroundColor: item.color }"
+            :class="`h-3 w-3 rounded-full`"
+          ></span>
+          <span class="text-sm">{{ item.name }}</span>
         </div>
-        <div class="flex items-center space-x-2 cursor-pointer text-sm" @click="showForm(item.name)">
-            <component class="h-5 w-5 stroke-2" :is="Icons['PlusCircleIcon']" v-if="item.subList.length > 0 && subListsOpen.includes(item.label)">
-            </component>
-            <span>Add {{ upper(item.name) }}</span>
-        </div>
+      </div>
+      <div
+        class="flex items-center space-x-2 cursor-pointer text-sm"
+        @click="showForm(item.name)"
+      >
+        <component
+          class="h-5 w-5 stroke-2"
+          :is="Icons['PlusCircleIcon']"
+          v-if="item.subList.length > 0 && subListsOpen.includes(item.label)"
+        >
+        </component>
+        <span>Add {{ upper(item.name) }}</span>
+      </div>
     </div>
-</div>
+  </div>
 
-<Modal>
+  <Modal>
     <template v-slot:heading>Add {{ upper(selectedForm) }}</template>
     <template v-slot:form>
-        <form @submit.prevent="submitTaskForm" class="grid grid-cols-1 gap-4" v-if="selectedForm === 'task'">
-            <div>
-                <label for="project" class="block text-sm font-medium text-gray-900">
-                    Project:
-                </label>
-                <CustomSelect placeholder="Select Project" v-model="selectedProject" :options="transformedProjects"></CustomSelect>
-            </div>
+      <form
+        @submit.prevent="submitTaskForm"
+        class="grid grid-cols-1 gap-4"
+        v-if="selectedForm === 'task'"
+      >
+        <div>
+          <label for="project" class="block text-sm font-medium text-gray-900">
+            Project:
+          </label>
+          <CustomSelect
+            placeholder="Select Project"
+            v-model="selectedProject"
+            :options="transformedProjects"
+          ></CustomSelect>
+        </div>
 
-            <div>
-                <label for="category" class="block text-sm font-medium text-gray-900">
-                    Category:
-                </label>
-                <CustomSelect placeholder="Select Category" v-model="selectedCategory" :options="transformedCategories"></CustomSelect>
-            </div>
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-900">
+            Category:
+          </label>
+          <CustomSelect
+            placeholder="Select Category"
+            v-model="selectedCategory"
+            :options="transformedCategories"
+          ></CustomSelect>
+        </div>
 
-            <div>
-                <label for="task_name" class="block text-sm font-medium text-gray-900">
-                    Task Name:
-                </label>
-                <Input placeholder="Task Name" type="text" v-model="taskName" required class="w-full" />
-            </div>
+        <div>
+          <label
+            for="task_name"
+            class="block text-sm font-medium text-gray-900"
+          >
+            Task Name:
+          </label>
+          <Input
+            placeholder="Task Name"
+            type="text"
+            v-model="taskName"
+            required
+            class="w-full"
+          />
+        </div>
 
-            <div>
-                <label for="task_description" class="block text-sm font-medium text-gray-900">
-                    Task Description:
-                </label>
-                <TextArea v-model="taskDescription" rows="5" placeholder="Description" class="w-full" />
-                </div>
+        <div>
+          <label
+            for="task_description"
+            class="block text-sm font-medium text-gray-900"
+          >
+            Task Description:
+          </label>
+          <TextArea
+            v-model="taskDescription"
+            rows="5"
+            placeholder="Description"
+            class="w-full"
+          />
+        </div>
 
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <label for="task_start_date" class="block text-sm font-medium text-gray-900">
-        Start Date:
-      </label>
-      <Input
-        required
-        v-model="taskStartDate"
-        placeholder="Start Date"
-        type="date"
-        class="w-full"
-        :min="todayDate"
-      />
-    </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label
+              for="task_start_date"
+              class="block text-sm font-medium text-gray-900"
+            >
+              Start Date:
+            </label>
+            <Input
+              required
+              v-model="taskStartDate"
+              placeholder="Start Date"
+              type="date"
+              class="w-full"
+              :min="todayDate"
+            />
+          </div>
 
-    <div>
-      <label for="task_end_date" class="block text-sm font-medium text-gray-900">
-        End Date:
-      </label>
-      <Input
-        required
-        v-model="taskEndDate"
-        placeholder="End Date"
-        type="date"
-        class="w-full"
-        :min="todayDate"
-      />
-    </div>
-  </div>
+          <div>
+            <label
+              for="task_end_date"
+              class="block text-sm font-medium text-gray-900"
+            >
+              End Date:
+            </label>
+            <Input
+              required
+              v-model="taskEndDate"
+              placeholder="End Date"
+              type="date"
+              class="w-full"
+              :min="todayDate"
+            />
+          </div>
+        </div>
 
-  <div>
-    <label for="task_priority" class="block text-sm font-medium text-gray-900">
-      Priority:
-    </label>
-    <CustomSelect
-      placeholder="Select Task Priority"
-      v-model="selectedTaskPriority"
-      :options="taskPriority"
-    ></CustomSelect>
-  </div>
+        <div>
+          <label
+            for="task_priority"
+            class="block text-sm font-medium text-gray-900"
+          >
+            Priority:
+          </label>
+          <CustomSelect
+            placeholder="Select Task Priority"
+            v-model="selectedTaskPriority"
+            :options="taskPriority"
+          ></CustomSelect>
+        </div>
 
-  <div>
-    <label for="task_status" class="block text-sm font-medium text-gray-900">
-      Task Status:
-    </label>
-    <CustomSelect
-      placeholder="Select Task Status"
-      v-model="selectedTaskStatus"
-      :options="transformedTaskStatus"
-      required
-    ></CustomSelect>
-  </div>
+        <div>
+          <label
+            for="task_status"
+            class="block text-sm font-medium text-gray-900"
+          >
+            Task Status:
+          </label>
+          <CustomSelect
+            placeholder="Select Task Status"
+            v-model="selectedTaskStatus"
+            :options="transformedTaskStatus"
+            required
+          ></CustomSelect>
+        </div>
 
-  <div>
-    <label for="task_tags" class="block text-sm font-medium text-gray-900">
-      Tags:
-    </label>
-    <CustomSelect
-      placeholder="Select Tag"
-      v-model="tagIDS"
-      :options="transformedTags"
-      multiple
-    ></CustomSelect>
-  </div>
+        <div>
+          <label
+            for="task_tags"
+            class="block text-sm font-medium text-gray-900"
+          >
+            Tags:
+          </label>
+          <CustomSelect
+            placeholder="Select Tag"
+            v-model="tagIDS"
+            :options="transformedTags"
+            multiple
+          ></CustomSelect>
+        </div>
 
-  <div>
-    <label for="task_members" class="block text-sm font-medium text-gray-900">
-      Members:
-    </label>
-    <CustomSelect
-      placeholder="Select Member"
-      v-model="memberIDS"
-      :options="transformedMembers"
-      multiple
-    ></CustomSelect>
-  </div>
+        <div>
+          <label
+            for="task_members"
+            class="block text-sm font-medium text-gray-900"
+          >
+            Members:
+          </label>
+          <CustomSelect
+            placeholder="Select Member"
+            v-model="memberIDS"
+            :options="transformedMembers"
+            multiple
+          ></CustomSelect>
+        </div>
 
-  <Button
-    label="Add New Task"
-    icon="PlusIcon"
-    color="bg-lime-500 text-white"
-    size="xl"
-    class="col-span-1"
-  />
-</form>
+        <Button
+          label="Add New Task"
+          icon="PlusIcon"
+          color="bg-lime-500 text-white"
+          size="xl"
+          class="col-span-1"
+        />
+      </form>
 
       <form
         @submit.prevent="submitTagForm"
@@ -219,7 +297,6 @@
         </div>
       </form>
 
-    
       <form
         class="grid grid-cols-2 gap-2 -space-y-0"
         v-if="selectedForm === 'status'"
@@ -270,15 +347,12 @@
         />
       </form>
 
-
-
-
       <form
-      @submit.prevent="submitCategoryForm"
+        @submit.prevent="submitCategoryForm"
         class="grid grid-cols-2 gap-2 -space-y-0"
         v-if="selectedForm === 'category'"
       >
-      <label
+        <label
           for="category_name"
           class="block text-sm font-medium text-gray-900"
           >Category Name:</label
@@ -307,13 +381,7 @@
 </template>
 
 <script setup>
-import {
-    ref,
-    reactive,
-    onMounted,
-    provide,
-    computed
-} from 'vue'
+import { ref, reactive, onMounted, provide, computed } from "vue";
 import * as Icons from "@heroicons/vue/24/outline";
 import Modal from "./ModalUpdate.vue";
 import Input from "./Input.vue";
@@ -321,54 +389,46 @@ import Button from "./Button.vue";
 import CustomSelect from "./CustomSelect.vue";
 import TextArea from "./TextArea.vue";
 import ColorPicker from "./ColorPicker.vue";
+import { useRouter } from "vue-router";
 import {
-    useRouter
-} from "vue-router";
-import {
-    fetchAllProjectsData,
-    submitProjectData,
-    allProjects,
+  fetchAllProjectsData,
+  submitProjectData,
+  allProjects,
 } from "@/services/projectService";
 import {
-    fetchAllTagsData,
-    submitTagData,
-    allTags,
+  fetchAllTagsData,
+  submitTagData,
+  allTags,
 } from "@/services/tagService";
 import {
-    fetchAllMembersData,
-    submitMemberData,
-    allMembers,
+  fetchAllMembersData,
+  submitMemberData,
+  allMembers,
 } from "@/services/memberService";
 
 import {
-    fetchAllCategoriesData,
-    submitCategoryData,
-    allCategories,
+  fetchAllCategoriesData,
+  submitCategoryData,
+  allCategories,
 } from "@/services/categoryService";
 
 import {
-    fetchAllCurrentUserTaskStatusData,
-    allCurrentUserTaskStatuses,
+  fetchAllCurrentUserTaskStatusData,
+  allCurrentUserTaskStatuses,
 } from "@/services/taskStatus";
 
 import {
-    fetchAllTasksData,
-    submitTaskData,
-    allTasks,
-    taskPriority
+  fetchAllTasksData,
+  submitTaskData,
+  allTasks,
+  taskPriority,
 } from "@/services/taskService";
 
-import {
-    PlusIcon,
-} from '@heroicons/vue/24/outline'
+import { PlusIcon } from "@heroicons/vue/24/outline";
 
-import {
-    useNavItemsStore
-} from "@/stores/navItems";
+import { useNavItemsStore } from "@/stores/navItems";
 
-import {
-    API_URLS
-} from "@/apis";
+import { API_URLS } from "@/apis";
 import axiosInstance from "@/axios";
 const router = useRouter();
 
@@ -376,44 +436,42 @@ const navItemsStore = useNavItemsStore();
 const navItems = navItemsStore.navItems;
 
 const updateProjectsInNavItems = () => {
-    navItemsStore.updateProjectsInNavItems(allProjects.value);
+  navItemsStore.updateProjectsInNavItems(allProjects.value);
 };
 
 const updateTagsInNavItems = () => {
-    navItemsStore.updateTagsInNavItems(allTags.value);
+  navItemsStore.updateTagsInNavItems(allTags.value);
 };
 
 const updateMembersInNavItems = () => {
-    navItemsStore.updateMembersInNavItems(allMembers.value);
+  navItemsStore.updateMembersInNavItems(allMembers.value);
 };
 
 const updateTaskListsInNavItems = () => {
-    navItemsStore.updateTaskListsInNavItems(allTasks.value);
+  navItemsStore.updateTaskListsInNavItems(allTasks.value);
 };
 
 const updateCategoryListsInNavItems = () => {
-    navItemsStore.updateCategoryListsInNavItems(allCategories.value);
+  navItemsStore.updateCategoryListsInNavItems(allCategories.value);
 };
 
-const transformedMembers = ref([])
-const transformedTaskStatus = ref([])
-const transformedProjects = ref([])
-const transformedCategories = ref([])
-const transformedTags = ref([])
-
-
+const transformedMembers = ref([]);
+const transformedTaskStatus = ref([]);
+const transformedProjects = ref([]);
+const transformedCategories = ref([]);
+const transformedTags = ref([]);
 
 const props = defineProps({
-    name: [String, Number],
-    label: [String, Number],
-    icon: [String, Number],
-    subList: [Array, Object],
-    items: [Array, Object],
+  name: [String, Number],
+  label: [String, Number],
+  icon: [String, Number],
+  subList: [Array, Object],
+  items: [Array, Object],
 });
 
 const selectedTaskPriority = ref(taskPriority[0]);
-const selectedProject = ref(transformedProjects[0]);
-const selectedCategory = ref(transformedCategories[0]);
+const selectedProject = ref(transformedProjects.value[0]);
+const selectedCategory = ref(transformedCategories.value[0]);
 const selectedTaskStatus = ref(transformedTaskStatus.value[0]);
 
 const subListsOpen = ref([]);
@@ -421,8 +479,7 @@ const dataName = ref("");
 const colorName = ref("");
 const name = ref("");
 const email = ref("");
-const task_id = ref(null)
-
+const task_id = ref(null);
 
 const taskName = ref("");
 const taskDescription = ref("");
@@ -440,245 +497,241 @@ const selectedForm = ref("tag");
 provide("isOpenSideModal", isOpen);
 
 const openCloseSublists = (subList) => {
-    if (!subListsOpen.value.includes(subList)) subListsOpen.value.push(subList);
-    else {
-        let indexOfList = subListsOpen.value.indexOf(subList);
-        if (indexOfList !== -1) subListsOpen.value.splice(indexOfList, 1);
-    }
+  if (!subListsOpen.value.includes(subList)) subListsOpen.value.push(subList);
+  else {
+    let indexOfList = subListsOpen.value.indexOf(subList);
+    if (indexOfList !== -1) subListsOpen.value.splice(indexOfList, 1);
+  }
 };
 
 const getUpdatedColor = (e) => {
-    colorName.value = e;
+  colorName.value = e;
 };
 
 const submitProjectForm = async () => {
-    try {
-        const response = await submitProjectData(dataName.value, colorName.value);
-        // console.log("RESPONSE: ", response);
-        await fetchAllProjectsData();
-        updateProjectsInNavItems();
+  try {
+    const response = await submitProjectData(dataName.value, colorName.value);
+    // console.log("RESPONSE: ", response);
+    await fetchAllProjectsData();
+    updateProjectsInNavItems();
 
-        dataName.value = "";
-        colorName.value = "";
-        isOpen.value = false;
-    } catch (error) {
-        let errorMessage = "Error Occured. Please try again.";
-        if (error.response && error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message;
-        }
-        alert(errorMessage);
+    dataName.value = "";
+    colorName.value = "";
+    isOpen.value = false;
+  } catch (error) {
+    let errorMessage = "Error Occured. Please try again.";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
     }
+    alert(errorMessage);
+  }
 };
 
 const submitCategoryForm = async () => {
-    try {
-        const response = await submitCategoryData(dataName.value, colorName.value);
-        console.log("RESPONSE CAT: ", response);
-        await fetchAllCategoriesData();
-        updateCategoryListsInNavItems();
+  try {
+    const response = await submitCategoryData(dataName.value, colorName.value);
+    console.log("RESPONSE CAT: ", response);
+    await fetchAllCategoriesData();
+    updateCategoryListsInNavItems();
 
-        dataName.value = "";
-        colorName.value = "";
-        isOpen.value = false;
-    } catch (error) {
-        let errorMessage = "Error Occured. Please try again.";
-        if (error.response && error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message;
-        }
-        alert(errorMessage);
+    dataName.value = "";
+    colorName.value = "";
+    isOpen.value = false;
+  } catch (error) {
+    let errorMessage = "Error Occured. Please try again.";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
     }
+    alert(errorMessage);
+  }
 };
 
-
-
-
 const submitTaskForm = async () => {
-    let tagData = [];
-    let memberData = [];
+  let tagData = [];
+  let memberData = [];
 
-    let taskFoundTaskPriority = taskPriority.find(priority => priority.value === selectedTaskPriority.value);
+  let taskFoundTaskPriority = taskPriority.find(
+    (priority) => priority.value === selectedTaskPriority.value
+  );
 
-    if (tagIDS.value.length > 0) {
-        const uniqueTagIDs = new Set(tagIDS.value);
-        uniqueTagIDs.forEach((objectId) => {
-            const tag = allTags.value.find((t) => t.id === objectId);
-            if (tag) {
-                let dataToPush = {
-                    id: tag.id,
-                    tag_name: tag.tag_name,
-                    tag_color: tag.tag_color
-                };
-                tagData.push(dataToPush);
-            }
-        });
+  if (tagIDS.value.length > 0) {
+    const uniqueTagIDs = new Set(tagIDS.value);
+    uniqueTagIDs.forEach((objectId) => {
+      const tag = allTags.value.find((t) => t.id === objectId);
+      if (tag) {
+        let dataToPush = {
+          id: tag.id,
+          tag_name: tag.tag_name,
+          tag_color: tag.tag_color,
+        };
+        tagData.push(dataToPush);
+      }
+    });
+  }
+
+  if (memberIDS.value.length > 0) {
+    const uniqueMemberIDs = new Set(memberIDS.value);
+    uniqueMemberIDs.forEach((objectId) => {
+      const member = allMembers.value.find((t) => t.id === objectId);
+      if (member) {
+        let dataToPush = {
+          id: member.id,
+          name: member.name,
+        };
+        memberData.push(dataToPush);
+      }
+    });
+  }
+
+  if (selectedTaskStatus.value == null || selectedTaskStatus.value == "") {
+    alert("Please Select the status");
+    return;
+  }
+
+  if (selectedProject.value == null || selectedProject.value == "") {
+    alert("Please Select the project");
+    return;
+  }
+
+  const dataToBackend = {
+    task_id: task_id.value,
+    project_id: selectedProject.value,
+    category_id: selectedCategory.value,
+    status_id: selectedTaskStatus.value,
+    task_name: taskName.value,
+    start_date: taskStartDate.value,
+    end_date: taskEndDate.value,
+    task_priority: taskFoundTaskPriority.label.toLowerCase(),
+    description: taskDescription.value ? taskDescription.value : "",
+    tags: tagData ? tagData : [],
+    members: memberData ? memberData : [],
+  };
+
+  console.log("DATA TO BACKEND: ", dataToBackend);
+
+  try {
+    const response = await submitTaskData(dataToBackend);
+    await fetchAllTasksData();
+    updateTaskListsInNavItems();
+    isOpen.value = false;
+  } catch (error) {
+    let errorMessage = "Error while submitting tasks";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
+    } else {
+      console.error("Network Error Details:", error);
+      errorMessage = error.message || "Network Error";
     }
-
-    if (memberIDS.value.length > 0) {
-        const uniqueMemberIDs = new Set(memberIDS.value);
-        uniqueMemberIDs.forEach((objectId) => {
-            const member = allMembers.value.find((t) => t.id === objectId);
-            if (member) {
-                let dataToPush = {
-                    id: member.id,
-                    name: member.name,
-                };
-                memberData.push(dataToPush);
-            }
-        });
-    }
-
-    if (selectedTaskStatus.value == null || selectedTaskStatus.value == "") {
-        alert("Please Select the status");
-        return;
-    }
-
-    if (selectedProject.value == null || selectedProject.value == "") {
-        alert("Please Select the project");
-        return;
-    }
-
-    const dataToBackend = {
-        task_id:   task_id.value,
-        project_id: selectedProject.value,
-        category_id: selectedCategory.value,
-        status_id: selectedTaskStatus.value,
-        task_name: taskName.value,
-        start_date: taskStartDate.value,
-        end_date: taskEndDate.value,
-        task_priority: taskFoundTaskPriority.label.toLowerCase(),
-        description: taskDescription.value ? taskDescription.value : "",
-        tags: tagData ? (tagData) : [],
-        members: memberData ? (memberData) : [],
-    };
-
-
-    console.log("DATA TO BACKEND: ", dataToBackend)
-
-    try {
-        const response = await submitTaskData(
-          dataToBackend
-        );
-        await fetchAllTasksData();
-        updateTaskListsInNavItems();
-        isOpen.value = false;
-    } catch (error) {
-        let errorMessage = "Error while submitting tasks";
-        if (error.response && error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message;
-        } else {
-            console.error("Network Error Details:", error);
-            errorMessage = error.message || "Network Error";
-        }
-        alert(errorMessage);
-    }
+    alert(errorMessage);
+  }
 };
 
 const submitTagForm = async () => {
-    try {
-        const response = await submitTagData(dataName.value, colorName.value);
-        await fetchAllTagsData();
-        updateTagsInNavItems();
-        dataName.value = "";
-        colorName.value = "";
-        isOpen.value = false;
-    } catch (error) {
-        let errorMessage = "Error Occured. Please try again.";
-        if (error.response && error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message;
-        }
-        alert(errorMessage);
+  try {
+    const response = await submitTagData(dataName.value, colorName.value);
+    await fetchAllTagsData();
+    updateTagsInNavItems();
+    dataName.value = "";
+    colorName.value = "";
+    isOpen.value = false;
+  } catch (error) {
+    let errorMessage = "Error Occured. Please try again.";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
     }
+    alert(errorMessage);
+  }
 };
 
 const submitMemberForm = async () => {
-    try {
-        const response = await submitMemberData(name.value, email.value);
-        await fetchAllMembersData();
-        updateMembersInNavItems();
+  try {
+    const response = await submitMemberData(name.value, email.value);
+    await fetchAllMembersData();
+    updateMembersInNavItems();
 
-        name.value = "";
-        email.value = "";
-        isOpen.value = false;
-    } catch (error) {
-        let errorMessage = "Error Occured. Please try again.";
-        if (error.response && error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message;
-        }
-        alert(errorMessage);
+    name.value = "";
+    email.value = "";
+    isOpen.value = false;
+  } catch (error) {
+    let errorMessage = "Error Occured. Please try again.";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
     }
+    alert(errorMessage);
+  }
 };
 
 const goToDashbaord = () => {
-    router.push("/");
+  router.push("/");
 };
 
 const upper = (str) => {
-    str = str.toLowerCase().split(" ");
+  str = str.toLowerCase().split(" ");
 
-    let final = [];
+  let final = [];
 
-    for (let word of str) {
-        final.push(word.charAt(0).toUpperCase() + word.slice(1));
-    }
+  for (let word of str) {
+    final.push(word.charAt(0).toUpperCase() + word.slice(1));
+  }
 
-    return final.join(" ");
+  return final.join(" ");
 };
 
 const showForm = (form) => {
-    isOpen.value = true;
-    selectedForm.value = form;
+  isOpen.value = true;
+  selectedForm.value = form;
 };
 
 const todayDate = computed(() => {
-    return new Date().toISOString().split('T')[0];
+  return new Date().toISOString().split("T")[0];
 });
 
 onMounted(async () => {
-    await fetchAllMembersData();
-    await fetchAllTagsData();
-    await fetchAllTasksData();
-    await fetchAllCurrentUserTaskStatusData();
-    await fetchAllProjectsData();
+  await fetchAllMembersData();
+  await fetchAllTagsData();
+  await fetchAllTasksData();
+  await fetchAllCurrentUserTaskStatusData();
+  await fetchAllProjectsData();
 
-    transformedMembers.value = allMembers.value.map((object) => {
-        return {
-            label: object.name,
-            value: object.id
-        };
-    });
+  transformedMembers.value = allMembers.value.map((object) => {
+    return {
+      label: object.name,
+      value: object.id,
+    };
+  });
 
-    transformedTaskStatus.value = allCurrentUserTaskStatuses.value.map((object) => {
-        return {
-            label: object.title,
-            value: object.id
-        };
-    });
+  transformedTaskStatus.value = allCurrentUserTaskStatuses.value.map(
+    (object) => {
+      return {
+        label: object.title,
+        value: object.id,
+      };
+    }
+  );
 
-    transformedProjects.value = allProjects.value.map((object) => {
-        return {
-            label: object.project_name,
-            value: object.id
-        };
-    });
+  transformedProjects.value = allProjects.value.map((object) => {
+    return {
+      label: object.project_name,
+      value: object.id,
+    };
+  });
 
-    transformedTags.value = allTags.value.map((object) => {
-        return {
-            label: object.tag_name,
-            value: object.id
-        };
-    });
+  transformedTags.value = allTags.value.map((object) => {
+    return {
+      label: object.tag_name,
+      value: object.id,
+    };
+  });
 
-     transformedCategories.value = allCategories.value.map((object) => {
-        return {
-            label: object.category_name,
-            value: object.id
-        };
-    });
-    
+  transformedCategories.value = allCategories.value.map((object) => {
+    return {
+      label: object.category_name,
+      value: object.id,
+    };
+  });
 
-    // console.log("FORMATTED DATA: ", transformedTags.value)
+  // console.log("FORMATTED DATA: ", transformedTags.value)
 });
 </script>
 
-<style>
-</style>
+<style></style>

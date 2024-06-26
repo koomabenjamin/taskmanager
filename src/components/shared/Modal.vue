@@ -29,9 +29,9 @@
           <TransitionChild
             as="template"
             enter="transform transition ease-in-out duration-500"
-            enter-from="-translate-x-full" 
+            enter-from="-translate-x-full"
             enter-to="translate-x-0"
-            leave="transform transition ease-in-out duration-500" 
+            leave="transform transition ease-in-out duration-500"
             leave-from="translate-x-full"
             leave-to="-translate-x-full"
           >
@@ -48,7 +48,7 @@
                   class="inline-flex justify-center rounded-md border shadow-md bg-lime-100 px-2 py-2 text-sm font-medium text-lime-900 hover:bg-lime-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2"
                   @click="closeModal"
                 >
-                <XMarkIcon class="h-6"/>
+                  <XMarkIcon class="h-6" />
                 </button>
               </DialogTitle>
               <div class="mt-2">
@@ -67,28 +67,28 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from 'vue'
+import { ref, inject, onMounted } from "vue";
 import {
   TransitionRoot,
   TransitionChild,
   Dialog,
   DialogPanel,
   DialogTitle,
-} from '@headlessui/vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+} from "@headlessui/vue";
+import { XMarkIcon } from "@heroicons/vue/24/outline";
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 
-const isOpenSideModal = inject('isOpenSideModal')
+const isOpenSideModal = inject("isOpenSideModal");
 
 function closeModal() {
-  isOpenSideModal.value = false
+  isOpenSideModal.value = false;
 }
 function openModal() {
-  isOpen.value = true
+  isOpen.value = true;
 }
 
 onMounted(() => {
-  console.log(isOpenSideModal.value)
-})
+  console.log(isOpenSideModal.value);
+});
 </script>
