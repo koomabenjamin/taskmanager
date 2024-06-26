@@ -66,32 +66,6 @@
           <div class="flex -space-x-4" v-else>
             <h6 class="text-rose-400">No Member Added Yet</h6>
           </div>
-
-          <!-- <button @click="toggleDropdown(card.id)">
-                  <ChevronUpIcon class="h-5 w-5 text-slate-500" />
-                </button>
-                <div v-if="dropdownOpen === card.id" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
-                  <ul class="py-1">
-                    <li @click="editTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
-                    <li @click="deleteTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
-                  </ul>
-                </div> -->
-
-          <!-- <div class="relative flex items-center">
-                    <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize">{{ toTitleCase(card.priority) }}</div>
-                    <div class="ml-2">
-                        <button @click="toggleDropdown(card.id)">
-                            <DotsVerticalIcon class="h-5 w-5 text-slate-500" />
-                        </button>
-                        <div v-if="dropdownOpen === card.id" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
-                            <ul class="py-1">
-                                <li @click="editTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
-                                <li @click="deleteTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> -->
-
           <div class="relative flex items-center">
             <div
               class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize"
@@ -154,25 +128,10 @@
                   </MenuItems>
                 </transition>
               </Menu>
-
-              <!-- <button @click="toggleDropdown(card.id)">
-                  <ChevronUpIcon class="h-5 w-5 text-slate-500" />
-                </button>
-                <div v-if="dropdownOpen === card.id" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
-                  <ul class="py-1">
-                    <li @click="editTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
-                    <li @click="deleteTask(card.id)" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
-                  </ul>
-                </div> -->
             </div>
           </div>
-
-          <!-- <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold captalise">{{ toTitleCase(card.priority) }}</div> -->
-
-          <!-- <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold captalise">
-                   <Button label="Share" icon="ShareIcon" color="bg-transparent" size="md" drop-down />
-                </div> -->
         </div>
+
         <div class="font-bold text-sm my-3">{{ card.task_name }}</div>
 
         <div class="flex flex-wrap items-center space-x-1 my-1 text-[10px]">
@@ -514,6 +473,9 @@ function closeModal() {
   isOpen.value = false;
 }
 
+
+// console.log("ALL TASKS CARDS FE", cards.value);
+
 const dropdownOpen = ref(false);
 const columns = ref([]);
 const data = ref(null);
@@ -601,7 +563,7 @@ const submitTaskForm = async (data) => {
 };
 
 const showDeleteTask = (data) => {
-  let dataToDelete = `<p style='font-size: 14px;'>Would you like to Delete <b>${data.task_name}</b> task? <br/>This action  is not reversible.<br/></p>`;
+  let dataToDelete = `<p style='font-size: 14px;'>Would you like to Delete <b>${data.task_name}</b> task? <br/>Once Deleted, you can visit the "Task Repository" to restore.<br/></p>`;
   Swal.fire({
     icon: "question",
     html: dataToDelete,
@@ -642,9 +604,6 @@ const editTask = (taskObject) => {
   let memberIDSArray = [];
   let tagIDSArray = [];
   selectedFormObject.value = taskObject;
-
-  console.log("selectedFormObject: ", selectedFormObject.value);
-
   taskName.value = selectedFormObject.value.task_name;
   taskDescription.value = selectedFormObject.value.description;
   taskStartDate.value = selectedFormObject.value.start_date;

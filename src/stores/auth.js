@@ -19,8 +19,6 @@ export const useAuthStore = defineStore("auth", {
     async login(email, password) {
       try {
         const response = await axios.post(API_URLS.LOGIN, { email, password });
-
-        console.log("RESPONSE: ", response);
         this.user = response.data.results.user;
         this.token = response.data.results.token;
         this.tokenExpiry = response.data.results.expires_at;

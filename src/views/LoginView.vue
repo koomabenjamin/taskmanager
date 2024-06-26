@@ -86,8 +86,8 @@ import { useRouter } from "vue-router";
 import Button from "../components/shared/Button.vue";
 import InputForm from "../components/shared/Input.vue";
 
-const email = ref("");
-const password = ref("");
+const email = ref("projectcode@gmail.com");
+const password = ref("projectcode");
 const isLoading = ref(false);
 const router = useRouter();
 

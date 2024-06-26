@@ -5,6 +5,9 @@ import { API_URLS } from "@/apis";
 export const allTasks = ref([]);
 export const cards = ref([]);
 
+export const allDeletedTasks = ref([]);
+export const deletedTaskCards = ref([]);
+
 export const taskPriority = [
   {
     value: 1,
@@ -45,7 +48,20 @@ export const fetchAllTasksData = async () => {
   }
 };
 
+
+export const fetchAllDeletedTasksData = async () => {
+  try {
+    const response = await axiosInstance.get(API_URLS.LIST_ALL_DELETED_TASKS);
+    allDeletedTasks.value = response.data.results;
+    // console.log("DELETED TASKS BACKEND: ", allDeletedTasks.value)
+    await updateDeletedTaskCards(response.data.results);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
 export const updateCards = async (updatedTasks) => {
+  // console.log("updatedTasksCARD: ", updatedTasks);
   cards.value = updatedTasks.map((updatedTask) => ({
     id: updatedTask.id,
     project_id: updatedTask.project_id,
@@ -63,6 +79,28 @@ export const updateCards = async (updatedTasks) => {
     tags: updatedTask.tags,
   }));
 };
+
+
+export const updateDeletedTaskCards = async (updatedTasks) => {
+  deletedTaskCards.value = updatedTasks.map((updatedTask) => ({
+    id: updatedTask.id,
+    project_id: updatedTask.project_id,
+    category_id: updatedTask.category_id,
+    status: updatedTask.status.slug,
+    priority: updatedTask.task_priority,
+    task_name: updatedTask.task_name,
+    description: updatedTask.description ? updatedTask.description : null,
+    start_date: updatedTask.start_date,
+    status_id: updatedTask.status_id,
+    unformatted_status: updatedTask.status,
+    end_date: updatedTask.end_date,
+    date: formatDate(updatedTask.start_date, updatedTask.end_date),
+    members: updatedTask.members.map((member) => member.id),
+    tags: updatedTask.tags,
+  }));
+
+};
+
 
 export const formatDate = (startDate, endDate) => {
   const start = new Date(startDate);
@@ -128,6 +166,19 @@ export const deleteTaskData = async (task_id) => {
     return response.data;
   } catch (error) {
     console.error("Error Deleting task.....", error);
+    throw error;
+  }
+};
+
+
+export const restoreDeletedTaskData = async (task_id) => {
+  try {
+    const response = await axiosInstance.post(API_URLS.RESTORE_DELETED_TASK, {
+      task_id: task_id,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error Restoring task.....", error);
     throw error;
   }
 };

@@ -530,7 +530,6 @@ const submitProjectForm = async () => {
 const submitCategoryForm = async () => {
   try {
     const response = await submitCategoryData(dataName.value, colorName.value);
-    console.log("RESPONSE CAT: ", response);
     await fetchAllCategoriesData();
     updateCategoryListsInNavItems();
 
@@ -606,9 +605,6 @@ const submitTaskForm = async () => {
     tags: tagData ? tagData : [],
     members: memberData ? memberData : [],
   };
-
-  console.log("DATA TO BACKEND: ", dataToBackend);
-
   try {
     const response = await submitTaskData(dataToBackend);
     await fetchAllTasksData();

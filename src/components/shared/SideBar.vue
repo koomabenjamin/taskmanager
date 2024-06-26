@@ -4,7 +4,7 @@
   >
     <div class="font-bold text-lg">Task Master</div>
     <Button
-      label="Add new task"
+      label="Add New Task"
       icon="PlusIcon"
       color="bg-lime-300"
       size="xl"
