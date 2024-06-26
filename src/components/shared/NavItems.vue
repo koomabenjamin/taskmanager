@@ -279,7 +279,7 @@
         v-if="selectedForm === 'category'"
       >
       <label
-          for="project_name"
+          for="category_name"
           class="block text-sm font-medium text-gray-900"
           >Category Name:</label
         >
@@ -473,7 +473,7 @@ const submitProjectForm = async () => {
 const submitCategoryForm = async () => {
     try {
         const response = await submitCategoryData(dataName.value, colorName.value);
-        // console.log("RESPONSE: ", response);
+        console.log("RESPONSE CAT: ", response);
         await fetchAllCategoriesData();
         updateCategoryListsInNavItems();
 

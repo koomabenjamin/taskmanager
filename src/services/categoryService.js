@@ -23,7 +23,7 @@ export const submitCategoryData = async (dataName, colorName) => {
       });
       return response.data;
     } catch (error) {
-      console.error('Error submitting project data:', error);
+      console.error('Error submitting category data:', error);
       throw error; 
     }
   };
