@@ -46,33 +46,11 @@
   <Modal>
     <template v-slot:heading>Add {{ selectedForm }}</template>
     <template v-slot:form>
-      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'task'">
-        <Input placeholder="Title" class="col-span-2"/>
-        <Input placeholder="Start Date" type="date"/>
-        <Input placeholder="End Date" type="date"/>
-        <Input placeholder="Priority" class="col-span-2"/>
-        <TextArea rows="5" placeholder="Description" class="col-span-2" />
-        <TextArea rows="5" placeholder="Members" class="col-span-2" />
-        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
-      </form>
-      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'tag'">
-        <Input placeholder="Title" class="col-span-2"/>
-        <Input placeholder="Start Date" type="date"/>
-        <Input placeholder="End Date" type="date"/>
-        <Input placeholder="Priority" class="col-span-2"/>
-        <TextArea rows="5" placeholder="Description" class="col-span-2" />
-        <TextArea rows="5" placeholder="Members" class="col-span-2" />
-        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
-      </form>
-      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'member'">
-        <Input placeholder="Title" class="col-span-2"/>
-        <Input placeholder="Start Date" type="date"/>
-        <Input placeholder="End Date" type="date"/>
-        <Input placeholder="Priority" class="col-span-2"/>
-        <TextArea rows="5" placeholder="Description" class="col-span-2" />
-        <TextArea rows="5" placeholder="Members" class="col-span-2" />
-        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
-      </form>
+      
+      <AddTask v-if="selectedForm === 'task'" />
+      <AddTag v-if="selectedForm === 'tag'" />
+      <AddMember v-if="selectedForm === 'member'" />
+      <AddProject v-if="selectedForm === 'project'" />
       <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'status'">
         <Input placeholder="Title" class="col-span-2"/>
         <Input placeholder="Start Date" type="date"/>
@@ -82,15 +60,7 @@
         <TextArea rows="5" placeholder="Members" class="col-span-2" />
         <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
       </form>
-      <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'project'">
-        <Input placeholder="Title" class="col-span-2"/>
-        <Input placeholder="Start Date" type="date"/>
-        <Input placeholder="End Date" type="date"/>
-        <Input placeholder="Priority" class="col-span-2"/>
-        <TextArea rows="5" placeholder="Description" class="col-span-2" />
-        <TextArea rows="5" placeholder="Members" class="col-span-2" />
-        <Button label="Add new task" icon="PlusIcon" color="bg-lime-500 text-white col-span-2" size="xl" />
-      </form>
+      
       <form class="grid grid-cols-2 gap-2 -space-y-0" v-if="selectedForm === 'category'">
         <Input placeholder="Title" class="col-span-2"/>
         <Input placeholder="Start Date" type="date"/>
@@ -111,6 +81,10 @@ import Modal from './Modal.vue'
 import Input from './Input.vue'
 import Button from './Button.vue'
 import TextArea from './TextArea.vue'
+import AddTask from '../forms/AddTask.vue'
+import AddMember from '../forms/AddMember.vue'
+import AddProject from '../forms/AddProject.vue'
+import AddTag from '../forms/AddTag.vue'
 
 const props =  defineProps({
   name: [String, Number],
