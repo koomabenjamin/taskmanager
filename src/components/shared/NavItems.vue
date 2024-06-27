@@ -394,6 +394,7 @@ import {
   fetchAllProjectsData,
   submitProjectData,
   allProjects,
+  handleError,
 } from "@/services/projectService";
 import {
   fetchAllTagsData,
@@ -485,8 +486,6 @@ const taskName = ref("");
 const taskDescription = ref("");
 const taskStartDate = ref("");
 const taskEndDate = ref("");
-const taskTags = ref([]);
-const taskMembers = ref([]);
 const tagIDS = ref([]);
 const memberIDS = ref([]);
 
@@ -514,16 +513,10 @@ const submitProjectForm = async () => {
     // console.log("RESPONSE: ", response);
     await fetchAllProjectsData();
     updateProjectsInNavItems();
-
-    dataName.value = "";
-    colorName.value = "";
+    clearState();
     isOpen.value = false;
   } catch (error) {
-    let errorMessage = "Error Occured. Please try again.";
-    if (error.response && error.response.data && error.response.data.message) {
-      errorMessage = error.response.data.message;
-    }
-    alert(errorMessage);
+    handleError(error, "Error Occured. Please try again.");
   }
 };
 
@@ -532,16 +525,10 @@ const submitCategoryForm = async () => {
     const response = await submitCategoryData(dataName.value, colorName.value);
     await fetchAllCategoriesData();
     updateCategoryListsInNavItems();
-
-    dataName.value = "";
-    colorName.value = "";
+    clearState();
     isOpen.value = false;
   } catch (error) {
-    let errorMessage = "Error Occured. Please try again.";
-    if (error.response && error.response.data && error.response.data.message) {
-      errorMessage = error.response.data.message;
-    }
-    alert(errorMessage);
+    handleError(error, "Error Occured. Please try again.");
   }
 };
 
@@ -609,16 +596,10 @@ const submitTaskForm = async () => {
     const response = await submitTaskData(dataToBackend);
     await fetchAllTasksData();
     updateTaskListsInNavItems();
+    clearState();
     isOpen.value = false;
   } catch (error) {
-    let errorMessage = "Error while submitting tasks";
-    if (error.response && error.response.data && error.response.data.message) {
-      errorMessage = error.response.data.message;
-    } else {
-      console.error("Network Error Details:", error);
-      errorMessage = error.message || "Network Error";
-    }
-    alert(errorMessage);
+    handleError(error, "Error Occured. Please try again.");
   }
 };
 
@@ -627,15 +608,10 @@ const submitTagForm = async () => {
     const response = await submitTagData(dataName.value, colorName.value);
     await fetchAllTagsData();
     updateTagsInNavItems();
-    dataName.value = "";
-    colorName.value = "";
+    clearState();
     isOpen.value = false;
   } catch (error) {
-    let errorMessage = "Error Occured. Please try again.";
-    if (error.response && error.response.data && error.response.data.message) {
-      errorMessage = error.response.data.message;
-    }
-    alert(errorMessage);
+    handleError(error, "Error Occured. Please try again.");
   }
 };
 
@@ -644,16 +620,10 @@ const submitMemberForm = async () => {
     const response = await submitMemberData(name.value, email.value);
     await fetchAllMembersData();
     updateMembersInNavItems();
-
-    name.value = "";
-    email.value = "";
+    clearState();
     isOpen.value = false;
   } catch (error) {
-    let errorMessage = "Error Occured. Please try again.";
-    if (error.response && error.response.data && error.response.data.message) {
-      errorMessage = error.response.data.message;
-    }
-    alert(errorMessage);
+    handleError(error, "Error Occured. Please try again.");
   }
 };
 
@@ -682,51 +652,66 @@ const todayDate = computed(() => {
   return new Date().toISOString().split("T")[0];
 });
 
-onMounted(async () => {
-  await fetchAllMembersData();
-  await fetchAllTagsData();
-  await fetchAllTasksData();
-  await fetchAllCurrentUserTaskStatusData();
-  await fetchAllProjectsData();
+const clearState = () => {
+  dataName.value = "";
+  colorName.value = "";
+  name.value = "";
+  email.value = "";
+  task_id.value = null;
+  taskName.value = "";
+  taskDescription.value = "";
+  taskStartDate.value = "";
+  taskEndDate.value = "";
+  tagIDS.value = [];
+  memberIDS.value = [];
+  selectedTaskPriority.value = taskPriority[0];
+  selectedProject.value = transformedProjects.value[0];
+  selectedCategory.value = transformedCategories.value[0];
+  selectedTaskStatus.value = transformedTaskStatus.value[0];
+};
 
-  transformedMembers.value = allMembers.value.map((object) => {
-    return {
+onMounted(async () => {
+  try {
+    // Fetch all data
+    await Promise.all([
+      fetchAllMembersData(),
+      fetchAllTagsData(),
+      fetchAllCategoriesData(),
+      fetchAllCurrentUserTaskStatusData(),
+      fetchAllProjectsData(),
+      fetchAllTasksData(),
+    ]);
+
+    // =====Transform fetched data for use in components===
+    transformedMembers.value = allMembers.value.map((object) => ({
       label: object.name,
       value: object.id,
-    };
-  });
+    }));
 
-  transformedTaskStatus.value = allCurrentUserTaskStatuses.value.map(
-    (object) => {
-      return {
+    transformedTaskStatus.value = allCurrentUserTaskStatuses.value.map(
+      (object) => ({
         label: object.title,
         value: object.id,
-      };
-    }
-  );
+      })
+    );
 
-  transformedProjects.value = allProjects.value.map((object) => {
-    return {
+    transformedProjects.value = allProjects.value.map((object) => ({
       label: object.project_name,
       value: object.id,
-    };
-  });
+    }));
 
-  transformedTags.value = allTags.value.map((object) => {
-    return {
+    transformedTags.value = allTags.value.map((object) => ({
       label: object.tag_name,
       value: object.id,
-    };
-  });
+    }));
 
-  transformedCategories.value = allCategories.value.map((object) => {
-    return {
+    transformedCategories.value = allCategories.value.map((object) => ({
       label: object.category_name,
       value: object.id,
-    };
-  });
-
-  // console.log("FORMATTED DATA: ", transformedTags.value)
+    }));
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+  }
 });
 </script>
 

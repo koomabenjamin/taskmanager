@@ -8,6 +8,7 @@ export const fetchAllCategoriesData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_CATEGORIES);
     allCategories.value = response.data.results;
+    // console.log("ALL CAT BACKEND: ", allCategories.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }

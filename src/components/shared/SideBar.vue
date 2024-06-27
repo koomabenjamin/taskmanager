@@ -80,18 +80,25 @@ const updateCategoriesInNavItems = () => {
 };
 
 onMounted(async () => {
-  await fetchAllTagsData();
-  await fetchAllProjectsData();
-  await fetchAllCategoriesData();
-  await fetchAllMembersData();
-  await fetchAllTasksData();
+  try {
+    //=====Fetch all data======
+    await Promise.all([
+      fetchAllTagsData(),
+      fetchAllProjectsData(),
+      fetchAllCategoriesData(),
+      fetchAllMembersData(),
+      fetchAllTasksData(),
+    ]);
 
-  updateTagsInNavItems();
-  updateProjectsInNavItems();
-  updateCategoriesInNavItems();
-  updateMembersInNavItems();
-
-  updateTaskListsInNavItems();
+    //=======Update the navigation items==
+    updateTagsInNavItems();
+    updateProjectsInNavItems();
+    updateCategoriesInNavItems();
+    updateMembersInNavItems();
+    updateTaskListsInNavItems();
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+  }
 });
 </script>
 
