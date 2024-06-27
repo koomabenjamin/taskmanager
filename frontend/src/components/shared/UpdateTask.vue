@@ -1,64 +1,5 @@
 <template>
-    <TasksFilter />
-
-    <div class="w-full h-full flex overflow-auto">
-        <div
-            class="w-1/4 border-r flex-shrink-0 text-xs overflow-auto"
-            v-for="status in statuses"
-            ref="statusRefs"
-            :key="status.id"
-            @drop="onDragEnter(status)"
-            @dragover.prevent
-            @dragenter.prevent>
-            <div class="text-center font-bold pt-4 uppercase">{{ status.name }}</div>
-            <!-- <Card draggable="true" @dragstart="hide(`card-${status.name}`)" :id="`card-${status.name}`" v-for="card in cards.filter((el) => el.status === status.name)" /> -->
-            <TransitionGroup
-                name="task"
-                tag="div">
-                <div
-                    class="m-2 p-5 bg-white rounded-lg h-auto border shadow"
-                    draggable="true"
-                    @dragstart="dragStart(task)"
-                    :id="task.id"
-                    v-for="(task, key) in tasks.filter((el) => el.status.slug === status.slug)"
-                    :key="'task-' + task.id">
-                    <div class="flex items-center justify-between">
-                        <div class="flex -space-x-4">
-                            <div
-                                class="h-10 w-10 rounded-full border-2 border-slate-500 text-center inline-block align-middle"
-                                :style="`background-image: url('https://picsum.photos/200/300?random=` + member.id + `')`"
-                                v-for="member in task.members"
-                                :key="member.id"></div>
-                        </div>
-                        <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize">{{ task.priority.name }}</div>
-                    </div>
-                    <div class="font-bold text-sm my-3">{{ task.name }}</div>
-                    <div class="flex items-center space-x-1 my-1 text-[10px]">
-                        <div
-                            v-for="tag in task.tags"
-                            :class="'w-auto px-2 bg-blue-200 text-blue-600 py-0.5 rounded-full font-bold capitalize'">
-                            {{ tag.name }}
-                        </div>
-                        <!-- <div class="w-auto px-2 bg-blue-200 text-blue-600 py-0.5 rounded-full font-bold capitalize">Prototype</div>
-                    <div class="w-auto px-2 bg-green-200 text-green-600 py-0.5 rounded-full font-bold capitalize">Research</div>
-                    <div class="w-auto px-2 bg-yellow-200 text-yellow-600 py-0.5 rounded-full font-bold capitalize">Testing</div> -->
-                    </div>
-                    <div class="flex items-center space-x-2 text-slate-500 font-semibold mt-4 text-[10px]">
-                        <Icons.CalendarIcon class="h-5 stroke-2" />
-                        <Icons.PencilSquareIcon
-                            class="h-5 stroke-2 cursor-pointer"
-                            @click="taskEdit(task)" />
-                        <Icons.TrashIcon
-                            class="h-5 stroke-2 cursor-pointer"
-                            @click="taskDelete(task)" />
-                        <span>{{ task.date }}</span>
-                    </div>
-                </div>
-            </TransitionGroup>
-        </div>
-    </div>
-
-    <Modal>
+<Modal>
         <template v-slot:heading>Update Task</template>
         <template v-slot:form>
             <form class="grid grid-cols-2 gap-2 -space-y-0">
@@ -287,60 +228,26 @@
     </Modal>
 </template>
 <script setup>
-import { ref, reactive, onMounted, provide } from "vue"
-import { Switch } from "@headlessui/vue"
+
+import { ref, provide } from "vue"
 import { storeToRefs } from "pinia"
 import * as Icons from "@heroicons/vue/24/outline"
 
 import { useTaskManagerStore } from "@/stores/app"
 import Modal from "../shared/Modal.vue"
 
-import TasksFilter from "../shared/TasksFilter.vue"
-import UpdateTask from "../shared/UpdateTask.vue"
 import Button from "../shared/Button.vue"
 import Input from "../shared/Input.vue"
 import TextArea from "../shared/TextArea.vue"
-import Fab from "../shared/Fab.vue"
-import Tag from "../shared/Tag.vue"
-import Card from "../shared/Card.vue"
-import Calendar from "../shared/Calendar.vue"
 import * as StatusServices from "../../services/StatusServices"
 import * as TaskServices from "../../services/TaskServices"
 
+const props =  defineProps({
+  open: Boolean,
+})
+
 let store = useTaskManagerStore()
-const { tasks, tags, projects, categories, priorities, statuses, users, user, taskRecord, taskMembers, apiResponse } = storeToRefs(store)
-
-const enabled = ref(false)
-
-const searchCard = (e) => {
-    // console.log(e.target.value)
-    let filteredCards = cards.value.filter((card) => card.members.includes(parseInt(e.target.value)))
-    if (e.target.value) cards.value = filteredCards
-    console.log(cards.value)
-}
-
-const cards = ref([
-    { id: 1, status: "doing", priority: "high", date: "5th October 2022 - 8th October 2022", members: [1, 2] },
-    { id: 2, status: "done", priority: "high", date: "5th October 2022 - 8th October 2022", members: [1] },
-    { id: 3, status: "to-do", priority: "medium", date: "5th October 2022 - 8th October 2022", members: [1, 2, 3] },
-    { id: 4, status: "doing", priority: "low", date: "5th October 2022 - 8th October 2022", members: [1, 4, 5] },
-    { id: 5, status: "doing", priority: "low", date: "5th October 2022 - 8th October 2022", members: [1, 3, 4, 5] },
-    { id: 6, status: "to-do", priority: "low", date: "5th October 2022 - 8th October 2022", members: [1, 3, 4, 5] },
-    { id: 7, status: "to-do", priority: "low", date: "5th October 2022 - 8th October 2022", members: [1, 4, 5] },
-    { id: 8, status: "doing", priority: "high", date: "5th October 2022 - 8th October 2022", members: [1, 2, 3, 4, 5] },
-    { id: 9, status: "done", priority: "high", date: "5th October 2022 - 8th October 2022", members: [1, 2, 3, 4, 5] },
-    { id: 10, status: "verified", priority: "medium", date: "5th October 2022 - 8th October 2022", members: [1, 2, 3, 4, 5] },
-    { id: 11, status: "refined", priority: "medium", date: "5th October 2022 - 8th October 2022", members: [1, 2, 3, 4, 5] }
-])
-
-const columns = ref(["to-do", "refined", "verified", "doing", "done"])
-
-const statusRefs = ref([])
-const taskDragged = ref([])
-
-const dragStart = (task) => {
-    taskDragged.value = task
-}
+const { tasks, projects, categories, priorities, statuses, users, user, taskRecord, taskMembers, apiResponse } = storeToRefs(store)
 
 StatusServices.Fetch().then((response) => {
     if (response.status == "success") {
@@ -354,27 +261,9 @@ TaskServices.Fetch().then((response) => {
     }
 })
 
-function onDragEnter(status) {
-    TaskServices.Update(taskDragged.value.id, { status_id: status.id }).then((response) => {
-        if (response.status == "success") {
-            // tasks.value = response.data
-
-            //find the task being dragged and update its status
-            var foundIndex = tasks.value.findIndex((t) => t.id == taskDragged.value.id)
-            tasks.value[foundIndex].status_id = status.id
-            tasks.value[foundIndex].status = status
-        }
-    })
-}
 
 //Edit task
-const isOpen = ref(false)
-provide("isOpenSideModal", isOpen)
-function taskEdit(task) {
-    taskRecord.value = task
-    taskMembers.value = task.members
-    isOpen.value = true
-}
+provide("isOpenSideModal", props.open)
 
 function attachMember() {
     taskMembers.value.push(user.value)
@@ -393,25 +282,8 @@ async function taskUpdate() {
     apiResponse.value = response
 }
 
-async function taskDelete(task) {
-    const index = tasks.value.indexOf(task)
-    if (index > -1) {
-        tasks.value.splice(index, 1)
-        await store.tasksDelete(task)
-    }
-}
-
-// onMounted(() => console.log(statusRefs.value))
 </script>
 
 <style scoped>
-.task-enter-active,
-.task-leave-active {
-    transition: all 0.5s ease;
-}
-.task-enter-from,
-.task-leave-to {
-    opacity: 0;
-    transform: translateY(-30px);
-}
+
 </style>

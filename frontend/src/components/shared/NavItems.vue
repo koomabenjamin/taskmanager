@@ -328,7 +328,7 @@
                     </div>
                     <Button
                         @click.prevent="tagStore"
-                        label="Add new task"
+                        label="Add new tag"
                         icon="PlusIcon"
                         color="bg-lime-500 text-white col-span-2"
                         size="xl" />
@@ -460,7 +460,7 @@
                     </div>
                     <Button
                         @click.prevent="projectStore"
-                        label="Add new task"
+                        label="Add new project"
                         icon="PlusIcon"
                         color="bg-lime-500 text-white col-span-2"
                         size="xl" />

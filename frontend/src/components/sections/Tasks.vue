@@ -1,90 +1,5 @@
 <template>
-    <div class="w-full h-20 border-b flex items-center justify-between px-4">
-        <div class="flex w-full space-x-4 items-center mx-5 my-2 relative">
-            <Icons.ArrowPathIcon
-                @click="store.tasksFetch()"
-                class="w-8 cursor-pointer stroke-2" />
-            <Icons.MagnifyingGlassIcon class="w-5 h-5" />
-            <!-- <input placeholder="Search for something" class="h-full bg-lime-50 h-12" @keyup="searchCard($event)"> -->
-            <input
-                v-model="taskFilter.search"
-                @keyup="store.tasksFetch"
-                class="w-full h-10 border-2 p-2 rounded text-sm"
-                placeholder="Search for something" />
-
-            <div class="relative">
-                <input
-                    v-model="taskFilter.start_date"
-                    @change="store.tasksFetch"
-                    id="stat-date"
-                    name="stat-date"
-                    type="date"
-                    class="border-2 h-10 rounded block px-2.5 pb-2.5 pt-4 w-full text-sm appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder="" />
-                <label
-                    for="start-date"
-                    class="absolute rounded-lg text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
-                    Start date
-                </label>
-            </div>
-
-            <div class="relative">
-                <input
-                    v-model="taskFilter.end_date"
-                    @change="store.tasksFetch"
-                    id="stat-date"
-                    name="stat-date"
-                    type="date"
-                    class="border-2 h-10 rounded block px-2.5 pb-2.5 pt-4 w-full text-sm appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder="" />
-                <label
-                    for="start-date"
-                    class="absolute rounded-lg text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
-                    End date
-                </label>
-            </div>
-
-            <div class="flex items-center space-x-2 relative text-sm">
-                <span
-                    class="flex items-center space-x-2 cursor-pointer"
-                    @click=";(taskFilter.expired = !taskFilter.expired), store.tasksFetch()">
-                    <span><Icons.ClockIcon class="w-4" /></span>
-                    <span>Expired</span>
-                </span>
-                <Switch
-                    v-model="taskFilter.expired"
-                    @update:modelValue="store.tasksFetch"
-                    :class="taskFilter.expired ? 'bg-lime-400' : 'bg-black'"
-                    class="relative inline-flex h-[20px] w-[35px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                    <span class="sr-only">Use setting</span>
-                    <span
-                        aria-hidden="true"
-                        :class="taskFilter.expired ? 'translate-x-[15px]' : 'translate-x-0'"
-                        class="pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
-                </Switch>
-            </div>
-
-            <div class="flex items-center space-x-2 relative text-sm">
-                <span
-                    class="flex items-center space-x-2 cursor-pointer"
-                    @click=";(taskFilter.trashed = !taskFilter.trashed), store.tasksFetch()">
-                    <span><Icons.TrashIcon class="w-4" /></span>
-                    <span>Trashed</span>
-                </span>
-                <Switch
-                    v-model="taskFilter.trashed"
-                    @update:modelValue="store.tasksFetch"
-                    :class="taskFilter.trashed ? 'bg-lime-400' : 'bg-black'"
-                    class="relative inline-flex h-[20px] w-[35px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                    <span class="sr-only">Use setting</span>
-                    <span
-                        aria-hidden="true"
-                        :class="taskFilter.trashed ? 'translate-x-[15px]' : 'translate-x-0'"
-                        class="pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out" />
-                </Switch>
-            </div>
-        </div>
-    </div>
+    <TasksFilter />
 
     <div class="w-full h-full overflow-auto">
         <div class="relative">
@@ -102,7 +17,7 @@
                                         <MenuButton class="uppercase">
                                             <Icons.ChevronDoubleDownIcon class="w-4 inline cursor-pointer stroke-2" />
                                             Members
-                                            <ChevronDownIcon
+                                            <Icons.ChevronDownIcon
                                                 class="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
                                                 aria-hidden="true" />
                                         </MenuButton>
@@ -143,7 +58,7 @@
                         </th>
                         <th
                             scope="col"
-                            class="px-6 py-3">
+                            class="px-6 py-3 align-top">
                             Name
                         </th>
                         <th
@@ -156,7 +71,7 @@
                                     <MenuButton class="uppercase">
                                         <Icons.ChevronDoubleDownIcon class="w-4 inline cursor-pointer stroke-2" />
                                         Priority
-                                        <ChevronDownIcon
+                                        <Icons.ChevronDownIcon
                                             class="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
                                             aria-hidden="true" />
                                     </MenuButton>
@@ -204,7 +119,7 @@
                                     <MenuButton class="uppercase">
                                         <Icons.ChevronDoubleDownIcon class="w-4 inline cursor-pointer stroke-2" />
                                         Category
-                                        <ChevronDownIcon
+                                        <Icons.ChevronDownIcon
                                             class="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
                                             aria-hidden="true" />
                                     </MenuButton>
@@ -244,7 +159,7 @@
                         </th>
                         <th
                             scope="col"
-                            class="px-6 py-3">
+                            class="px-6 py-3 align-top">
                             Action
                         </th>
                     </tr>
@@ -277,9 +192,6 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center space-x-2 text-slate-500 font-semibold text-[10px]">
-                                <Icons.PencilSquareIcon
-                                    class="h-5 stroke-2 cursor-pointer"
-                                    @click="taskEdit(task)" />
                                 <Icons.TrashIcon
                                     v-if="task.deleted_at == null"
                                     class="h-5 stroke-2 cursor-pointer"
@@ -296,6 +208,8 @@
             </table>
         </div>
     </div>
+
+    <UpdateTask :open="isOpen" />
 </template>
 <script setup>
 import { ref, reactive, onMounted, provide, watch } from "vue"
@@ -305,7 +219,8 @@ import * as Icons from "@heroicons/vue/24/outline"
 
 import { useTaskManagerStore } from "@/stores/app"
 import Modal from "../shared/Modal.vue"
-
+import TasksFilter from "../shared/TasksFilter.vue"
+import UpdateTask from "../shared/UpdateTask.vue"
 import Button from "../shared/Button.vue"
 import Input from "../shared/Input.vue"
 import TextArea from "../shared/TextArea.vue"
@@ -341,11 +256,11 @@ TaskServices.Fetch().then((response) => {
 
 //Edit task
 const isOpen = ref(false)
-provide("isOpenSideModal", isOpen)
 function taskEdit(task) {
-    taskRecord.value = task
-    taskMembers.value = task.members
+    store.taskRecord = task
+    store.taskMembers = task.members
     isOpen.value = true
+    console.log("called")
 }
 
 function attachMember() {
