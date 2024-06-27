@@ -1,7 +1,7 @@
 <template>
     <div class="h-screen w-screen bg-lime-50 flex">
         <SideBar />
-        <div class="lg:ml-[380px] w-full flex flex-col">
+        <div class="w-3/4 flex flex-col">
             <div class="w-full h-auto border-b">
                 <div class="w-full h-24 flex items-center justify-between px-4">
                     <div class="text-2xl font-bold">Statra Insurance</div>
