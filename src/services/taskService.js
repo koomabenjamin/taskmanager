@@ -158,6 +158,22 @@ export const submitTaskData = async (data) => {
   }
 };
 
+
+export const updateTaskDataStatus = async (data) => {
+  try {
+    const response = await axiosInstance.post(API_URLS.UPDATE_TASK_STATUS, {
+      task_id: data.task_id,
+      status_id: data.status_id,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error submitting project data:", error);
+    throw error;
+  }
+};
+
+
+
 export const deleteTaskData = async (task_id) => {
   try {
     const response = await axiosInstance.post(API_URLS.DELETE_TASK, {
@@ -181,4 +197,17 @@ export const restoreDeletedTaskData = async (task_id) => {
     console.error("Error Restoring task.....", error);
     throw error;
   }
+};
+
+
+
+export const handleError = (error, customMessage) => {
+  let errorMessage = customMessage || "An error occurred.";
+  if (error.response && error.response.data && error.response.data.message) {
+    errorMessage = error.response.data.message;
+  } else {
+    console.error("Error details:", error);
+    errorMessage = error.message || "Network Error";
+  }
+  alert(errorMessage);
 };

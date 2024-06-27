@@ -21,7 +21,10 @@ export const API_URLS = {
   LIST_ALL_DELETED_TASKS: `${BASE_URL}/api/task/v1/list-all-deleted-tasks`,
   RESTORE_DELETED_TASK: `${BASE_URL}/api/task/v1/restore-deleted-task`,
   SAVE_OR_UPDATE_TASk: `${BASE_URL}/api/task/v1/create-or-update-task`,
+  UPDATE_TASK_STATUS: `${BASE_URL}/api/task/v1/update-task-status`,
   DELETE_TASK: `${BASE_URL}/api/task/v1/delete-task`,
+
+  
 
   //Members
   LIST_ALL_MEMBERS: `${BASE_URL}/api/member/v1/list-all-members`,

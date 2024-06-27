@@ -26,3 +26,14 @@ export const submitProjectData = async (dataName, colorName) => {
     throw error;
   }
 };
+
+export const handleError = (error, customMessage) => {
+  let errorMessage = customMessage || "An error occurred.";
+  if (error.response && error.response.data && error.response.data.message) {
+    errorMessage = error.response.data.message;
+  } else {
+    console.error("Error details:", error);
+    errorMessage = error.message || "Network Error";
+  }
+  alert(errorMessage);
+};
