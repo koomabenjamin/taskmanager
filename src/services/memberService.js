@@ -37,4 +37,3 @@ export const handleError = (error, customMessage) => {
   }
   alert(errorMessage);
 };
-

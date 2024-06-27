@@ -26,7 +26,6 @@ export const submitTagData = async (dataName, colorName) => {
   }
 };
 
-
 export const handleError = (error, customMessage) => {
   let errorMessage = customMessage || "An error occurred.";
   if (error.response && error.response.data && error.response.data.message) {

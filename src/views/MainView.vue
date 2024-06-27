@@ -83,7 +83,7 @@
             <span>Kanban Workflow</span>
           </div>
 
-           <div
+          <div
             @click="changeTab('task-repository')"
             :class="{
               'border-b-4 border-lime-300 duration-300':
@@ -94,7 +94,6 @@
             <Square3Stack3DIcon class="w-5 h-5 flex" />
             <span>Task Repository</span>
           </div>
-
         </div>
       </div>
 

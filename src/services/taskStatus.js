@@ -15,7 +15,6 @@ export const fetchAllCurrentUserTaskStatusData = async () => {
   }
 };
 
-
 export const handleError = (error, customMessage) => {
   let errorMessage = customMessage || "An error occurred.";
   if (error.response && error.response.data && error.response.data.message) {

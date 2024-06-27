@@ -48,7 +48,6 @@ export const fetchAllTasksData = async () => {
   }
 };
 
-
 export const fetchAllDeletedTasksData = async () => {
   try {
     const response = await axiosInstance.get(API_URLS.LIST_ALL_DELETED_TASKS);
@@ -80,7 +79,6 @@ export const updateCards = async (updatedTasks) => {
   }));
 };
 
-
 export const updateDeletedTaskCards = async (updatedTasks) => {
   deletedTaskCards.value = updatedTasks.map((updatedTask) => ({
     id: updatedTask.id,
@@ -98,9 +96,7 @@ export const updateDeletedTaskCards = async (updatedTasks) => {
     members: updatedTask.members.map((member) => member.id),
     tags: updatedTask.tags,
   }));
-
 };
-
 
 export const formatDate = (startDate, endDate) => {
   const start = new Date(startDate);
@@ -158,7 +154,6 @@ export const submitTaskData = async (data) => {
   }
 };
 
-
 export const updateTaskDataStatus = async (data) => {
   try {
     const response = await axiosInstance.post(API_URLS.UPDATE_TASK_STATUS, {
@@ -172,8 +167,6 @@ export const updateTaskDataStatus = async (data) => {
   }
 };
 
-
-
 export const deleteTaskData = async (task_id) => {
   try {
     const response = await axiosInstance.post(API_URLS.DELETE_TASK, {
@@ -186,7 +179,6 @@ export const deleteTaskData = async (task_id) => {
   }
 };
 
-
 export const restoreDeletedTaskData = async (task_id) => {
   try {
     const response = await axiosInstance.post(API_URLS.RESTORE_DELETED_TASK, {
@@ -198,8 +190,6 @@ export const restoreDeletedTaskData = async (task_id) => {
     throw error;
   }
 };
-
-
 
 export const handleError = (error, customMessage) => {
   let errorMessage = customMessage || "An error occurred.";

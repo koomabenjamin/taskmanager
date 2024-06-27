@@ -37,22 +37,45 @@
   </div>
 
   <div class="w-full h-full flex overflow-auto">
-
-    <div class="w-1/3 border-r flex-shrink-0 text-xs overflow-auto" v-for="column in columns" :key="column.slug" @dragover.prevent @drop="onDragAndDropEnter(column)">
-        <h5 class="pl-4 text-lg py-2">{{ column.title }}</h5>
-        <div class="m-2 p-5 bg-white rounded-lg h-auto border shadow" v-for="card in deletedTaskCards.filter((el) => el.status === column.slug)" :key="card.id" :id="card.id" draggable="true" @dragstart="onDragStart(card.id)">
-            <div class="flex items-center justify-between">
-                <div class="flex -space-x-4" v-if="card.members != null && card.members.length > 0">
-                    <div class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black" v-for="member in card.members" :key="member"></div>
-                </div>
-                <div class="flex -space-x-4" v-else>
-                    <h6 class="text-rose-400">No Member Added Yet</h6>
-                </div>
-                <div class="relative flex items-center">
-                    <div class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize">
-                        {{ toTitleCase(card.priority) }}
-                    </div>
-                    <div class="ml-2 relative">
+    <div
+      class="w-1/3 border-r flex-shrink-0 text-xs overflow-auto"
+      v-for="column in columns"
+      :key="column.slug"
+      @dragover.prevent
+      @drop="onDragAndDropEnter(column)"
+    >
+      <h5 class="pl-4 text-lg py-2">{{ column.title }}</h5>
+      <div
+        class="m-2 p-5 bg-white rounded-lg h-auto border shadow"
+        v-for="card in deletedTaskCards.filter(
+          (el) => el.status === column.slug
+        )"
+        :key="card.id"
+        :id="card.id"
+        draggable="true"
+        @dragstart="onDragStart(card.id)"
+      >
+        <div class="flex items-center justify-between">
+          <div
+            class="flex -space-x-4"
+            v-if="card.members != null && card.members.length > 0"
+          >
+            <div
+              class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black"
+              v-for="member in card.members"
+              :key="member"
+            ></div>
+          </div>
+          <div class="flex -space-x-4" v-else>
+            <h6 class="text-rose-400">No Member Added Yet</h6>
+          </div>
+          <div class="relative flex items-center">
+            <div
+              class="w-auto px-2 bg-rose-200 text-rose-600 py-1 rounded-full font-bold capitalize"
+            >
+              {{ toTitleCase(card.priority) }}
+            </div>
+            <div class="ml-2 relative">
               <Menu as="div" class="relative inline-block text-left">
                 <div>
                   <MenuButton>
@@ -93,21 +116,28 @@
                 </transition>
               </Menu>
             </div>
-                </div>
-            </div>
-
-            <div class="font-bold text-sm my-3">{{ card.task_name }}</div>
-
-            <div class="flex flex-wrap items-center space-x-1 my-1 text-[10px]">
-                <div v-for="tag in card.tags" :key="tag.id" class="w-auto px-2 bg-blue-200 py-0.5 rounded-full font-bold capitalize" :style="{ backgroundColor: tag.tag_color }">
-                    {{ toTitleCase(tag.tag_name) }}
-                </div>
-            </div>
-            <div class="flex items-center space-x-2 text-slate-500 font-semibold mt-4 text-[10px]">
-                <CalendarIcon class="h-5 stroke-2" />
-                <span>{{ card.date }}</span>
-            </div>
+          </div>
         </div>
+
+        <div class="font-bold text-sm my-3">{{ card.task_name }}</div>
+
+        <div class="flex flex-wrap items-center space-x-1 my-1 text-[10px]">
+          <div
+            v-for="tag in card.tags"
+            :key="tag.id"
+            class="w-auto px-2 bg-blue-200 py-0.5 rounded-full font-bold capitalize"
+            :style="{ backgroundColor: tag.tag_color }"
+          >
+            {{ toTitleCase(tag.tag_name) }}
+          </div>
+        </div>
+        <div
+          class="flex items-center space-x-2 text-slate-500 font-semibold mt-4 text-[10px]"
+        >
+          <CalendarIcon class="h-5 stroke-2" />
+          <span>{{ card.date }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -179,7 +209,7 @@ import {
   deletedTaskCards,
   taskPriority,
   taskStatuses,
-  handleError
+  handleError,
 } from "@/services/taskService";
 
 const enabled = ref(false);
@@ -216,35 +246,32 @@ const dropdownOpen = ref(false);
 const columns = ref([]);
 const data = ref(null);
 
-
 const onDragStart = (cardID) => {
-    draggedCardID.value = cardID
-    // console.log("ON DRAG START: ",cardID )
-}
+  draggedCardID.value = cardID;
+  // console.log("ON DRAG START: ",cardID )
+};
 
 async function onDragAndDropEnter(newStatusSlug) {
-    const cardIndex = deletedTaskCards.value.findIndex(card => card.id === draggedCardID.value)
-    // console.log("NEW ID: ", newStatusSlug.id)
-    // console.log("NEW STATUS: ", newStatusSlug.slug)
-    if (cardIndex !== -1) {
-        const dataToBackend = {
-            task_id: draggedCardID.value,
-            status_id: newStatusSlug.id,
-        };
-        try {
-            const response = await updateTaskDataStatus(dataToBackend);
-            await fetchAllTasksData();
-            await fetchAllDeletedTasksData();
-
-        } catch (error) {
-          let errorMessage = "Error while submitting tasks";
-          handleError(error, errorMessage);  
-        }
-
+  const cardIndex = deletedTaskCards.value.findIndex(
+    (card) => card.id === draggedCardID.value
+  );
+  // console.log("NEW ID: ", newStatusSlug.id)
+  // console.log("NEW STATUS: ", newStatusSlug.slug)
+  if (cardIndex !== -1) {
+    const dataToBackend = {
+      task_id: draggedCardID.value,
+      status_id: newStatusSlug.id,
+    };
+    try {
+      const response = await updateTaskDataStatus(dataToBackend);
+      await fetchAllTasksData();
+      await fetchAllDeletedTasksData();
+    } catch (error) {
+      let errorMessage = "Error while submitting tasks";
+      handleError(error, errorMessage);
     }
-
+  }
 }
-
 
 const showRestoreTask = (data) => {
   let dataToRestore = `<p style='font-size: 14px;'>Would you like to Restore <b>${data.task_name}</b> task back to the Kanboard now? <br/></p>`;
@@ -279,8 +306,6 @@ const searchCard = (e) => {
   );
   if (e.target.value) deletedTaskCards.value = filteredCards;
 };
-
-
 
 const transformedData = () => {
   transformedTaskStatus.value = allCurrentUserTaskStatuses.value.map(
@@ -337,29 +362,26 @@ const filteredCards = (status) => {
   return deletedTaskCards.value.filter((card) => card.status === status);
 };
 
-
 onMounted(async () => {
-try {
+  try {
     await Promise.all([
-        fetchAllCurrentUserTaskStatusData(),
-        fetchAllTasksData(),
-        fetchAllTagsData(),
-        fetchAllMembersData(),
-        fetchAllCategoriesData(),
-        fetchAllDeletedTasksData(),
+      fetchAllCurrentUserTaskStatusData(),
+      fetchAllTasksData(),
+      fetchAllTagsData(),
+      fetchAllMembersData(),
+      fetchAllCategoriesData(),
+      fetchAllDeletedTasksData(),
     ]);
     transformedData();
     columns.value = allCurrentUserTaskStatuses.value.map((object) => ({
-        id: object.id,
-        title: object.title,
-        slug: object.slug,
+      id: object.id,
+      title: object.title,
+      slug: object.slug,
     }));
-} catch (error) {
+  } catch (error) {
     handleError(error, "Error fetching initial data.");
-}
+  }
 });
-
-
 </script>
 
 <style scoped></style>

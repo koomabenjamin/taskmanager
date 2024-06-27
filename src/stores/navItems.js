@@ -8,7 +8,7 @@ export const useNavItemsStore = defineStore("navItems", () => {
       label: "Task List",
       name: "task",
       icon: "ClipboardDocumentListIcon",
-      subList: [ ],
+      subList: [],
     },
     {
       label: "Projects",
@@ -21,7 +21,7 @@ export const useNavItemsStore = defineStore("navItems", () => {
       label: "Categories",
       name: "category",
       icon: "FolderIcon",
-      subList: [ ],
+      subList: [],
     },
 
     {
