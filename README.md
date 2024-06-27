@@ -4,6 +4,7 @@ Bellow are instruction to build run the app backend and frontend;
 
 #### Notes:
 
+- The branch does not have the full commit history of the test because i begun working on the test using https://github.com/rutatiina/project-code-test and creating a pull request was a challenge. So for the full commit history, please refer to https://github.com/rutatiina/project-code-test
 - The backend .env file is already included
 - the default user details are prefilled in the login page for simplicity;
   - email: admin@projectcode.ug
