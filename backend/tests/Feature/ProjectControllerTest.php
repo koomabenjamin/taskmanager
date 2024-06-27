@@ -12,7 +12,7 @@ class ProjectControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_can_create_project()
+    public function test_api_can_create_project()
     {
         // Create users and authenticate the first user with Sanctum
         $users = User::factory()->count(4)->create();
@@ -38,7 +38,7 @@ class ProjectControllerTest extends TestCase
         ]);
     }
 
-    public function test_can_retrieve_all_projects()
+    public function test_api_can_retrieve_all_projects()
     {
         // Create users and authenticate the first user with Sanctum
         $users = User::factory()->count(4)->create();

@@ -17,6 +17,8 @@ class AuthenticatedSessionApiController extends Controller
      */
     public function store(LoginRequest $request): JsonResponse
     {
+        \Illuminate\Support\Facades\Log::info('Login request received', $request->all());
+
         $request->authenticate();
 
         $user = User::where('email', $request->email)->first();

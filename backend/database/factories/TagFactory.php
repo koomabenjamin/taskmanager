@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Project;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProjectFactory extends Factory
+class TagFactory extends Factory
 {
-    protected $model = Project::class;
+    protected $model = Tag::class;
 
     public function definition()
     {
         return [
-            'name' => $this->faker->sentence(2),
+            'name' => $this->faker->unique()->word,
         ];
     }
 }

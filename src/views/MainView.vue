@@ -69,71 +69,57 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, reactive } from 'vue'
+import { Switch } from '@headlessui/vue'
 import {
   ArrowsPointingInIcon,
-  BriefcaseIcon,
   ChartBarIcon,
   Square3Stack3DIcon,
-  UserIcon,
-} from '@heroicons/vue/24/outline';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import SideBar from '../components/shared/SideBar.vue';
-import KanbanWorkFlow from '../components/sections/KanbanWorkFlow.vue';
-import RelatedTask from '../components/sections/RelatedTask.vue';
-import PriorityChart from '../components/sections/PriorityChart.vue';
-import BackLog from '../components/sections/BackLog.vue';
-import Button from '../components/shared/Button.vue';
-import { useAuthStore } from '@/stores/authStore';
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  WalletIcon,
+  CalendarIcon,
+  BriefcaseIcon
+} from '@heroicons/vue/24/outline'
+import SideBar from '../components/shared/SideBar.vue'
+import KanbanWorkFlow from '../components/sections/KanbanWorkFlow.vue'
+import RelatedTask from '../components/sections/RelatedTask.vue'
+import PriorityChart from '../components/sections/PriorityChart.vue'
+import BackLog from '../components/sections/BackLog.vue'
+import Button from '../components/shared/Button.vue'
+import Fab from '../components/shared/Fab.vue'
+import Tag from '../components/shared/Tag.vue'
+import Card from '../components/shared/Card.vue'
+import Calendar from '../components/shared/Calendar.vue'
 
-export default {
-  name: 'MainView',
-  components: {
-    SideBar,
-    KanbanWorkFlow,
-    RelatedTask,
-    PriorityChart,
-    BackLog,
-    Button,
-    ArrowsPointingInIcon,
-    BriefcaseIcon,
-    ChartBarIcon,
-    Square3Stack3DIcon,
-    UserIcon,
-  },
-  setup() {
-    const activeTab = ref('kanban-workflow');
-    const router = useRouter();
-    const authStore = useAuthStore();
+const activeTab = ref('kanban-workflow')
 
-    const changeTab = (tab) => {
-      activeTab.value = tab;
-    };
+const changeTab = (tab) => activeTab.value = tab;
 
-    const goToProfile = () => {
-      router.push('/profile');
-    };
-
-    const logout = async () => {
-      try {
-        await authStore.logout();
-        router.push('/login');
-      } catch (error) {
-        console.error('Error logging out:', error);
-      }
-    };
-
-    return {
-      activeTab,
-      changeTab,
-      goToProfile,
-      logout,
-    };
-  },
-};
 </script>
 
 <style scoped>
-/* Add any scoped styles needed for the main view */
+
+input {
+  appearance: none;
+}
+
+progress[value]::-webkit-progress-value {
+  background-image:
+	   -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%),
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, #09c, #f44);
+
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
 </style>

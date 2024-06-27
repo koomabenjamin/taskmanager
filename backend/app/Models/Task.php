@@ -11,7 +11,7 @@ class Task extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'description', 'project_id', 'user_id', 'priority', 'category', 'status', 'implementation_date'
+        'name', 'description', 'project_id', 'priority', 'status', 'implementation_date'
     ];
 
     protected $dates = [
@@ -24,8 +24,13 @@ class Task extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

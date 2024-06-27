@@ -44,7 +44,6 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
-        // Middleware to test and fix the CORS headers issue at login # 1
             \App\Http\Middleware\CorsMiddleware::class,
         ],
     ];
@@ -67,8 +66,5 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-
-        // Middleware to test and fix the CORS headers issue at login # 2
-        'log.headers' => \App\Http\Middleware\LogRequestHeaders::class,
     ];
 }

@@ -4,16 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/build/{path}', function ($path) {
-    return response()->file(public_path('build/' . $path), [
-        // 'Access-Control-Allow-Origin' => env('FRONTEND_URL', 'http://localhost:5173'),
-        'Access-Control-Allow-Origin' => '*',
-        'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials' => 'true',
-    ]);
-})->where('path', '.*');
-
 Route::get('/', function () {
     return redirect()->route('vue-login');
 });

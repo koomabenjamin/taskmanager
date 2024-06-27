@@ -2,35 +2,23 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Project;
-use App\Models\Task;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
     {
-        // Create 10 users, ensuring the first user has a specific email and password
+        \App\Models\User::factory(3)->create();
 
-        // First user
-        User::factory()->janedoe()->create();
-        // Create additional users
-        User::factory()->count(9)->create();
+        \App\Models\Tag::factory(4)->create();
 
-        // Explicitly create the 4 predefined projects
-        $projects = [
-            ['name' => 'Meridian'],
-            ['name' => 'Risen'],
-            ['name' => 'Skillex'],
-            ['name' => 'Statra Insurance'],
-        ];
+        \App\Models\Project::factory(3)->create();
 
-        foreach ($projects as $project) {
-            Project::create($project);
-        }
-
-        // Create 5 tasks with randomly assigned user and project IDs
-        Task::factory()->count(5)->create();
+        \App\Models\Task::factory(5)->create();
     }
 }

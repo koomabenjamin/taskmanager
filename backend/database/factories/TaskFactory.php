@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Task;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 class TaskFactory extends Factory
 {
@@ -11,23 +13,26 @@ class TaskFactory extends Factory
 
     public function definition()
     {
-        $taskNames = [
-            'Design Wireframes',
-            'Develop Backend',
-            'Create Database',
-            'Write Documentation',
-            'Test Application',
-        ];
-
         return [
-            'name' => $this->faker->randomElement($taskNames),
-            'description' => $this->faker->text(25),
-            'project_id' => $this->faker->numberBetween(1, 4),
-            'user_id' => $this->faker->numberBetween(1, 10),
-            'priority' => $this->faker->randomElement(['High', 'Medium', 'Low', 'Critical', 'Urgent']),
-            'category' => $this->faker->randomElement(['Technology', 'Healthcare', 'Education', 'Finance', 'Entertainment', 'Infrastructure']),
+            'name' => $this->faker->sentence(4),
+            'description' => $this->faker->paragraph,
+            'project_id' => Project::factory(), // Using the Project factory
+            'priority' => $this->faker->randomElement(['High', 'Low']),
             'status' => $this->faker->randomElement(['todo', 'in_progress', 'done']),
-            'implementation_date' => $this->faker->date(), // Generate date in Y-m-d format
+            'implementation_date' => $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Task $task) {
+            // Attach tags to the task
+            $tagIds = \App\Models\Tag::factory(rand(1, 3))->create()->pluck('id')->toArray();
+            $task->tags()->sync($tagIds);
+
+            // Attach users to the task
+            $userIds = \App\Models\User::factory(rand(1, 5))->create()->pluck('id')->toArray();
+            $task->users()->sync($userIds);
+        });
     }
 }

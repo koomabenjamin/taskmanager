@@ -15,10 +15,11 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(), // Use unique safeEmail
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('password'), // Default password
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'profile_pic' => $this->faker->imageUrl(200, 200, 'people'), // Using Faker to generate profile picture URLs
         ];
     }
 
@@ -37,7 +38,8 @@ class UserFactory extends Factory
             return [
                 'name' => 'Jane Doe',
                 'email' => 'janedoe@example.com',
-                'password' => bcrypt('password'),
+                'password' => Hash::make('password'),
+                'profile_pic' => $this->faker->imageUrl(200, 200, 'people'), // Using Faker to generate profile picture URLs
             ];
         });
     }

@@ -8,23 +8,21 @@ class CorsMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $headers = [
-            // 'Access-Control-Allow-Origin' => env('FRONTEND_URL', 'http://localhost:5173'),
-            'Access-Control-Allow-Origin' => '*',
-            'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
-            'Access-Control-Allow-Credentials' => 'true',
-        ];
-
-        // Handle preflight OPTIONS request
-        if ($request->getMethod() === 'OPTIONS') {
-            return response()->json('OK', 200, $headers);
+        if ($request->getMethod() === "OPTIONS") {
+            return response()->json('{"method":"OPTIONS"}', 200, [
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+            ]);
         }
 
-        // Add headers to response
         $response = $next($request);
-        foreach ($headers as $key => $value) {
-            $response->header($key, $value);
+
+        // Set headers only if not already set
+        if (!$response->headers->has('Access-Control-Allow-Origin')) {
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         }
 
         return $response;

@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('priority', ['High', 'Medium', 'Low', 'Critical', 'Urgent'])->default('Low');
-            $table->enum('category', ['Technology', 'Healthcare', 'Education', 'Finance', 'Entertainment', 'Infrastructure'])->default('Finance');
-            $table->enum('status', ['todo', 'in_progress', 'done'])->default('todo');
+            $table->enum('priority', ['High', 'Low']);
+            $table->enum('status', ['todo', 'in_progress', 'done']);
             $table->date('implementation_date');
             $table->timestamps();
             $table->softDeletes();
@@ -27,7 +25,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse'down' migrations.
      */
     public function down(): void
     {

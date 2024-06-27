@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return Redirect::to(env('FRONTEND_URL') . '/vue-dashboard'); // Redirect to Vue.js dashboard
+        return Redirect::to(env('FRONTEND_URL') . '/'); // Redirect to Vue.js dashboard
 
     }
 
