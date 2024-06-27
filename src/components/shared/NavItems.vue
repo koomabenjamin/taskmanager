@@ -151,7 +151,7 @@
               placeholder="End Date"
               type="date"
               class="w-full"
-              :min="todayDate"
+              :min="minEndDate"
             />
           </div>
         </div>
@@ -381,7 +381,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, provide, computed } from "vue";
+import { ref, reactive, onMounted, provide, computed, watch } from "vue";
 import * as Icons from "@heroicons/vue/24/outline";
 import Modal from "./ModalUpdate.vue";
 import Input from "./Input.vue";
@@ -649,6 +649,15 @@ const showForm = (form) => {
 };
 
 const todayDate = computed(() => {
+  return new Date().toISOString().split("T")[0];
+});
+
+const minEndDate = computed(() => {
+  //=====Don't allow a user to select past end dateie past the start date===
+  const startDate = new Date(taskStartDate.value);
+  if (!isNaN(startDate.getTime())) {
+    return startDate.toISOString().split("T")[0];
+  }
   return new Date().toISOString().split("T")[0];
 });
 

@@ -299,7 +299,7 @@
                       placeholder="End Date"
                       type="date"
                       class="w-full"
-                      :min="todayDate"
+                      :min="minEndDate"
                     />
                   </div>
                 </div>
@@ -380,7 +380,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, inject } from "vue";
+import { ref, reactive, onMounted, inject, computed } from "vue";
 import {
   Menu,
   MenuButton,
@@ -734,6 +734,19 @@ const toTitleCase = (str) => {
 const filteredCards = (status) => {
   return cards.value.filter((card) => card.status === status);
 };
+
+const minEndDate = computed(() => {
+  //=====Don't allow a user to select past end dateie past the start date===
+  const startDate = new Date(taskStartDate.value);
+  if (!isNaN(startDate.getTime())) {
+    return startDate.toISOString().split("T")[0];
+  }
+  return new Date().toISOString().split("T")[0];
+});
+
+const todayDate = computed(() => {
+  return new Date().toISOString().split("T")[0];
+});
 
 onMounted(async () => {
   try {
