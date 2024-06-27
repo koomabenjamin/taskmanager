@@ -16,7 +16,17 @@
               </div>
             </div>
             <Button label="Apps" icon="Squares2X2Icon" color="bg-white" size="lg" drop-down />
-            <Button label="Add new task" icon="PlusIcon" color="bg-black" text-color="text-white" size="lg" />
+            <Button 
+      label="Add new task" 
+      icon="PlusIcon" 
+      color="bg-black" 
+      text-color="text-white" 
+      size="lg" 
+      @click="selectedForm = 'task'"
+    />
+    
+    <!-- Conditionally render AddTask -->
+    <AddTask v-if="selectedForm === 'task'" />
           </div>
         </div>
 
@@ -26,14 +36,14 @@
             :class="{'border-b-4 border-lime-300 duration-300': activeTab === 'backlog' }"
             class="pb-4 flex space-x-2 items-center cursor-pointer">
             <Square3Stack3DIcon class="w-5 h-5 flex" />
-            <span>Backlog</span>
+            <span>All Tasks</span>
           </div>
           <div
             @click="changeTab('priority-chart')" 
             :class="{'border-b-4 border-lime-300 duration-300': activeTab === 'priority-chart' }"
             class="pb-4 flex space-x-2 items-center cursor-pointer">
             <ArrowsPointingInIcon class="w-5 h-5" />
-            <span>Priority Chart</span>
+            <span>Past Due Tasks</span>
           </div>
           <div
             @click="changeTab('kanban-workflow')" 
@@ -80,6 +90,7 @@ import Fab from '../components/shared/Fab.vue'
 import Tag from '../components/shared/Tag.vue'
 import Card from '../components/shared/Card.vue'
 import Calendar from '../components/shared/Calendar.vue'
+import AddTask from '../components/forms/AddTask.vue'
 
 const activeTab = ref('kanban-workflow')
 
