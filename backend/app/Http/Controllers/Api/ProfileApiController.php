@@ -12,14 +12,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProfileApiController extends Controller
 {
-    // use AuthorizesRequests;
+    use AuthorizesRequests;
 
     /**
      * Display a listing of all user profiles.
      */
     public function index()
     {
-        // $this->authorize('viewAny', User::class);     // restpre
+        $this->authorize('viewAny', User::class);     // restpre
 
         $users = User::all();
 

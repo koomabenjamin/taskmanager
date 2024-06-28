@@ -45,50 +45,185 @@
           <span class="text-lg text-gray-600 font-semibold" style="font-size: 85%;">
             {{ column.label }}
           </span>
-          <EllipsisVerticalIcon class="w-4 h-4 cursor-pointer" />
+          <div class="relative">
+            <EllipsisVerticalIcon class="w-4 h-4 cursor-pointer" @click.stop="toggleContextMenu(column.name)" />
+            <transition name="fade">
+              <div v-if="contextMenus[column.name]" class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                <div class="py-1">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" @click="restoreDeletedTasks(column)">
+                    Restore deleted
+                  </a>
+                </div>
+              </div>
+            </transition>
+          </div>
+
         </div>
         <div v-if="filteredTasks(column.name).length === 0" class="text-gray-500 mx-4">No tasks here</div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <div
-          class="m-2 p-5 bg-white rounded-lg h-auto shadow"
-          draggable="true"
-          v-for="task in filteredTasks(column.name)"
-          :key="task.id"
-          style="margin-bottom: 16px;"
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex -space-x-4">
-              <div
-                v-for="member in task.members"
-                :key="member.id"
-                class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black"
-              ></div>
-            </div>
-            <div
-              class="text-lg text-rose-600 font-semibold w-auto px-2 bg-rose-100 py-1 rounded-full capitalize"
-              style="font-size: 85%;"
-            >
-              {{ task.priority }}
-            </div>
-          </div>
-          <div class="font-bold text-sm my-3">{{ task.name }}</div>
-          <div class="flex items-center space-x-1 my-1 text-[10px]">
-            <div
-              v-for="tag in task.tags"
-              :key="tag.id"
-              :class="tagClass(tag.name)"
-            >
-              {{ tag.name }}
-            </div>
-          </div>
-          <div
-            class="text-lg text-slate-600 font-semibold flex items-center space-x-2 mt-4 text-[10px]"
-            style="font-size: 75%;"
-          >
-            <CalendarIcon class="h-5 stroke-2" />
-            <span>{{ formatDate(task.created_at) }} - {{ formatDate(task.implementation_date) }}</span>
+  class="m-2 p-5 bg-white rounded-lg h-auto shadow"
+  draggable="true"
+  v-for="task in filteredTasks(column.name)"
+  :key="task.id"
+  style="margin-bottom: 16px;"
+>
+  <!-- Display task details -->
+  <template v-if="!task.editMode">
+    <!-- Display task details -->
+    <div class="flex items-center justify-between">
+      <div class="flex -space-x-4">
+        <!-- Display task members -->
+        <div
+          v-for="member in task.members"
+          :key="member.id"
+          class="h-10 w-10 rounded-full border-2 border-slate-500 bg-black"
+        ></div>
+      </div>
+      <div
+        class="text-lg text-rose-600 font-semibold w-auto px-2 bg-rose-100 py-1 rounded-full capitalize"
+        style="font-size: 85%;"
+      >
+        {{ task.priority }}
+      </div>
+    </div>
+    <div class="font-bold text-sm my-3">{{ task.name }}</div>
+    <div class="flex items-center space-x-1 my-1 text-[10px]">
+      <!-- Display task tags -->
+      <div
+        v-for="tag in task.tags"
+        :key="tag.id"
+        :class="tagClass(tag.name)"
+      >
+        {{ tag.name }}
+      </div>
+    </div>
+    <div
+      class="text-lg text-slate-600 font-semibold flex items-center space-x-2 mt-4 text-[10px]"
+      style="font-size: 75%;"
+    >
+      <CalendarIcon class="h-5 stroke-2" />
+      <span>{{ formatDate(task.created_at) }} - {{ formatDate(task.implementation_date) }}</span>
+    </div>
+    <!-- Edit and Delete buttons -->
+    <div class="flex justify-end mt-3 space-x-2">
+      <button
+        @click="task.editMode = true"
+        class="text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
+      >
+        Edit
+      </button>
+      <button
+        @click="deleteTask(task.id)"
+        class="text-sm text-red-500 hover:text-red-700 focus:outline-none"
+      >
+        Delete
+      </button>
 
+      
+    </div>
+  </template>
+
+
+
+
+
+
+
+  
+        <!-- Edit mode form -->
+
+        <form v-else @submit.prevent="saveEditedTask(task)">
+          <!-- Implement your edit form fields here -->
+          <div class="flex items-center justify-between">
+            <input
+              v-model="task.name"
+              type="text"
+              class="border-b-2 border-gray-300 px-2 py-1"
+              placeholder="Task Name"
+              required
+              style="width: 200px; height: 100px;">
+            
+            <div>
+              <button type="submit" class="text-green-500 hover:text-green-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block align-middle" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4.293 8.293a1 1 0 011.414 0L10 12.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <button @click="cancelEditing(task)" class="text-red-500 hover:text-red-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block align-middle" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414L11.414 10l2.293 2.293a1 1 0 01-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 10 6.293 7.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
+          <!-- Add other fields as needed -->
+        </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="flex items-center mx-4 my-2 cursor-pointer" @click="openModal(column.name)">
           <div class="h-6 w-6 rounded-full bg-[#bef264] flex items-center justify-center">
             <PlusIcon class="w-4 h-4 text-black" />
@@ -237,7 +372,7 @@
                     </div>
                 
                     <div>
-                      <label for="tag" class="block text-sm font-medium text-gray-700">Tag</label>
+                      <label for="tag" class="block text-sm font-medium text-gray-700">Category</label>
                       <select 
                         v-model="form.tag"
                         id="tag"
@@ -315,9 +450,34 @@ export default {
     Button,
     Input,
     Calendar,
+
+
+
+
+
+
+
+
   },
-  setup() {
+
+  
+  props: {
+    column: {
+      type: Object,
+      required: true,
+    },
+  },
+
+
+  setup(props) {
     const { members, fetchMembers } = useMemberStore();
+
+
+
+
+
+
+
     // const { projects, fetchProjects } = useProjectStore();
 
 
@@ -334,6 +494,8 @@ export default {
       { name: 'done', label: 'Done' },
     ];
 
+
+
     const form = ref({
       name: '',
       description: '',
@@ -344,6 +506,71 @@ export default {
       tag: '',
       status: '',
     });
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const contextMenus = {
+      todo: ref(false),
+      in_progress: ref(false),
+      done: ref(false),
+    };
+
+    const toggleContextMenu = (columnName) => {
+      // Close all other context menus
+      Object.keys(contextMenus).forEach(key => {
+        contextMenus[key].value = key === columnName ? !contextMenus[key].value : false;
+      });
+    };
+
+    const restoreDeletedTasks = async (column) => {
+      try {
+        if (!column) {
+          console.error('Column is undefined.');
+          return;
+        }
+
+        const columnTasks = taskStore.tasks.filter(task => task.status === column.name && task.deleted);
+        await Promise.all(columnTasks.map(task => taskStore.restoreTask(task.id)));
+        await taskStore.fetchTasks(); // Ensure tasks are re-fetched after restoration
+      } catch (error) {
+        console.error('Failed to restore deleted tasks:', error);
+      }
+      contextMenus[column.name].value = false; // Close context menu after action
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     onMounted(() => {
       taskStore.fetchTasks();
@@ -374,6 +601,123 @@ export default {
       await taskStore.createTask(form.value);
       closeModal();
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const startEditing = (task) => {
+      task.editing = true; // Set editing flag to true
+    };
+
+    const saveEditedTask = async (task) => {
+      try {
+        await taskStore.updateTask(task);
+        console.log('Task updated successfully');
+        task.editing = false; // Reset editing flag after update
+        // Optionally fetch tasks again to refresh the list after update
+        await taskStore.fetchTasks();
+      } catch (error) {
+        console.error('Failed to update task:', error);
+      }
+    };
+
+    const cancelEditing = (task) => {
+      task.editing = false; // Reset editing flag without saving changes
+    };
+
+
+    
+
+    const editTask = async (task) => {
+      try {
+        await taskStore.updateTask(task);
+        console.log('Task updated successfully');
+        // Optionally fetch tasks again to refresh the list after update
+        await taskStore.fetchTasks();
+      } catch (error) {
+        console.error('Failed to update task:', error);
+      }
+    };
+
+    const deleteTask = async (taskId) => {
+      try {
+        await taskStore.deleteTask(taskId);
+        console.log('Task deleted successfully');
+        // Optionally fetch tasks again to refresh the list after deletion
+        await taskStore.fetchTasks();
+      } catch (error) {
+        console.error('Failed to delete task:', error);
+      }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const filterByDateRange = (start, end) => {
       // Implement date range filtering logic here if needed
@@ -413,6 +757,8 @@ export default {
       closeModal,
       submitForm,
       form,
+      editTask,
+      deleteTask,
       filterByDateRange,
       filteredTasks,
       columns,
@@ -421,6 +767,11 @@ export default {
       memberStore,
       formatDate,
       tagClass,
+
+      contextMenus,
+      toggleContextMenu,
+      restoreDeletedTasks,
+
     };
   },
 

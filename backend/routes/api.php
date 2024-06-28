@@ -18,13 +18,8 @@ Route::prefix('v1')->group(function () {
     Route::post('login', [AuthenticatedSessionApiController::class, 'store']);
     Route::post('register', [RegisteredUserController::class, 'store']);
         
-    // // // ---------------------------------------------------------------------------
-    // // Authenticated routes
-    // Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])->group(function () {
-    // Route::post('logout', [AuthenticatedSessionApiController::class, 'destroy']);
-    // //     // ---------------------------------------------------------------------------
-
-        // Route::apiResource('tasks', TaskApiController::class);
+    // Authenticated routes
+    Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])->group(function () {
         // Show all tasks
         Route::get('/tasks/all', [TaskApiController::class, 'index']);
         // Create task
@@ -59,6 +54,6 @@ Route::prefix('v1')->group(function () {
         // Route::post('/projects/trashed/temp/restore-all', [ProjectApiController::class, 'restoreAll']);
 
         Route::apiResource('profiles', ProfileApiController::class)->only(['index', 'edit', 'update', 'destroy']);
-
-    // });
+        Route::post('logout', [AuthenticatedSessionApiController::class, 'destroy']);
+    });
 });
