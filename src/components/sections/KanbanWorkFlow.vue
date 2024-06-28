@@ -13,7 +13,7 @@
         </div>
         <div class="flex items-center space-x-2">
           <div class="flex items-center space-x-2 relative text-sm">
-            <Switch
+            <!-- <Switch
               v-model="enabled"
               :class="enabled ? 'bg-lime-400' : 'bg-black'"
               class="relative inline-flex h-[30px] w-[55px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
@@ -24,7 +24,7 @@
                 :class="enabled ? 'translate-x-[25px]' : 'translate-x-0'"
                 class="pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out"
               />
-            </Switch>
+            </Switch> -->
             <span>Select Timeframe</span>
             <ChevronUpIcon class="w-4" />
             <Calendar v-if="enabled" @change="filterByDateRange" />
@@ -418,7 +418,10 @@ import {
   EllipsisVerticalIcon,
   PlusIcon,
   XMarkIcon,
+  // Switch
 } from '@heroicons/vue/24/solid';
+// import { Switch } from '@headlessui/vue'
+
 import {
   Dialog,
   TransitionRoot,

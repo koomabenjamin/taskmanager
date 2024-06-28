@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import axiosInstance from '../plugins/axios'; 
-import { ref } from 'vue';
-import router from '../router';
-// import pinia from "@/main.js";
+import axiosInstance from '../plugins/axios';
+import router from '../router'; // Import the router instance
 
 export const useAuthStore = defineStore({
-  id: 'authStore', // Unique identifier for the store
+  id: 'authStore',
   state: () => ({
     user: null,
     token: localStorage.getItem('token') || '',
@@ -13,7 +11,7 @@ export const useAuthStore = defineStore({
   actions: {
     async login(credentials) {
       try {
-        const response = await axiosInstance.post('http://localhost:8000/api/v1/login', credentials);
+        const response = await axiosInstance.post('/api/v1/login', credentials);
         const { user, token } = response.data;
 
         // Update state
@@ -27,14 +25,14 @@ export const useAuthStore = defineStore({
         router.push({ name: 'vue-dashboard' });
       } catch (error) {
         console.error('Error logging in:', error);
-        throw error; // Propagate the error to handle it in the component
+        throw error;
       }
     },
 
     async logout() {
       try {
-        await axiosInstance.post('http://localhost:8000/api/v1/logout');
-        
+        await axiosInstance.post('/api/v1/logout');
+
         // Clear local state
         this.user = null;
         this.token = '';
@@ -46,7 +44,7 @@ export const useAuthStore = defineStore({
         router.push({ name: 'login' });
       } catch (error) {
         console.error('Error logging out:', error);
-        throw error; // Propagate the error to handle it in the component
+        throw error;
       }
     },
 
@@ -56,7 +54,7 @@ export const useAuthStore = defineStore({
     },
 
     isAuthenticated() {
-      return !!this.token; // Check if token exists
+      return !!this.token;
     },
   },
 });

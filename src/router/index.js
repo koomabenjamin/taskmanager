@@ -1,8 +1,5 @@
-import pinia from "@/main.js";
 import { createRouter, createWebHistory } from 'vue-router';
-import { useAuthStore } from '../stores/authStore';
-
-const authStore = useAuthStore();
+import { useAuthStore } from '../stores/authStore'; // Import after defining setup function
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,15 +23,14 @@ const router = createRouter({
       path: '/vue-dashboard',
       name: 'vue-dashboard',
       component: () => import('../views/MainView.vue'),
-
-      // beforeEnter: (to, from, next) => {
-      //   if (authStore.isAuthenticated()) {
-      //     next(); // Allow navigation if authenticated
-      //   } else {
-      //     next({ name: "login" }); // Redirect to login if not authenticated
-      //   }
-      // },
-
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore(); // Access the store within the guard
+        if (authStore.isAuthenticated()) {
+          next(); // Allow navigation if authenticated
+        } else {
+          next({ name: "login" }); // Redirect to login if not authenticated
+        }
+      },
     },
     {
       path: '/profile',

@@ -30,7 +30,10 @@
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
       </form>
-      <p class="login-link">Already have an account? <router-view to="/login" class="login-link">Log in here</router-view></p>
+      <p class="login-link">Already have an account? <router-link to="/login" class="login-link">Log in here</router-link></p>
+    
+    
+    
     </div>
   </div>
 </template>

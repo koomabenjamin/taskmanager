@@ -53,7 +53,6 @@ const login = async () => {
     };
 
     await authStore.login(credentials);
-    router.push({ name: 'vue-dashboard' });
     alert('Successfully logged in!');
   } catch (error) {
     alert('Error logging in.');
@@ -68,6 +67,7 @@ const togglePasswordVisibility = () => {
 };
 
 </script>
+
 
 <style scoped>
 .login-container {
