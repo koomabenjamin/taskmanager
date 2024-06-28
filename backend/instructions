@@ -29,5 +29,17 @@ php artisan test
 # After running these tests, please seed the db again since each test refreshes the db
 php artisan migrate:fresh --seed
 
+DB is now seeded.
+
+go to http://localhost:5173/ to login
+use default login details as 
+
+email: 'janedoe@example.com'
+password: 'password'
+
+Interact with the system
+
+
+
 
 
