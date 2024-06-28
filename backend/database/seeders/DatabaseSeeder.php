@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         // Create other models
         \App\Models\Tag::factory(4)->create();
         \App\Models\Project::factory(5)->create();
-        \App\Models\Task::factory(10)->create();
+        \App\Models\Task::factory(20)->create();
     }
 }

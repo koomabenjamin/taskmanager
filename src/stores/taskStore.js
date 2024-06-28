@@ -17,6 +17,17 @@ export const useTaskStore = defineStore('taskStore', () => {
         }
     };
 
+    const createTask = async (taskData) => {
+        try {
+          const response = await axiosInstance.post('/api/v1/tasks/create', taskData);
+          const newTask = response.data.data;
+          state.tasks.push(newTask); // Add new task to local state
+        } catch (error) {
+          console.error('Error creating task:', error);
+          throw error;
+        }
+      };
+      
     const updateTask = async (task) => {
         try {
             const taskId = task.id;
@@ -58,46 +69,12 @@ export const useTaskStore = defineStore('taskStore', () => {
         }
     };
 
-
-    const fetchDeletedUsers = async () => {
-        try {
-            const response = await axiosInstance.get('/api/v1/tasks/trashed/temp');
-            state.deletedUsers = response.data.data;
-        } catch (error) {
-            console.error('Error fetching deleted users:', error);
-            throw error;
-        }
-    };
-
-    const fetchTasksPastDate = async () => {
-        try {
-            const response = await axiosInstance.get('/api/v1/tasks/past-implementation');
-            state.tasksPastDate = response.data.data;
-        } catch (error) {
-            console.error('Error fetching tasks past implementation date:', error);
-            throw error;
-        }
-    };
-
-    const fetchTasksByCategory = async () => {
-        try {
-            // Assuming you have an endpoint to fetch tasks by category
-            const response = await axiosInstance.get('/api/v1/tasks-by-category');
-            state.tasksByCategory = response.data.data;
-        } catch (error) {
-            console.error('Error fetching tasks by category:', error);
-            throw error;
-        }
-    };
-
     return {
         ...toRefs(state),
         fetchTasks,
         updateTask,
         deleteTask,
         restoreTask,
-        fetchDeletedUsers,
-        fetchTasksPastDate,
-        fetchTasksByCategory,
+        createTask
     };
 });

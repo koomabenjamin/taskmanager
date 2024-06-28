@@ -127,12 +127,10 @@
     <div class="font-bold text-sm my-3">{{ task.name }}</div>
     <div class="flex items-center space-x-1 my-1 text-[10px]">
       <!-- Display task tags -->
-      <div
-        v-for="tag in task.tags"
-        :key="tag.id"
-        :class="tagClass(tag.name)"
-      >
-        {{ tag.name }}
+      <div class="flex items-center space-x-1 my-1 text-[10px]">
+        <div v-for="tag in task.tags" :key="tag.id" :class="tagClass(tag.name)">
+          {{ tag.name }}
+        </div>
       </div>
     </div>
     <div
@@ -545,19 +543,15 @@ export default {
 
     const restoreDeletedTasks = async (column) => {
       try {
-        if (!column) {
-          console.error('Column is undefined.');
-          return;
-        }
-
-        const columnTasks = taskStore.tasks.filter(task => task.status === column.name && task.deleted);
+        const columnTasks = taskStore.tasks.filter(task => task.status === column.name && task.deleted_at);
         await Promise.all(columnTasks.map(task => taskStore.restoreTask(task.id)));
-        await taskStore.fetchTasks(); // Ensure tasks are re-fetched after restoration
+        await taskStore.fetchTasks(); // Refresh tasks after restoration
       } catch (error) {
         console.error('Failed to restore deleted tasks:', error);
       }
       contextMenus[column.name].value = false; // Close context menu after action
     };
+
 
 
 
@@ -601,9 +595,15 @@ export default {
     };
 
     const submitForm = async () => {
-      await taskStore.createTask(form.value);
-      closeModal();
+      try {
+        await taskStore.createTask(form.value);
+        closeModal(); // Close modal after successful submission
+        form.value = {}; // Reset form after submission
+      } catch (error) {
+        console.error('Failed to create task:', error);
+      }
     };
+
 
 
 
