@@ -38,9 +38,10 @@ class UserFactory extends Factory
             return [
                 'name' => 'Jane Doe',
                 'email' => 'janedoe@example.com',
-                'password' => Hash::make('password'),
+                'password' => bcrypt('password'),
                 'profile_pic' => $this->faker->imageUrl(200, 200, 'people'), // Using Faker to generate profile picture URLs
             ];
         });
     }
+
 }

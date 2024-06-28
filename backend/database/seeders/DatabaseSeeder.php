@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,12 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create();
+        // Create Jane Doe using the janedoe state method
+        User::factory()->janedoe()->create();
 
+        // Create regular users
+        User::factory()->count(9)->create();
+
+        // Create other models
         \App\Models\Tag::factory(4)->create();
-
-        \App\Models\Project::factory(3)->create();
-
-        \App\Models\Task::factory(5)->create();
+        \App\Models\Project::factory(5)->create();
+        \App\Models\Task::factory(10)->create();
     }
 }

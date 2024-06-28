@@ -20,10 +20,11 @@ export const useTaskStore = defineStore('taskStore', () => {
     const updateTask = async (task) => {
         try {
             const taskId = task.id;
-            const response = await axiosInstance.patch(`/api/v1/tasks/${taskId}/update`, task);
+            const response = await axiosInstance.put(`/api/v1/tasks/${taskId}/update`, task);
+            const updatedTask = response.data.data;
             const updatedTaskIndex = state.tasks.findIndex(t => t.id === taskId);
             if (updatedTaskIndex !== -1) {
-                state.tasks.splice(updatedTaskIndex, 1, response.data.data);
+                state.tasks.splice(updatedTaskIndex, 1, updatedTask);
             }
         } catch (error) {
             console.error('Error updating task:', error);
@@ -43,16 +44,48 @@ export const useTaskStore = defineStore('taskStore', () => {
 
     const restoreTask = async (taskId) => {
         try {
-            const response = await axiosInstance.patch(`/api/v1/tasks/${taskId}/restore`);
-            const restoredTask = response.data.data;
-            const taskIndex = state.tasks.findIndex(t => t.id === restoredTask.id);
-            if (taskIndex !== -1) {
-                state.tasks.splice(taskIndex, 1, restoredTask);
-            } else {
-                state.tasks.push(restoredTask); // Add to tasks if not found (edge case)
-            }
+            await axiosInstance.patch(`/api/v1/tasks/${taskId}/restore`);
+            const updatedTasks = state.tasks.map(task => {
+                if (task.id === taskId) {
+                    task.deleted_at = null; // Assuming `deleted_at` is set to null on restore
+                }
+                return task;
+            });
+            state.tasks = updatedTasks;
         } catch (error) {
             console.error('Error restoring task:', error);
+            throw error;
+        }
+    };
+
+
+    const fetchDeletedUsers = async () => {
+        try {
+            const response = await axiosInstance.get('/api/v1/tasks/trashed/temp');
+            state.deletedUsers = response.data.data;
+        } catch (error) {
+            console.error('Error fetching deleted users:', error);
+            throw error;
+        }
+    };
+
+    const fetchTasksPastDate = async () => {
+        try {
+            const response = await axiosInstance.get('/api/v1/tasks/past-implementation');
+            state.tasksPastDate = response.data.data;
+        } catch (error) {
+            console.error('Error fetching tasks past implementation date:', error);
+            throw error;
+        }
+    };
+
+    const fetchTasksByCategory = async () => {
+        try {
+            // Assuming you have an endpoint to fetch tasks by category
+            const response = await axiosInstance.get('/api/v1/tasks-by-category');
+            state.tasksByCategory = response.data.data;
+        } catch (error) {
+            console.error('Error fetching tasks by category:', error);
             throw error;
         }
     };
@@ -63,5 +96,8 @@ export const useTaskStore = defineStore('taskStore', () => {
         updateTask,
         deleteTask,
         restoreTask,
+        fetchDeletedUsers,
+        fetchTasksPastDate,
+        fetchTasksByCategory,
     };
 });
