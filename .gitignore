@@ -28,3 +28,7 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore environment variable files
+.env
+
