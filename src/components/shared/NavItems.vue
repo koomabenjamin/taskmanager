@@ -453,7 +453,7 @@ const updateTaskListsInNavItems = () => {
 };
 
 const updateCategoryListsInNavItems = () => {
-  navItemsStore.updateCategoryListsInNavItems(allCategories.value);
+  navItemsStore.updateCategoriesInNavItems(allCategories.value);
 };
 
 const transformedMembers = ref([]);
