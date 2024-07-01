@@ -339,6 +339,7 @@ const statusRefs = ref([])
 const taskDragged = ref([])
 
 const dragStart = (task) => {
+    console.log("drag dragStart")
     taskDragged.value = task
 }
 
@@ -355,6 +356,7 @@ TaskServices.Fetch().then((response) => {
 })
 
 function onDragEnter(status) {
+    console.log("drag onDragEnter")
     TaskServices.Update(taskDragged.value.id, { status_id: status.id }).then((response) => {
         if (response.status == "success") {
             // tasks.value = response.data

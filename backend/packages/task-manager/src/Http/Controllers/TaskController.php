@@ -128,16 +128,16 @@ class TaskController extends Controller
 
         $validator = Validator::make($request->all(), [
             'id' => 'required|exists:tasks,id',
-            'project_id' => 'required|numeric',
-            'name' => 'required|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'category_id' => 'required|numeric',
-            'status_id' => 'required|numeric',
-            'priority_id' => 'required|numeric',
-            'description' => 'required|max:255',
-            'member_user_ids' => 'required|array',
-            'member_user_ids.*' => 'required|numeric',
+            'project_id' => 'nullable|numeric',
+            'name' => 'nullable|max:255',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'category_id' => 'nullable|numeric',
+            'status_id' => 'nullable|numeric',
+            'priority_id' => 'nullable|numeric',
+            'description' => 'nullable|max:255',
+            'member_user_ids' => 'nullable|array',
+            'member_user_ids.*' => 'nullable|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -165,12 +165,14 @@ class TaskController extends Controller
         $record->save();
 
         //save the members
-        foreach ($request->member_user_ids as $userId) {
-            $recordMember = new TaskMember();
-            $recordMember->project_id = $request->project_id;
-            $recordMember->task_id = $record->id;
-            $recordMember->user_id = $userId;
-            $recordMember->save();
+        if (is_array($request->member_user_ids)) {
+            foreach ($request->member_user_ids as $userId) {
+                $recordMember = new TaskMember();
+                $recordMember->project_id = $request->project_id;
+                $recordMember->task_id = $record->id;
+                $recordMember->user_id = $userId;
+                $recordMember->save();
+            }
         }
 
 
