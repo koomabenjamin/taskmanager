@@ -95,6 +95,7 @@
                   leave-to-class="transform scale-95 opacity-0"
                 >
                   <MenuItems
+                    v-if="currentUserObject.id == card.user_id"
                     class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
                   >
                     <div class="px-1 py-1">
@@ -110,6 +111,17 @@
                         >
                           Restore
                         </button>
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+
+                  <MenuItems
+                    v-else
+                    class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+                  >
+                    <div class="px-1 py-1">
+                      <MenuItem v-slot="{ active }">
+                        <h6>No Actions Avaliable</h6>
                       </MenuItem>
                     </div>
                   </MenuItems>
@@ -216,6 +228,7 @@ const enabled = ref(false);
 const selectedFormObject = ref({});
 const isOpen = ref(false);
 const draggedCardID = ref(null);
+const currentUserObject = ref(null);
 
 const transformedMembers = ref([]);
 const transformedTaskStatus = ref([]);
@@ -397,6 +410,7 @@ const filteredCards = (status) => {
 };
 
 onMounted(async () => {
+  currentUserObject.value = JSON.parse(localStorage.getItem("authUser"));
   try {
     await Promise.all([
       fetchAllCurrentUserTaskStatusData(),
