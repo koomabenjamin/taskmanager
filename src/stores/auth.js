@@ -27,8 +27,16 @@ export const useAuthStore = defineStore("auth", {
         localStorage.setItem("authToken", this.token);
         localStorage.setItem("tokenExpiry", this.tokenExpiry);
       } catch (error) {
-        console.log("Login failed: ", error);
-        throw new Error(response.message);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.results
+        ) {
+          throw new Error(error.response.data.results.message);
+        } else {
+          console.error("Login failed: ", error.message);
+          throw new Error("An unknown error occurred during login.");
+        }
       }
     },
 
@@ -49,10 +57,6 @@ export const useAuthStore = defineStore("auth", {
           error.response.data &&
           error.response.data.results
         ) {
-          console.error(
-            "Registration failed: ",
-            error.response.data.results.message
-          );
           throw new Error(error.response.data.results.message);
         } else {
           console.error("Registration failed: ", error.message);
