@@ -4,6 +4,7 @@ import { API_URLS } from "@/apis";
 
 export const allTasks = ref([]);
 export const cards = ref([]);
+export const sameTaskCards = ref([]);
 
 export const allDeletedTasks = ref([]);
 export const deletedTaskCards = ref([]);
@@ -77,6 +78,41 @@ export const updateCards = async (updatedTasks) => {
     members: updatedTask.members.map((member) => member.id),
     tags: updatedTask.tags,
   }));
+
+
+
+ //=====Group the Tasks by thier name
+ const taskGroups = updatedTasks.reduce((acc, task) => {
+  const lowerCaseName = task.task_name.toLowerCase();
+  if (!acc[lowerCaseName]) {
+    acc[lowerCaseName] = [];
+  }
+  acc[lowerCaseName].push(task);
+  return acc;
+}, {});
+
+//===Get Tasks with the same in the respective Structure
+sameTaskCards.value = Object.values(taskGroups).filter(group => group.length > 1).flatMap(group => 
+  group.map(updatedTask => ({
+    id: updatedTask.id,
+    project_id: updatedTask.project_id,
+    category_id: updatedTask.category_id,
+    status: updatedTask.status.slug,
+    priority: updatedTask.task_priority,
+    task_name: updatedTask.task_name,
+    description: updatedTask.description ? updatedTask.description : null,
+    start_date: updatedTask.start_date,
+    status_id: updatedTask.status_id,
+    unformatted_status: updatedTask.status,
+    end_date: updatedTask.end_date,
+    date: formatDate(updatedTask.start_date, updatedTask.end_date),
+    members: updatedTask.members.map((member) => member.id),
+    tags: updatedTask.tags,
+  }))
+);
+
+
+
 };
 
 export const updateDeletedTaskCards = async (updatedTasks) => {

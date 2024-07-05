@@ -82,6 +82,18 @@
             <ChartBarIcon class="w-5 h-5" />
             <span>Kanban Workflow</span>
           </div>
+          
+          <div
+            @click="changeTab('same-task-name')"
+            :class="{
+              'border-b-4 border-lime-300 duration-300':
+                activeTab === 'same-task-name',
+            }"
+            class="pb-4 flex space-x-2 items-center cursor-pointer"
+          >
+            <Square3Stack3DIcon class="w-5 h-5 flex" />
+            <span>Same Tasks</span>
+          </div>
 
           <div
             @click="changeTab('task-repository')"
@@ -98,11 +110,9 @@
       </div>
 
       <KanbanWorkFlow v-if="activeTab === 'kanban-workflow'" />
-
       <PriorityChart v-if="activeTab === 'priority-chart'" />
-
       <BackLog v-if="activeTab === 'backlog'" />
-
+      <SameTasksName v-if="activeTab === 'same-task-name'" />
       <TaskRepository v-if="activeTab === 'task-repository'" />
     </div>
   </div>
@@ -129,6 +139,7 @@ import {
 } from "@heroicons/vue/24/outline";
 import SideBar from "../components/shared/SideBar.vue";
 import KanbanWorkFlow from "../components/sections/KanbanWorkFlow.vue";
+import SameTasksName from "../components/sections/SameTasksName.vue";
 import TaskRepository from "../components/sections/TaskRepository.vue";
 import PriorityChart from "../components/sections/PriorityChart.vue";
 import BackLog from "../components/sections/BackLog.vue";
