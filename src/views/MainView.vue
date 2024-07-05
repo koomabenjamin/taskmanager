@@ -82,7 +82,7 @@
             <ChartBarIcon class="w-5 h-5" />
             <span>Kanban Workflow</span>
           </div>
-          
+
           <div
             @click="changeTab('same-task-name')"
             :class="{
