@@ -22,8 +22,13 @@ export const submitProjectData = async (dataName, colorName) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error submitting project data:", error);
-    throw error;
+    if (error.response && error.response.data && error.response.data) {
+      console.error("Submit data failed: ", error.response.data.message);
+      throw new Error(error.response.data.message);
+    } else {
+      console.error("Submit data failed: ", error.message);
+      throw new Error("An unknown error occurred during fetching data.");
+    }
   }
 };
 

@@ -219,18 +219,27 @@ export const restoreDeletedTaskData = async (task_id) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error Restoring task.....", error);
-    throw error;
+    if (error.response && error.response.data && error.response.data) {
+      console.error("Submit data failed: ", error.response.data.message);
+      throw new Error(error.response.data.message);
+    } else {
+      console.error("Submit data failed: ", error.message);
+      throw new Error("An unknown error occurred during fetching data.");
+    }
   }
 };
 
 export const handleError = (error, customMessage) => {
   let errorMessage = customMessage || "An error occurred.";
-  if (error.response && error.response.data && error.response.data.message) {
-    errorMessage = error.response.data.message;
+  if (
+    error.response &&
+    error.response.data &&
+    error.response.data.results.message
+  ) {
+    errorMessage = error.response.data.results.message;
   } else {
     console.error("Error details:", error);
-    errorMessage = error.message || "Network Error";
+    errorMessage = error.response.data.results.message || "Network Error";
   }
   alert(errorMessage);
 };

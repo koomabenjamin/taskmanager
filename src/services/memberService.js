@@ -22,8 +22,16 @@ export const submitMemberData = async (name, email) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error submitting Member data:", error);
-    throw error;
+    if (error.response && error.response.data && error.response.data.results) {
+      console.error(
+        "Registration failed: ",
+        error.response.data.results.message
+      );
+      throw new Error(error.response.data.results.message);
+    } else {
+      console.error("Registration failed: ", error.message);
+      throw new Error("An unknown error occurred during registration.");
+    }
   }
 };
 

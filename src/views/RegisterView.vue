@@ -116,10 +116,10 @@ const router = useRouter();
 
 const submitRegisterData = async () => {
   const authStore = useAuthStore();
-  console.log("Name: ", name.value);
-  console.log("Email: ", email.value);
-  console.log("Password: ", password.value);
-  console.log("Confirm Password: ", confirmpassword.value);
+  // console.log("Name: ", name.value);
+  // console.log("Email: ", email.value);
+  // console.log("Password: ", password.value);
+  // console.log("Confirm Password: ", confirmpassword.value);
 
   if (password.value !== confirmpassword.value) {
     Swal.fire({
@@ -136,9 +136,30 @@ const submitRegisterData = async () => {
 
   try {
     await authStore.register(name.value, email.value, password.value);
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      icon: "success",
+      text: "Regsitration Successful. Please proceed to login",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+
     router.push("/login");
   } catch (error) {
-    alert("Sign Up failed");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `Sign Up failed: ${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+
+    // alert("Sign Up failed", error);
   }
 };
 

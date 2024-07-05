@@ -100,11 +100,22 @@ const submitLoginData = async () => {
   try {
     await authStore.login(email.value, password.value);
     router.push("/");
+
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      icon: "success",
+      text: "Login Successful",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   } catch (error) {
     console.log("BAckEND ERROR: ", error);
     let errorMessage = "An error occurred during login. Please try again.";
     if (error) {
-      errorMessage = error;
+      errorMessage = error.message;
     }
 
     Swal.fire({

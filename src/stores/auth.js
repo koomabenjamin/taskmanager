@@ -36,16 +36,28 @@ export const useAuthStore = defineStore("auth", {
     async register(name, email, password) {
       try {
         const API_URL = import.meta.env.VITE_API_URL;
-        console.log("BASE URL: ", API_URL);
+        // console.log("BASE URL: ", API_URL);
         const response = await axios.post(API_URLS.REGISTER, {
           name,
           email,
           password,
         });
-        // console.log("RESPONSE: ", response);
+        return response.data;
       } catch (error) {
-        console.log("Login failed: ", error);
-        throw new Error(response.message);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.results
+        ) {
+          console.error(
+            "Registration failed: ",
+            error.response.data.results.message
+          );
+          throw new Error(error.response.data.results.message);
+        } else {
+          console.error("Registration failed: ", error.message);
+          throw new Error("An unknown error occurred during registration.");
+        }
       }
     },
 

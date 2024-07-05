@@ -10,7 +10,13 @@ export const fetchAllCategoriesData = async () => {
     allCategories.value = response.data.results;
     // console.log("ALL CAT BACKEND: ", allCategories.value);
   } catch (error) {
-    console.error("Error fetching data:", error);
+    if (error.response && error.response.data && error.response.data.results) {
+      console.error("Fetch data failed: ", error.response.data.results.message);
+      throw new Error(error.response.data.results.message);
+    } else {
+      console.error("Fetch data failed: ", error.message);
+      throw new Error("An unknown error occurred during fetching data.");
+    }
   }
 };
 
@@ -25,8 +31,13 @@ export const submitCategoryData = async (dataName, colorName) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error submitting category data:", error);
-    throw error;
+    if (error.response && error.response.data && error.response.data) {
+      console.error("Submit data failed: ", error.response.data.message);
+      throw new Error(error.response.data.message);
+    } else {
+      console.error("Submit data failed: ", error.message);
+      throw new Error("An unknown error occurred during fetching data.");
+    }
   }
 };
 

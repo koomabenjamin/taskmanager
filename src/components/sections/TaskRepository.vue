@@ -266,15 +266,31 @@ async function onDragAndDropEnter(newStatusSlug) {
       const response = await updateTaskDataStatus(dataToBackend);
       await fetchAllTasksData();
       await fetchAllDeletedTasksData();
+      Swal.fire({
+        position: "bottom-end",
+        toast: true,
+        html: `<p style='font-size: 14px;'> Task Moved Successfully To <b>${newStatusSlug.slug.toUpperCase()}</b></p>`,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#fff",
+      }).then((result) => {});
     } catch (error) {
-      let errorMessage = "Error while submitting tasks";
-      handleError(error, errorMessage);
+      Swal.fire({
+        position: "bottom-end",
+        toast: true,
+        text: `${error.message}`,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#fff",
+      }).then((result) => {});
     }
   }
 }
 
 const showRestoreTask = (data) => {
-  let dataToRestore = `<p style='font-size: 14px;'>Would you like to Restore <b>${data.task_name}</b> task back to the Kanboard now? <br/></p>`;
+  let dataToRestore = `<p style='font-size: 14px;'>Would you like to Restore <b>${data.task_name}</b> task back to the Kanban board now? <br/></p>`;
   Swal.fire({
     icon: "question",
     html: dataToRestore,
@@ -284,18 +300,36 @@ const showRestoreTask = (data) => {
     denyButtonText: `No, Cancel`,
   }).then((result) => {
     if (result.isConfirmed) {
-      submitRestoreTaskForm(data.id);
+      submitRestoreTaskForm(data);
     } else if (result.isDenied) {
     }
   });
 };
 
-const submitRestoreTaskForm = async (taskId) => {
+const submitRestoreTaskForm = async (task) => {
   try {
-    const response = await restoreDeletedTaskData(taskId);
+    const response = await restoreDeletedTaskData(task.id);
     await fetchAllDeletedTasksData();
+
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'> Task <b>${task.task_name}</b> Restored  Successfully To Kanban board</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 

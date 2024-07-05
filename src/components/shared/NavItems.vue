@@ -383,6 +383,7 @@
 <script setup>
 import { ref, reactive, onMounted, provide, computed, watch } from "vue";
 import * as Icons from "@heroicons/vue/24/outline";
+import Swal from "sweetalert2/dist/sweetalert2";
 import Modal from "./ModalUpdate.vue";
 import Input from "./Input.vue";
 import Button from "./Button.vue";
@@ -513,10 +514,31 @@ const submitProjectForm = async () => {
     // console.log("RESPONSE: ", response);
     await fetchAllProjectsData();
     updateProjectsInNavItems();
-    clearState();
     isOpen.value = false;
+
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'><b>${dataName.value}</b> Project Added Successfully</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+
+    clearState();
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+
+    // handleError(error, "Error Occured. Please try again.");
   }
 };
 
@@ -525,10 +547,28 @@ const submitCategoryForm = async () => {
     const response = await submitCategoryData(dataName.value, colorName.value);
     await fetchAllCategoriesData();
     updateCategoryListsInNavItems();
-    clearState();
     isOpen.value = false;
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'><b>${dataName.value}</b> Category Added Successfully</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+
+    clearState();
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 
@@ -596,10 +636,27 @@ const submitTaskForm = async () => {
     const response = await submitTaskData(dataToBackend);
     await fetchAllTasksData();
     updateTaskListsInNavItems();
-    clearState();
     isOpen.value = false;
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'><b>${dataToBackend.task_name}</b> Task Added Successfully</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+    clearState();
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 
@@ -608,10 +665,27 @@ const submitTagForm = async () => {
     const response = await submitTagData(dataName.value, colorName.value);
     await fetchAllTagsData();
     updateTagsInNavItems();
-    clearState();
     isOpen.value = false;
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'><b>${dataName.value}</b> Tag Added Successfully</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+    clearState();
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 
@@ -620,10 +694,27 @@ const submitMemberForm = async () => {
     const response = await submitMemberData(name.value, email.value);
     await fetchAllMembersData();
     updateMembersInNavItems();
-    clearState();
     isOpen.value = false;
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'><b>${name.value}</b> Member Added Successfully</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
+    clearState();
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 

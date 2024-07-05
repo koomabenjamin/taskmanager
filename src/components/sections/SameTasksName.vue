@@ -442,7 +442,6 @@ import {
   updateTaskDataStatus,
   deleteTaskData,
   allTasks,
-  cards,
   sameTaskCards,
   taskPriority,
   taskStatuses,
@@ -503,8 +502,25 @@ async function onDragAndDropEnter(newStatusSlug) {
     try {
       const response = await updateTaskDataStatus(dataToBackend);
       await fetchAllTasksData();
+      Swal.fire({
+        position: "bottom-end",
+        toast: true,
+        html: `<p style='font-size: 14px;'> Task Moved Successfully To <b>${newStatusSlug.slug.toUpperCase()}</b></p>`,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#fff",
+      }).then((result) => {});
     } catch (error) {
-      handleError(error, "Error while submitting tasks");
+      Swal.fire({
+        position: "bottom-end",
+        toast: true,
+        text: `${error.message}`,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#fff",
+      }).then((result) => {});
     }
   }
 }
@@ -577,8 +593,25 @@ const submitTaskForm = async (data) => {
     const response = await submitTaskData(dataToBackend);
     await fetchAllTasksData();
     isOpen.value = false;
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'> Task Updated  Successfully To <b>${dataToBackend.task_name}</b></p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   } catch (error) {
-    handleError(error, "Error while submitting tasks");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 
@@ -593,18 +626,35 @@ const showDeleteTask = (data) => {
     denyButtonText: `No, Cancel`,
   }).then((result) => {
     if (result.isConfirmed) {
-      submitDeleteTaskForm(data.id);
+      submitDeleteTaskForm(data);
     } else if (result.isDenied) {
     }
   });
 };
 
-const submitDeleteTaskForm = async (taskId) => {
+const submitDeleteTaskForm = async (task) => {
   try {
-    const response = await deleteTaskData(taskId);
+    const response = await deleteTaskData(task.id);
     await fetchAllTasksData();
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      html: `<p style='font-size: 14px;'><b>${task.task_name}</b> Deleted and Moved to Repository Successfully</p>`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   } catch (error) {
-    handleError(error, "Error Occured. Please try again.");
+    Swal.fire({
+      position: "bottom-end",
+      toast: true,
+      text: `${error.message}`,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#fff",
+    }).then((result) => {});
   }
 };
 
