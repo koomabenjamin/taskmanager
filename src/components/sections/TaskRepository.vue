@@ -282,7 +282,7 @@ async function onDragAndDropEnter(newStatusSlug) {
       Swal.fire({
         position: "bottom-end",
         toast: true,
-        html: `<p style='font-size: 14px;'> Task Moved Successfully To <b>${newStatusSlug.slug.toUpperCase()}</b></p>`,
+        html: `<p style='font-size: 14px;'> Task Moved Successfully To <b>${newStatusSlug.title.toUpperCase()}</b></p>`,
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
