@@ -47,7 +47,7 @@
       <h5 class="pl-4 text-lg py-2">{{ column.title }}</h5>
       <div
         class="m-2 p-5 bg-white rounded-lg h-auto border shadow"
-        v-for="card in cards.filter((el) => el.status === column.slug)"
+        v-for="card in sameTaskCards.filter((el) => el.status === column.slug)"
         :key="card.id"
         :id="card.id"
         draggable="true"
@@ -454,7 +454,7 @@ import {
   updateTaskDataStatus,
   deleteTaskData,
   allTasks,
-  cards,
+  sameTaskCards,
   taskPriority,
   taskStatuses,
   handleError,
@@ -490,7 +490,7 @@ function closeModal() {
   isOpen.value = false;
 }
 
-// console.log("ALL TASKS CARDS FE", cards.value);
+// console.log("ALL TASKS CARDS FE", sameTaskCards.value);
 
 const dropdownOpen = ref(false);
 const columns = ref([]);
@@ -502,7 +502,7 @@ const onDragStart = (cardID) => {
 };
 
 async function onDragAndDropEnter(newStatusSlug) {
-  const cardIndex = cards.value.findIndex(
+  const cardIndex = sameTaskCards.value.findIndex(
     (card) => card.id === draggedCardID.value
   );
   // console.log("NEW ID: ", newStatusSlug.id)
@@ -673,14 +673,13 @@ const submitDeleteTaskForm = async (task) => {
 
 const searchCard = (e) => {
   // console.log(e.target.value)
-  let filteredCards = cards.value.filter((card) =>
+  let filteredCards = sameTaskCards.value.filter((card) =>
     card.members.includes(parseInt(e.target.value))
   );
-  if (e.target.value) cards.value = filteredCards;
+  if (e.target.value) sameTaskCards.value = filteredCards;
 };
 
 const editTask = (taskObject) => {
-  console.log("CARD: ", taskObject);
   let memberIDSArray = [];
   let tagIDSArray = [];
   selectedFormObject.value = taskObject;
@@ -797,7 +796,7 @@ const toTitleCase = (str) => {
 };
 
 const filteredCards = (status) => {
-  return cards.value.filter((card) => card.status === status);
+  return sameTaskCards.value.filter((card) => card.status === status);
 };
 
 const minEndDate = computed(() => {
@@ -815,7 +814,6 @@ const todayDate = computed(() => {
 
 onMounted(async () => {
   currentUserObject.value = JSON.parse(localStorage.getItem("authUser"));
-
   try {
     await Promise.all([
       fetchAllCurrentUserTaskStatusData(),
