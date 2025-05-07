@@ -1,0 +1,248 @@
+{
+  "tasks": [
+    {
+      "id": "3",
+      "name": "Requirements gathering",
+      "status": "done",
+      "priority": "high",
+      "date": "2024-06-06",
+      "members": [
+        {
+          "id": "2",
+          "name": "Mahad",
+          "image": ""
+        },
+        {
+          "id": "3",
+          "name": "Marvin",
+          "image": ""
+        },
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        },
+        {
+          "id": "5",
+          "name": "West",
+          "image": "a"
+        }
+      ],
+      "tag": "Feasibility checking"
+    },
+    {
+      "id": "4",
+      "name": "Development",
+      "status": "to-do",
+      "priority": "medium",
+      "date": "2024-06-08",
+      "members": [
+        {
+          "id": "2",
+          "name": "Mahad",
+          "image": ""
+        },
+        {
+          "id": "3",
+          "name": "Marvin",
+          "image": ""
+        },
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        }
+      ],
+      "tag": "Development"
+    },
+    {
+      "id": "5",
+      "name": "Build Front End",
+      "status": "to-do",
+      "priority": "medium",
+      "date": "2024-06-21",
+      "members": [
+        {
+          "id": "2",
+          "name": "Mahad",
+          "image": ""
+        },
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        },
+        {
+          "id": "5",
+          "name": "West",
+          "image": "a"
+        }
+      ],
+      "tag": "Development"
+    },
+    {
+      "id": "6",
+      "name": "Build Back End",
+      "status": "to-do",
+      "priority": "low",
+      "date": "2024-06-08",
+      "members": [
+        {
+          "id": "3",
+          "name": "Marvin",
+          "image": ""
+        },
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        }
+      ],
+      "tag": "Development"
+    },
+    {
+      "id": "7",
+      "name": "Test the app",
+      "status": "done",
+      "priority": "medium",
+      "date": "2024-06-20",
+      "members": [
+        {
+          "id": "5",
+          "name": "West",
+          "image": "a"
+        }
+      ],
+      "tag": "Testing"
+    },
+    {
+      "id": "8",
+      "name": "Unit testing",
+      "status": "to-do",
+      "priority": "medium",
+      "date": "2024-06-13",
+      "members": [
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        },
+        {
+          "id": "5",
+          "name": "West",
+          "image": "a"
+        }
+      ],
+      "tag": "Testing"
+    },
+    {
+      "id": "9",
+      "name": "Tailwind css implementation",
+      "status": "to-do",
+      "priority": "low",
+      "date": "2024-06-26",
+      "members": [
+        {
+          "id": "3",
+          "name": "Marvin",
+          "image": ""
+        },
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        },
+        {
+          "id": "5",
+          "name": "West",
+          "image": "a"
+        }
+      ],
+      "tag": "Development"
+    },
+    {
+      "id": "10",
+      "name": "Write SRS Document",
+      "status": "in-progress",
+      "priority": "medium",
+      "date": "2024-06-05",
+      "members": [
+        {
+          "id": "2",
+          "name": "Mahad",
+          "image": ""
+        },
+        {
+          "id": "3",
+          "name": "Marvin",
+          "image": ""
+        },
+        {
+          "id": "4",
+          "name": "Benjamin",
+          "image": ""
+        },
+        {
+          "id": "5",
+          "name": "West",
+          "image": "a"
+        }
+      ],
+      "tag": "Documentation"
+    }
+  ],
+  "members": [
+    {
+      "id": "2",
+      "name": "Mahad",
+      "image": "https://unsplash.com/photos/smiling-woman-wearing-blue-necklace-6qf1uljGpU4"
+    },
+    {
+      "id": "3",
+      "name": "Marvin",
+      "image": "https://unsplash.com/photos/a-woman-with-a-nose-ring-and-nose-piercing-Rm83bxp19RE"
+    },
+    {
+      "id": "4",
+      "name": "Benjamin",
+      "image": "https://unsplash.com/photos/man-wearing-white-v-neck-shirt-iFgRcqHznqg"
+    }
+    
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "name": "Meridian"
+    },
+    {
+      "id": "2",
+      "name": "Risen"
+    },
+    {
+      "id": "3",
+      "name": "SkillBox"
+    },
+    {
+      "id": "4",
+      "name": "Statra Insurance"
+    }
+  ],
+  "tags": [
+    {
+      "id": "1",
+      "name": "Feasibility checking"
+    },
+    {
+      "id": "2",
+      "name": "Development"
+    },
+    {
+      "id": "1",
+      "name": "Testing"
+    },
+    {
+      "id": "4",
+      "name": "Documentation"
+    }
+  ]
+}

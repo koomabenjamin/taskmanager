@@ -46,10 +46,10 @@ const navItems = [
     { label: 'Plan', icon: 'CalendarIcon', subList: [] },
     {
         label: 'Task List', name: 'task', icon: 'ClipboardDocumentListIcon', subList: [
-            { name: 'Meridian', color: 'bg-rose-600' },
-            { name: 'Risen', color: 'bg-blue-600' },
-            { name: 'SkillBox', color: 'bg-yellow-400' },
-            { name: 'Statra Insurance', color: 'bg-green-600' },
+            { name: 'Requirements gathering', color: 'bg-rose-600' },
+            { name: 'Feasibility checking', color: 'bg-blue-600' },
+            { name: 'Build Front End', color: 'bg-yellow-400' },
+            { name: 'Build Back End', color: 'bg-green-600' },
         ]
     },
     {
@@ -62,16 +62,16 @@ const navItems = [
     },
     {
         label: 'Tags', name: 'tag', icon: 'TagIcon', subList: [
-            { name: 'Prototype', color: 'bg-purple-600' },
-            { name: 'Research', color: 'bg-green-600' },
+            { name: 'Feasibility checking', color: 'bg-purple-600' },
+            { name: 'Development', color: 'bg-green-600' },
             { name: 'Testing', color: 'bg-yellow-400' },
         ]
     },
     {
         label: 'Members', name: 'member', icon: 'UserGroupIcon', subList: [
-            { name: 'Prototype', color: 'bg-purple-600' },
-            { name: 'Research', color: 'bg-green-600' },
-            { name: 'Testing', color: 'bg-yellow-400' },
+            { name: 'Mahad', color: 'bg-purple-600' },
+            { name: 'Marvin', color: 'bg-green-600' },
+            { name: 'Benjamin', color: 'bg-yellow-400' },
         ]
     },
 ];
