@@ -44,7 +44,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Priority Distribution -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Priority Distribution</h3>
         <div class="space-y-4">
           <PriorityBar label="Critical" percentage="15" color="bg-red-500" />
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Top Priority Tasks -->
-      <div class="lg:col-span-2 bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="lg:col-span-2 bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Top Priority Tasks</h3>
         <div class="space-y-3">
           <TopPriorityTask
@@ -83,3 +83,5 @@ const topPriorityTasks = ref([
 </script>
 
 <style scoped></style>
+
+

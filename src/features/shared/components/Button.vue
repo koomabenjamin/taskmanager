@@ -1,7 +1,7 @@
 <template>
   <button
     :class="[
-      'px-4 py-2 rounded-lg font-semibold transition-all duration-200 ease-in-out',
+      'px-4 py-2 rounded font-semibold transition-all duration-200 ease-in-out',
       'flex items-center space-x-2 justify-center',
       'hover:shadow-lg transform hover:scale-105',
       'focus:outline-none focus:ring-2 focus:ring-offset-2',
@@ -50,7 +50,7 @@ const variantClasses = computed(() => {
     primary: `${theme.value.tailwind.primary} text-white focus:ring-emerald-500`,
     secondary: `${theme.value.tailwind.secondary} text-white focus:ring-emerald-600`,
     accent: `${theme.value.tailwind.accent} text-white focus:ring-emerald-400`,
-    ghost: `bg-transparent ${theme.value.tailwind.text} border-2 border-current hover:${theme.value.tailwind.bg}`
+    ghost: `bg-transparent ${theme.value.tailwind.text} border border-current hover:${theme.value.tailwind.bg}`
   }
   return variants[props.variant] || variants.primary
 })
@@ -81,3 +81,5 @@ const getIcon = (iconName) => {
 </script>
 
 <style scoped></style>
+
+

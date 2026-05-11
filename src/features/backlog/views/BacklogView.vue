@@ -10,14 +10,14 @@
     </div>
 
     <!-- Filter & Sort -->
-    <div class="bg-white rounded-lg p-4 shadow-sm border border-emerald-100 flex items-center space-x-4">
-      <input placeholder="Search tasks..." class="flex-1 px-3 py-2 border border-emerald-200 rounded-lg" />
-      <select class="px-3 py-2 border border-emerald-200 rounded-lg">
+    <div class="bg-white rounded p-4 shadow border border-gray-200 flex items-center space-x-4">
+      <input placeholder="Search tasks..." class="flex-1 px-3 py-2 border border-emerald-200 rounded" />
+      <select class="px-3 py-2 border border-emerald-200 rounded">
         <option>Sort by: Date Added</option>
         <option>Sort by: Priority</option>
         <option>Sort by: Due Date</option>
       </select>
-      <select class="px-3 py-2 border border-emerald-200 rounded-lg">
+      <select class="px-3 py-2 border border-emerald-200 rounded">
         <option>Filter: All</option>
         <option>Filter: Pending</option>
         <option>Filter: In Review</option>
@@ -50,3 +50,5 @@ const backlogTasks = ref([
 </script>
 
 <style scoped></style>
+
+

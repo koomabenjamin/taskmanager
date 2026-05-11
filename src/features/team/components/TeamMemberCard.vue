@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg p-6 shadow-sm border-2 border-emerald-200 hover:shadow-md transition-all text-center">
+  <div class="bg-white rounded p-6 shadow border border-emerald-200 hover:shadow-md transition-all text-center">
     <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 mx-auto mb-3 flex items-center justify-center text-white font-bold">
       {{ member.avatar }}
     </div>
@@ -10,7 +10,7 @@
         {{ member.status }}
       </span>
     </div>
-    <div class="mt-4 pt-4 border-t border-emerald-100">
+    <div class="mt-4 pt-4 border-t border-gray-200">
       <p class="text-sm text-gray-700">
         <span class="font-bold text-emerald-700">{{ member.tasksCount }}</span> active tasks
       </p>
@@ -34,3 +34,5 @@ const getStatusColor = (status) => {
 </script>
 
 <style scoped></style>
+
+

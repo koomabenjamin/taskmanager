@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-white rounded-lg p-4 shadow-sm border-t-4 border-emerald-500">
+  <div class="bg-white rounded p-4 shadow border-t-2 border-emerald-600">
     <h3 class="font-bold text-lg mb-4 text-gray-800">{{ column.name }}</h3>
     <div class="space-y-3 min-h-96">
       <div
         v-for="task in tasks"
         :key="task.id"
         draggable="true"
-        class="p-3 bg-gradient-to-br from-white to-emerald-50 rounded-lg border-l-4 border-emerald-500 hover:shadow-md transition-all cursor-move"
+        class="p-3 bg-gradient-to-br from-white to-emerald-50 rounded border-l-2 border-emerald-600 hover:shadow-md transition-all cursor-move"
       >
         <p class="font-semibold text-sm text-gray-800">{{ task.title }}</p>
         <div class="flex items-center justify-between mt-3">
@@ -26,7 +26,7 @@
           <div
             v-for="assignee in task.assignees"
             :key="assignee"
-            class="w-6 h-6 rounded-full bg-emerald-600 border-2 border-white text-xs text-white flex items-center justify-center font-bold"
+            class="w-6 h-6 rounded-full bg-emerald-600 border border-white text-xs text-white flex items-center justify-center font-bold"
             :title="assignee"
           >
             {{ assignee[0] }}
@@ -56,3 +56,5 @@ const getPriorityClass = (priority) => {
 </script>
 
 <style scoped></style>
+
+

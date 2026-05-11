@@ -1,9 +1,14 @@
 <template>
-  <div :class="['h-screen w-screen flex overflow-hidden', theme.tailwind.bg]">
-    <SideBar @add-task="showAddTaskModal = true" @nav-change="activeView = $event" />
+  <div :class="['h-screen w-screen flex overflow-hidden', 'bg-gray-50']">
+    <SideBar 
+      ref="sidebarRef"
+      @add-task="showAddTaskModal = true" 
+      @nav-change="activeView = $event"
+      @toggle-sidebar="onToggleSidebar"
+    />
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <TopBar />
+      <TopBar @toggle-sidebar="toggleSidebar" />
 
       <div class="flex-1 overflow-auto">
         <div class="p-6">
@@ -43,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useThemeStore } from '@/stores/themes/themeStore'
 import SideBar from '@/features/shared/components/SideBar.vue'
 import TopBar from '@/features/shared/components/TopBar.vue'
@@ -60,8 +65,8 @@ import AnalyticsDashboard from '@/features/analytics/views/AnalyticsDashboard.vu
 import TeamManagement from '@/features/team/views/TeamManagement.vue'
 
 const themeStore = useThemeStore()
-const theme = computed(() => themeStore.activeTheme)
 
+const sidebarRef = ref(null)
 const activeView = ref('dashboard')
 const showAddTaskModal = ref(false)
 
@@ -69,6 +74,18 @@ const showAddTaskModal = ref(false)
 onMounted(() => {
   themeStore.initializeTheme()
 })
+
+const toggleSidebar = () => {
+  if (sidebarRef.value) {
+    sidebarRef.value.toggleSidebar()
+  }
+}
+
+const onToggleSidebar = (isCollapsed) => {
+  // Handle any additional logic needed when sidebar is toggled
+}
 </script>
 
 <style scoped></style>
+
+

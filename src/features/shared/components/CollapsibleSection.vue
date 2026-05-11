@@ -2,7 +2,7 @@
   <div class="space-y-2">
     <button
       @click="isOpen = !isOpen"
-      class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-200 transition-all duration-200 text-sm font-semibold text-gray-700"
+      class="w-full flex items-center justify-between px-3 py-2 rounded hover:bg-gray-200 transition-all duration-200 text-sm font-semibold text-gray-700"
     >
       {{ title }}
       <ChevronDownIcon :class="['w-4 h-4 transition-transform', isOpen ? 'rotate-180' : '']" />
@@ -13,7 +13,7 @@
         <button
           v-for="item in items"
           :key="item.id"
-          class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-gray-200 transition-all duration-200 flex items-center space-x-2"
+          class="w-full text-left px-3 py-2 rounded text-xs hover:bg-gray-200 transition-all duration-200 flex items-center space-x-2"
         >
           <div v-if="item.color" :class="['w-3 h-3 rounded-full', item.color]"></div>
           <span>{{ item.name }}</span>
@@ -54,3 +54,5 @@ const isOpen = ref(false)
   max-height: 500px;
 }
 </style>
+
+

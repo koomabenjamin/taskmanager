@@ -1,5 +1,5 @@
 <template>
-  <div :class="['px-4 py-2 rounded-lg bg-white shadow-sm border-l-4', borderColor]">
+  <div :class="['px-4 py-2 rounded bg-white shadow border-l-2', borderColor]">
     <div class="flex items-center justify-between">
       <div class="flex items-start space-x-3 flex-1">
         <component :is="getIcon(icon)" :class="['w-6 h-6', textColor, 'flex-shrink-0']" />
@@ -24,7 +24,7 @@ defineProps({
 })
 
 const borderColor = computed(() => {
-  return `border-emerald-500`
+  return `border-emerald-600`
 })
 
 const getIcon = (iconName) => {
@@ -35,3 +35,5 @@ import { computed } from 'vue'
 </script>
 
 <style scoped></style>
+
+

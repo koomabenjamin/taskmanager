@@ -40,7 +40,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Task Completion Trend -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Task Completion Trend</h3>
         <div class="space-y-3">
           <TrendBar day="Mon" percentage="65" />
@@ -52,7 +52,7 @@
       </div>
 
       <!-- Team Performance -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Team Performance</h3>
         <div class="space-y-3">
           <TeamMemberPerformance
@@ -65,7 +65,7 @@
     </div>
 
     <!-- Burn-down Chart -->
-    <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+    <div class="bg-white rounded p-6 shadow border border-gray-200">
       <h3 class="text-lg font-bold text-emerald-900 mb-4">Sprint Burn-down Chart</h3>
       <div class="h-64 flex items-end justify-around">
         <BurndownBar
@@ -105,3 +105,5 @@ const burndownData = ref([
 </script>
 
 <style scoped></style>
+
+

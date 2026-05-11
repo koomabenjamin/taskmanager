@@ -16,7 +16,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Active Timer -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Current Task</h3>
         <div class="space-y-4">
           <div>
@@ -32,7 +32,7 @@
       </div>
 
       <!-- Time Entries -->
-      <div class="lg:col-span-2 bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="lg:col-span-2 bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Today's Entries</h3>
         <div class="space-y-3">
           <TimeEntry
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Weekly Summary -->
-    <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+    <div class="bg-white rounded p-6 shadow border border-gray-200">
       <h3 class="text-lg font-bold text-emerald-900 mb-4">Weekly Summary</h3>
       <div class="grid grid-cols-7 gap-2">
         <WeeklyBar
@@ -84,3 +84,5 @@ const weeklyData = ref([
 </script>
 
 <style scoped></style>
+
+

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['rounded-lg border-2 p-4 shadow-sm transition-all duration-200 hover:shadow-md', theme.tailwind.border, theme.tailwind.bg]">
+  <div :class="['rounded border p-4 shadow transition-all duration-200 hover:shadow-lg', 'border-gray-200 bg-white']">
     <slot></slot>
   </div>
 </template>
@@ -13,3 +13,5 @@ const theme = computed(() => themeStore.activeTheme)
 </script>
 
 <style scoped></style>
+
+

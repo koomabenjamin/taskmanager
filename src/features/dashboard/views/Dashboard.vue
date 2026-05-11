@@ -40,7 +40,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- My Tasks -->
-      <div class="lg:col-span-2 bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="lg:col-span-2 bg-white rounded p-6 shadow border border-gray-200">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-xl font-bold text-emerald-900">My Tasks</h2>
           <Button label="View All" variant="ghost" size="sm" />
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Upcoming Deadlines -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h2 class="text-xl font-bold text-emerald-900 mb-4">Upcoming Deadlines</h2>
         <div class="space-y-3">
           <DeadlineItem
@@ -69,7 +69,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Project Progress -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h2 class="text-xl font-bold text-emerald-900 mb-4">Project Progress</h2>
         <div class="space-y-4">
           <ProjectProgressBar
@@ -81,7 +81,7 @@
       </div>
 
       <!-- Team Activity -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h2 class="text-xl font-bold text-emerald-900 mb-4">Team Activity</h2>
         <div class="space-y-3 text-sm">
           <ActivityLog
@@ -141,3 +141,5 @@ const teamActivity = ref([
 </script>
 
 <style scoped></style>
+
+

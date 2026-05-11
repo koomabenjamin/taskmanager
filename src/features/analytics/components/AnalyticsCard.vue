@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-br from-emerald-50 to-white rounded-lg p-6 shadow-sm border-2 border-emerald-200 hover:shadow-md transition-all">
+  <div class="bg-gradient-to-br from-emerald-50 to-white rounded p-6 shadow border border-emerald-200 hover:shadow-md transition-all">
     <div class="flex items-start justify-between">
       <div class="flex-1">
         <p class="text-sm text-gray-600 font-medium">{{ title }}</p>
@@ -28,3 +28,5 @@ const getIcon = (iconName) => {
 </script>
 
 <style scoped></style>
+
+

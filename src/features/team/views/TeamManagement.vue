@@ -21,7 +21,7 @@
     <!-- Team Statistics -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Workload Distribution -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Workload Distribution</h3>
         <div class="space-y-3">
           <WorkloadBar
@@ -34,7 +34,7 @@
       </div>
 
       <!-- Team Roles -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Team Roles</h3>
         <div class="space-y-2">
           <RoleTag v-for="role in teamRoles" :key="role.id" :role="role" />
@@ -42,7 +42,7 @@
       </div>
 
       <!-- Team Availability -->
-      <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+      <div class="bg-white rounded p-6 shadow border border-gray-200">
         <h3 class="text-lg font-bold text-emerald-900 mb-4">Availability</h3>
         <div class="space-y-3">
           <AvailabilityStatus
@@ -55,7 +55,7 @@
     </div>
 
     <!-- Permissions & Access -->
-    <div class="bg-white rounded-lg p-6 shadow-sm border border-emerald-100">
+    <div class="bg-white rounded p-6 shadow border border-gray-200">
       <h3 class="text-lg font-bold text-emerald-900 mb-4">Roles & Permissions</h3>
       <div class="overflow-x-auto">
         <table class="w-full">
@@ -128,3 +128,5 @@ const rolePermissions = ref([
 </script>
 
 <style scoped></style>
+
+

@@ -35,3 +35,5 @@ const colorClasses = computed(() => {
 </script>
 
 <style scoped></style>
+
+

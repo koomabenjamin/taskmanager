@@ -1,16 +1,26 @@
 <template>
-  <div :class="['w-64 h-full flex flex-col border-r shadow-sm', theme.tailwind.sidebar]">
+  <div :class="['h-full flex flex-col border-r shadow transition-all duration-300', 
+    isCollapsed ? 'w-20' : 'w-80', 
+    'border-gray-200 bg-white']">
     <!-- Logo & Brand -->
-    <div class="p-6 border-b">
-      <div :class="['flex items-center space-x-2', theme.tailwind.text]">
+    <div :class="['p-6 border-b', 'border-gray-200']">
+      <div v-if="!isCollapsed" :class="['flex items-center space-x-2', 'text-emerald-900']">
         <CheckCircleIcon class="w-8 h-8 text-emerald-700" />
         <span class="text-2xl font-bold">Task Master</span>
+      </div>
+      <div v-else class="flex justify-center">
+        <CheckCircleIcon class="w-8 h-8 text-emerald-700" />
       </div>
     </div>
 
     <!-- Action Button -->
-    <div class="px-6 py-4 border-b">
-      <Button label="New Task" icon="PlusIcon" variant="primary" size="lg" @click="$emit('add-task')" />
+    <div :class="['px-6 py-4 border-b', 'border-gray-200']">
+      <Button v-if="!isCollapsed" label="New Task" icon="PlusIcon" variant="primary" size="lg" @click="$emit('add-task')" />
+      <button v-else @click="$emit('add-task')" class="w-full p-2 bg-emerald-700 text-white rounded hover:bg-emerald-800 transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
     </div>
 
     <!-- Navigation Menu -->
@@ -21,20 +31,22 @@
         :label="item.label"
         :icon="item.icon"
         :active="activeNav === item.id"
+        :collapsed="isCollapsed"
         @click="selectNav(item.id)"
       />
     </div>
 
     <!-- Collapsible Sections -->
-    <div class="flex-1 overflow-auto px-4 space-y-4">
+    <div v-if="!isCollapsed" class="flex-1 overflow-auto px-4 space-y-4">
       <CollapsibleSection title="Projects" :items="projects" />
       <CollapsibleSection title="Tags" :items="tags" />
       <CollapsibleSection title="Team Members" :items="teamMembers" />
     </div>
 
     <!-- Plan Information -->
-    <div :class="['p-6 border-t', theme.tailwind.border]">
-      <div class="space-y-3">
+    <!-- Plan Information -->
+    <div :class="['p-6 border-t', 'border-gray-200']">
+      <div v-if="!isCollapsed" class="space-y-3">
         <div class="flex items-center justify-between">
           <span class="font-semibold text-sm text-gray-700">Free Plan</span>
           <span class="text-xs font-bold text-emerald-600">4/10</span>
@@ -44,24 +56,29 @@
         </div>
         <p class="text-xs text-gray-500">4 out of 10 projects used</p>
       </div>
+      <div v-else class="flex justify-center">
+        <span class="text-xs font-bold text-emerald-600">4/10</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useThemeStore } from '@/stores/themes/themeStore'
+import { ref } from 'vue'
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import Button from './Button.vue'
 import NavItem from './NavItem.vue'
 import CollapsibleSection from './CollapsibleSection.vue'
 
-const emit = defineEmits(['add-task', 'nav-change'])
+const emit = defineEmits(['add-task', 'nav-change', 'toggle-sidebar'])
 
-const themeStore = useThemeStore()
-const theme = computed(() => themeStore.activeTheme)
-
+const isCollapsed = ref(false)
 const activeNav = ref('dashboard')
+
+const toggleSidebar = () => {
+  isCollapsed.value = !isCollapsed.value
+  emit('toggle-sidebar', isCollapsed.value)
+}
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: 'ViewGridIcon' },
@@ -100,3 +117,5 @@ const selectNav = (id) => {
 </script>
 
 <style scoped></style>
+
+

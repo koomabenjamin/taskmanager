@@ -1,5 +1,5 @@
 <template>
-  <div :class="['p-6 rounded-lg border-l-4 shadow-sm', color]">
+  <div :class="['p-6 rounded border-l-2 shadow', color]">
     <div class="flex items-start justify-between">
       <div>
         <h4 class="font-bold text-lg text-gray-800">{{ title }}</h4>
@@ -31,3 +31,5 @@ const getIcon = (iconName) => {
 </script>
 
 <style scoped></style>
+
+

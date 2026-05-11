@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition-all">
+  <div class="p-3 rounded border border-red-200 bg-red-50 hover:bg-red-100 transition-all">
     <div class="flex items-start justify-between">
       <div>
         <p class="font-medium text-gray-800">{{ deadline.title }}</p>
@@ -27,3 +27,5 @@ const daysLeftClass = computed(() => {
 </script>
 
 <style scoped></style>
+
+

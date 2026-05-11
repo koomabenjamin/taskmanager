@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between p-3 bg-emerald-50 rounded-lg">
+  <div class="flex items-center justify-between p-3 bg-emerald-50 rounded">
     <span class="font-medium text-gray-800">{{ member.name }}</span>
     <div class="flex items-center space-x-4">
       <div class="flex items-center space-x-2">
@@ -21,3 +21,5 @@ defineProps({
 </script>
 
 <style scoped></style>
+
+

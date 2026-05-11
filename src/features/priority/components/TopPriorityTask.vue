@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-lg hover:shadow-md transition-all">
+  <div class="p-4 border-l-2 border-emerald-600 bg-emerald-50 rounded hover:shadow-md transition-all">
     <div class="flex items-start justify-between">
       <div>
         <p class="font-semibold text-gray-800">{{ task.title }}</p>
@@ -36,3 +36,5 @@ const formatDate = (date) => {
 </script>
 
 <style scoped></style>
+
+
