@@ -1,5 +1,5 @@
 <template>
-  <div :class="['h-screen w-screen flex overflow-hidden', 'bg-gray-50']">
+  <div :class="['h-screen w-screen flex overflow-hidden', 'bg-gray-100']">
     <SideBar 
       ref="sidebarRef"
       @add-task="showAddTaskModal = true" 
@@ -32,6 +32,9 @@
 
           <!-- Team Management -->
           <TeamManagement v-else-if="activeView === 'team'" />
+
+          <slot></slot>
+
         </div>
       </div>
     </div>
@@ -63,7 +66,6 @@ import BacklogView from '@/features/backlog/views/BacklogView.vue'
 import TimeTrackingView from '@/features/timeTracking/views/TimeTrackingView.vue'
 import AnalyticsDashboard from '@/features/analytics/views/AnalyticsDashboard.vue'
 import TeamManagement from '@/features/team/views/TeamManagement.vue'
-
 const themeStore = useThemeStore()
 
 const sidebarRef = ref(null)
