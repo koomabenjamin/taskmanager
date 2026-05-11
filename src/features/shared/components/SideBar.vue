@@ -32,7 +32,7 @@
         :icon="item.icon"
         :active="activeNav === item.id"
         :collapsed="isCollapsed"
-        @click="selectNav(item.id)"
+        @click="navigateTo(item.routeName)"
       />
     </div>
 
@@ -64,16 +64,34 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import Button from './Button.vue'
 import NavItem from './NavItem.vue'
 import CollapsibleSection from './CollapsibleSection.vue'
 
-const emit = defineEmits(['add-task', 'nav-change', 'toggle-sidebar'])
+const emit = defineEmits(['add-task', 'toggle-sidebar'])
+const router = useRouter()
+const route = useRoute()
 
 const isCollapsed = ref(false)
-const activeNav = ref('dashboard')
+
+// Map route names to nav item IDs
+const routeToNavMap = {
+  'dashboard': 'dashboard',
+  'kanban': 'kanban',
+  'priority': 'priority',
+  'backlog': 'backlog',
+  'timeTracking': 'timeTracking',
+  'analytics': 'analytics',
+  'team': 'team'
+}
+
+// Determine active nav based on current route
+const activeNav = computed(() => {
+  return routeToNavMap[route.name] || 'dashboard'
+})
 
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value
@@ -81,13 +99,13 @@ const toggleSidebar = () => {
 }
 
 const navItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: 'ViewGridIcon' },
-  { id: 'kanban', label: 'Kanban Board', icon: 'WindowIcon' },
-  { id: 'priority', label: 'Priority Chart', icon: 'ChartBarIcon' },
-  { id: 'backlog', label: 'Backlog', icon: 'QueueListIcon' },
-  { id: 'timeTracking', label: 'Time Tracking', icon: 'ClockIcon' },
-  { id: 'analytics', label: 'Analytics', icon: 'SparklesIcon' },
-  { id: 'team', label: 'Team', icon: 'UserGroupIcon' }
+  { id: 'dashboard', label: 'Dashboard', icon: 'ViewGridIcon', routeName: 'dashboard' },
+  { id: 'kanban', label: 'Kanban Board', icon: 'WindowIcon', routeName: 'kanban' },
+  { id: 'priority', label: 'Priority Chart', icon: 'ChartBarIcon', routeName: 'priority' },
+  { id: 'backlog', label: 'Backlog', icon: 'QueueListIcon', routeName: 'backlog' },
+  { id: 'timeTracking', label: 'Time Tracking', icon: 'ClockIcon', routeName: 'timeTracking' },
+  { id: 'analytics', label: 'Analytics', icon: 'SparklesIcon', routeName: 'analytics' },
+  { id: 'team', label: 'Team', icon: 'UserGroupIcon', routeName: 'team' }
 ]
 
 const projects = [
@@ -110,9 +128,8 @@ const teamMembers = [
   { id: 4, name: 'Sarah Williams', role: 'Product Manager' }
 ]
 
-const selectNav = (id) => {
-  activeNav.value = id
-  emit('nav-change', id)
+const navigateTo = (routeName) => {
+  router.push({ name: routeName })
 }
 </script>
 

@@ -28,66 +28,59 @@ const router = createRouter({
       ]
     },
 
-    // App Routes (protected)
+    // App Routes (protected) - Wrapped by MainLayout
     {
       path: '/',
-      name: 'app',
       component: () => import('../features/shared/components/MainLayout.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('../features/dashboard/views/Dashboard.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/kanban',
-      name: 'kanban',
-      component: () => import('../features/kanban/views/KanbanBoard.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/priority',
-      name: 'priority',
-      component: () => import('../features/priority/views/PriorityChart.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/backlog',
-      name: 'backlog',
-      component: () => import('../features/backlog/views/BacklogView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/time-tracking',
-      name: 'timeTracking',
-      component: () => import('../features/timeTracking/views/TimeTrackingView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/analytics',
-      name: 'analytics',
-      component: () => import('../features/analytics/views/AnalyticsDashboard.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/team',
-      name: 'team',
-      component: () => import('../features/team/views/TeamManagement.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('../features/auth/views/ProfileView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/auth/authorization',
-      name: 'authorization',
-      component: () => import('../features/auth/views/AuthorizationView.vue'),
-      meta: { requiresAuth: true, requiresRole: 'admin' }
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+          component: () => import('../features/dashboard/views/Dashboard.vue')
+        },
+        {
+          path: 'kanban',
+          name: 'kanban',
+          component: () => import('../features/kanban/views/KanbanBoard.vue')
+        },
+        {
+          path: 'priority',
+          name: 'priority',
+          component: () => import('../features/priority/views/PriorityChart.vue')
+        },
+        {
+          path: 'backlog',
+          name: 'backlog',
+          component: () => import('../features/backlog/views/BacklogView.vue')
+        },
+        {
+          path: 'time-tracking',
+          name: 'timeTracking',
+          component: () => import('../features/timeTracking/views/TimeTrackingView.vue')
+        },
+        {
+          path: 'analytics',
+          name: 'analytics',
+          component: () => import('../features/analytics/views/AnalyticsDashboard.vue')
+        },
+        {
+          path: 'team',
+          name: 'team',
+          component: () => import('../features/team/views/TeamManagement.vue')
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('../features/auth/views/ProfileView.vue')
+        },
+        {
+          path: 'authorization',
+          name: 'authorization',
+          component: () => import('../features/auth/views/AuthorizationView.vue'),
+          meta: { requiresRole: 'admin' }
+        }
+      ]
     },
 
     // Catch-all redirect
