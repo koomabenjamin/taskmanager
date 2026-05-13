@@ -2,18 +2,42 @@
   <button
     @click="$emit('click')"
     :class="[
-      'w-full px-4 py-3 rounded flex items-center justify-center transition-all duration-200',
+      'w-full flex items-center rounded-lg transition-all duration-150 group',
+      collapsed ? 'justify-center px-0 py-2.5' : 'gap-3 px-3 py-2',
       active
-        ? 'bg-emerald-100 text-emerald-700 font-semibold'
-        : 'text-gray-700 hover:bg-gray-100'
+        ? 'bg-white/10 text-white'
+        : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
     ]"
-    :title="label"
+    :title="collapsed ? label : undefined"
   >
-    <div v-if="!collapsed" class="flex items-center space-x-3 w-full justify-start">
-      <component :is="getIcon(icon)" class="w-5 h-5 flex-shrink-0" />
-      <span>{{ label }}</span>
-    </div>
-    <component v-else :is="getIcon(icon)" class="w-5 h-5" />
+    <!-- Active indicator bar -->
+    <span
+      v-if="!collapsed"
+      :class="[
+        'absolute left-0 w-0.5 h-5 rounded-full transition-all duration-150',
+        active ? 'bg-emerald-400' : 'bg-transparent'
+      ]"
+    />
+
+    <component
+      :is="getIcon(icon)"
+      :class="[
+        'flex-shrink-0 transition-colors duration-150',
+        collapsed ? 'w-5 h-5' : 'w-4.5 h-4.5',
+        active ? 'text-emerald-400' : 'text-slate-500 group-hover:text-slate-300'
+      ]"
+      style="width:18px;height:18px;"
+    />
+
+    <span
+      v-if="!collapsed"
+      :class="[
+        'text-sm font-medium tracking-[-0.01em] transition-colors duration-150',
+        active ? 'text-white' : ''
+      ]"
+    >
+      {{ label }}
+    </span>
   </button>
 </template>
 
@@ -24,16 +48,10 @@ defineProps({
   label: String,
   icon: String,
   active: Boolean,
-  collapsed: Boolean
+  collapsed: Boolean,
 })
 
 defineEmits(['click'])
 
-const getIcon = (iconName) => {
-  return HeroIcons[iconName]
-}
+const getIcon = (name) => HeroIcons[name]
 </script>
-
-<style scoped></style>
-
-

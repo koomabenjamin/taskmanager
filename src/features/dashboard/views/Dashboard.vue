@@ -2,78 +2,73 @@
   <div class="space-y-6">
     <!-- Header -->
     <div>
-      <h1 class="text-3xl font-bold text-emerald-900">Dashboard</h1>
-      <p class="text-gray-600 mt-2">Welcome back! Here's your task overview for today.</p>
+      <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Dashboard</h1>
+      <p class="text-sm text-gray-500 mt-1">Welcome back, <span class="font-semibold text-gray-700">{{ firstName }}</span>. Here's what's happening today.</p>
     </div>
 
     <!-- Key Metrics -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <MetricCard
-        title="Active Tasks"
-        :value="metrics.activeTasks"
-        icon="CheckCircleIcon"
-        color="bg-emerald-100"
-        textColor="text-emerald-700"
-      />
-      <MetricCard
-        title="Overdue Tasks"
-        :value="metrics.overdueTasks"
-        icon="ExclamationIcon"
-        color="bg-red-100"
-        textColor="text-red-700"
-      />
-      <MetricCard
-        title="Completed Today"
-        :value="metrics.completedToday"
-        icon="CheckIcon"
-        color="bg-green-100"
-        textColor="text-green-700"
-      />
-      <MetricCard
-        title="Team Members"
-        :value="metrics.teamMembers"
-        icon="UserGroupIcon"
-        color="bg-blue-100"
-        textColor="text-blue-700"
-      />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <MetricCard title="Active Tasks"    :value="metrics.activeTasks"    icon="CheckCircleIcon"    color="bg-emerald-100" textColor="text-emerald-700" />
+      <MetricCard title="Overdue"         :value="metrics.overdueTasks"   icon="ExclamationCircleIcon" color="bg-red-100"  textColor="text-red-700" />
+      <MetricCard title="Completed Today" :value="metrics.completedToday" icon="CheckBadgeIcon"     color="bg-green-100"  textColor="text-green-700" />
+      <MetricCard title="Team Members"    :value="metrics.teamMembers"    icon="UserGroupIcon"      color="bg-blue-100"   textColor="text-blue-700" />
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
       <!-- My Tasks -->
-      <div class="lg:col-span-2 bg-white rounded p-6 shadow border border-gray-200">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold text-emerald-900">My Tasks</h2>
-          <Button label="View All" variant="ghost" size="sm" />
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-card">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-50">
+          <h2 class="text-sm font-bold text-gray-900">My Tasks</h2>
+          <router-link
+            to="/backlog"
+            class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+          >
+            View all →
+          </router-link>
         </div>
-        <div class="space-y-3">
-          <TaskItem
-            v-for="task in myTasks.slice(0, 5)"
-            :key="task.id"
-            :task="task"
-          />
+        <div class="px-2 py-2">
+          <div v-if="myTasks.length" class="divide-y divide-gray-50">
+            <TaskItem
+              v-for="task in myTasks.slice(0, 5)"
+              :key="task.id"
+              :task="task"
+            />
+          </div>
+          <p v-else class="text-sm text-gray-400 text-center py-8">
+            No tasks assigned to you yet.
+          </p>
         </div>
       </div>
 
       <!-- Upcoming Deadlines -->
-      <div class="bg-white rounded p-6 shadow border border-gray-200">
-        <h2 class="text-xl font-bold text-emerald-900 mb-4">Upcoming Deadlines</h2>
-        <div class="space-y-3">
-          <DeadlineItem
-            v-for="deadline in upcomingDeadlines"
-            :key="deadline.id"
-            :deadline="deadline"
-          />
+      <div class="bg-white rounded-xl border border-gray-100 shadow-card">
+        <div class="px-5 py-4 border-b border-gray-50">
+          <h2 class="text-sm font-bold text-gray-900">Upcoming Deadlines</h2>
+        </div>
+        <div class="px-2 py-2">
+          <div v-if="upcomingDeadlines.length">
+            <DeadlineItem
+              v-for="deadline in upcomingDeadlines"
+              :key="deadline.id"
+              :deadline="deadline"
+            />
+          </div>
+          <p v-else class="text-sm text-gray-400 text-center py-8">
+            No upcoming deadlines.
+          </p>
         </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
       <!-- Project Progress -->
-      <div class="bg-white rounded p-6 shadow border border-gray-200">
-        <h2 class="text-xl font-bold text-emerald-900 mb-4">Project Progress</h2>
-        <div class="space-y-4">
+      <div class="bg-white rounded-xl border border-gray-100 shadow-card">
+        <div class="px-5 py-4 border-b border-gray-50">
+          <h2 class="text-sm font-bold text-gray-900">Project Progress</h2>
+        </div>
+        <div class="px-5 py-4 space-y-4">
           <ProjectProgressBar
-            v-for="project in projects"
+            v-for="project in projectProgress"
             :key="project.id"
             :project="project"
           />
@@ -81,14 +76,21 @@
       </div>
 
       <!-- Team Activity -->
-      <div class="bg-white rounded p-6 shadow border border-gray-200">
-        <h2 class="text-xl font-bold text-emerald-900 mb-4">Team Activity</h2>
-        <div class="space-y-3 text-sm">
-          <ActivityLog
-            v-for="activity in teamActivity"
-            :key="activity.id"
-            :activity="activity"
-          />
+      <div class="bg-white rounded-xl border border-gray-100 shadow-card">
+        <div class="px-5 py-4 border-b border-gray-50">
+          <h2 class="text-sm font-bold text-gray-900">Recent Activity</h2>
+        </div>
+        <div class="px-5 py-4">
+          <div v-if="teamActivity.length" class="space-y-1">
+            <ActivityLog
+              v-for="activity in teamActivity"
+              :key="activity.id"
+              :activity="activity"
+            />
+          </div>
+          <p v-else class="text-sm text-gray-400 text-center py-6">
+            Move tasks between columns to see activity here.
+          </p>
         </div>
       </div>
     </div>
@@ -96,50 +98,78 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import Button from '@/features/shared/components/Button.vue'
+import { computed } from 'vue'
+import { useTaskStore } from '@/stores/taskStore'
+import { useAuthStore } from '@/stores/authStore'
 import MetricCard from '../components/MetricCard.vue'
 import TaskItem from '../components/TaskItem.vue'
 import DeadlineItem from '../components/DeadlineItem.vue'
 import ProjectProgressBar from '../components/ProjectProgressBar.vue'
 import ActivityLog from '../components/ActivityLog.vue'
 
-const metrics = ref({
-  activeTasks: 12,
-  overdueTasks: 2,
-  completedToday: 5,
-  teamMembers: 4
+const taskStore = useTaskStore()
+const authStore = useAuthStore()
+
+const firstName = computed(() => authStore.user?.name?.split(' ')[0] ?? 'there')
+
+const metrics = computed(() => ({
+  activeTasks:    taskStore.activeTasks.length,
+  overdueTasks:   taskStore.overdueTasks.length,
+  completedToday: taskStore.completedToday.length,
+  teamMembers:    taskStore.teamMembers.length,
+}))
+
+const myTasks = computed(() => {
+  const name = authStore.user?.name
+  if (!name) return taskStore.activeTasks.slice(0, 5)
+  const mine = taskStore.tasks.filter(t => t.assignees?.includes(name) && t.status !== 'done')
+  return mine.length ? mine : taskStore.activeTasks.slice(0, 5)
 })
 
-const myTasks = ref([
-  { id: 1, title: 'A/B Testing - Round 3', priority: 'high', dueDate: '2026-05-08', status: 'in-progress' },
-  { id: 2, title: 'Design System Documentation', priority: 'medium', dueDate: '2026-05-10', status: 'pending' },
-  { id: 3, title: 'User Research Analysis', priority: 'high', dueDate: '2026-05-07', status: 'in-progress' },
-  { id: 4, title: 'API Integration', priority: 'medium', dueDate: '2026-05-12', status: 'pending' },
-  { id: 5, title: 'Performance Optimization', priority: 'low', dueDate: '2026-05-15', status: 'pending' }
-])
+const upcomingDeadlines = computed(() => {
+  const now = new Date()
+  const todayStr  = now.toISOString().split('T')[0]
+  const cutoffStr = new Date(now.getTime() + 14 * 86400000).toISOString().split('T')[0]
+  return taskStore.tasks
+    .filter(t => t.dueDate && t.dueDate >= todayStr && t.dueDate <= cutoffStr && t.status !== 'done')
+    .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
+    .slice(0, 5)
+    .map(t => ({
+      id: t.id,
+      title: t.title,
+      daysLeft: Math.ceil((new Date(t.dueDate + 'T00:00:00') - now) / 86400000),
+      project: taskStore.projects.find(p => p.id === t.projectId)?.name ?? 'Unassigned',
+    }))
+})
 
-const upcomingDeadlines = ref([
-  { id: 1, title: 'Q2 Planning', daysLeft: 1, project: 'Statra Insurance' },
-  { id: 2, title: 'Sprint Review', daysLeft: 3, project: 'Meridian' },
-  { id: 3, title: 'Beta Release', daysLeft: 7, project: 'Risen' }
-])
+const projectProgress = computed(() =>
+  taskStore.projects.map(p => {
+    const all  = taskStore.tasks.filter(t => t.projectId === p.id)
+    const done = all.filter(t => t.status === 'done').length
+    return { ...p, completion: all.length ? Math.round((done / all.length) * 100) : 0 }
+  })
+)
 
-const projects = ref([
-  { id: 1, name: 'Statra Insurance', completion: 75, color: 'bg-emerald-500' },
-  { id: 2, name: 'Meridian', completion: 45, color: 'bg-rose-500' },
-  { id: 3, name: 'Risen', completion: 60, color: 'bg-blue-500' },
-  { id: 4, name: 'SkillBox', completion: 30, color: 'bg-yellow-500' }
-])
+const teamActivity = computed(() =>
+  taskStore.getTaskHistory().slice(0, 6).map(h => ({
+    id:     h.id,
+    user:   h.changedBy ?? 'Team Member',
+    action: `moved to ${statusLabel(h.to)}`,
+    target: h.taskTitle,
+    time:   relativeTime(h.timestamp),
+  }))
+)
 
-const teamActivity = ref([
-  { id: 1, user: 'John Doe', action: 'completed', target: 'User Authentication', time: '2 hours ago' },
-  { id: 2, user: 'Jane Smith', action: 'commented on', target: 'Design System', time: '4 hours ago' },
-  { id: 3, user: 'Mike Johnson', action: 'started', target: 'API Testing', time: '1 day ago' },
-  { id: 4, user: 'Sarah Williams', action: 'reviewed', target: 'Code Changes', time: '1 day ago' }
-])
+const statusLabel = (s) =>
+  ({ todo: 'To Do', doing: 'In Progress', done: 'Done', backlog: 'Backlog' }[s] ?? s)
+
+const relativeTime = (date) => {
+  const ms = Date.now() - new Date(date).getTime()
+  const m  = Math.floor(ms / 60000)
+  const h  = Math.floor(ms / 3600000)
+  if (m < 1)  return 'just now'
+  if (m < 60) return `${m}m ago`
+  if (h < 24) return `${h}h ago`
+  return `${Math.floor(h / 24)}d ago`
+}
 </script>
-
-<style scoped></style>
-
-

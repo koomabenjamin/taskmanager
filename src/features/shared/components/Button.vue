@@ -1,22 +1,17 @@
 <template>
   <button
     :class="[
-      'px-4 py-2 rounded font-semibold transition-all duration-200 ease-in-out',
-      'flex items-center space-x-2 justify-center',
-      'hover:shadow-lg transform hover:scale-105',
+      'inline-flex items-center justify-center gap-2 font-semibold rounded-lg',
+      'transition-all duration-150 ease-in-out',
       'focus:outline-none focus:ring-2 focus:ring-offset-2',
+      'disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none',
       variantClasses,
       sizeClasses,
-      disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
     ]"
     :disabled="disabled"
     @click="$emit('click')"
   >
-    <component
-      v-if="icon"
-      :is="getIcon(icon)"
-      :class="iconSizeClasses"
-    />
+    <component v-if="icon" :is="getIcon(icon)" :class="iconSizeClasses" />
     <span v-if="label">{{ label }}</span>
   </button>
 </template>
@@ -29,57 +24,39 @@ import * as HeroIcons from '@heroicons/vue/24/outline'
 const props = defineProps({
   label: String,
   icon: String,
-  variant: {
-    type: String,
-    default: 'primary' // primary, secondary, accent, ghost
-  },
-  size: {
-    type: String,
-    default: 'md' // sm, md, lg, xl
-  },
-  disabled: Boolean
+  variant: { type: String, default: 'primary' },
+  size: { type: String, default: 'md' },
+  disabled: Boolean,
 })
 
-const emit = defineEmits(['click'])
+defineEmits(['click'])
 
 const themeStore = useThemeStore()
 const theme = computed(() => themeStore.activeTheme)
 
-const variantClasses = computed(() => {
-  const variants = {
-    primary: `${theme.value.tailwind.primary} text-white focus:ring-emerald-500`,
-    secondary: `${theme.value.tailwind.secondary} text-white focus:ring-emerald-600`,
-    accent: `${theme.value.tailwind.accent} text-white focus:ring-emerald-400`,
-    ghost: `bg-transparent ${theme.value.tailwind.text} border border-current hover:${theme.value.tailwind.bg}`
-  }
-  return variants[props.variant] || variants.primary
-})
+const variantClasses = computed(() => ({
+  primary: `${theme.value.tailwind.primary} text-white shadow-sm hover:shadow-md focus:ring-emerald-500`,
+  secondary: 'bg-white text-gray-700 border border-gray-200 shadow-sm hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-300',
+  accent: `${theme.value.tailwind.accent} text-white shadow-sm hover:shadow-md focus:ring-emerald-400`,
+  ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-300',
+  danger: 'bg-red-600 text-white hover:bg-red-700 shadow-sm hover:shadow-md focus:ring-red-500',
+}[props.variant] ?? `${theme.value.tailwind.primary} text-white shadow-sm focus:ring-emerald-500`))
 
-const sizeClasses = computed(() => {
-  const sizes = {
-    sm: 'text-sm px-3 py-1',
-    md: 'text-base px-4 py-2',
-    lg: 'text-lg px-5 py-3',
-    xl: 'text-xl px-6 py-4'
-  }
-  return sizes[props.size] || sizes.md
-})
+const sizeClasses = computed(() => ({
+  xs: 'text-xs px-2.5 py-1.5',
+  sm: 'text-sm px-3 py-1.5',
+  md: 'text-sm px-4 py-2',
+  lg: 'text-sm px-4 py-2.5',
+  xl: 'text-base px-5 py-3',
+}[props.size] ?? 'text-sm px-4 py-2'))
 
-const iconSizeClasses = computed(() => {
-  const sizes = {
-    sm: 'w-4 h-4',
-    md: 'w-5 h-5',
-    lg: 'w-6 h-6',
-    xl: 'w-7 h-7'
-  }
-  return sizes[props.size] || sizes.md
-})
+const iconSizeClasses = computed(() => ({
+  xs: 'w-3.5 h-3.5',
+  sm: 'w-4 h-4',
+  md: 'w-4 h-4',
+  lg: 'w-4 h-4',
+  xl: 'w-5 h-5',
+}[props.size] ?? 'w-4 h-4'))
 
-const getIcon = (iconName) => {
-  return HeroIcons[iconName]
-}
+const getIcon = (name) => HeroIcons[name]
 </script>
-
-<style scoped></style>
-
-
